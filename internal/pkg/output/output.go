@@ -37,7 +37,7 @@ const (
 	ScopeDefault Scope = iota
 	ScopeShared
 	ScopeContextual
-	ScopePrivate
+	ScopeNonShared
 )
 
 func (s Scope) IsDefault() bool {
@@ -52,8 +52,8 @@ func (s Scope) IsContextual() bool {
 	return s == ScopeContextual
 }
 
-func (s Scope) IsPrivate() bool {
-	return s == ScopePrivate
+func (s Scope) IsNonShared() bool {
+	return s == ScopeNonShared
 }
 
 type Service struct {

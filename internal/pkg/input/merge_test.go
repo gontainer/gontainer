@@ -31,7 +31,7 @@ func TestMerge(t *testing.T) {
 			"server": {
 				Constructor: ptr.New("NewServer"),
 				Args:        []any{3306},
-				Scope:       ptr.New(input.ScopePrivate),
+				Scope:       ptr.New(input.ScopeNonShared),
 			},
 		},
 	}
@@ -48,7 +48,7 @@ func TestMerge(t *testing.T) {
 				Args: []any{"@stdout"},
 			},
 			"db": {
-				Scope: ptr.New(input.ScopePrivate),
+				Scope: ptr.New(input.ScopeNonShared),
 				Args:  []any{"localhost", 3306},
 			},
 			"server": {
@@ -70,9 +70,9 @@ func TestMerge(t *testing.T) {
 		},
 		Services: map[string]input.Service{
 			"db": {
-				Getter: ptr.New("GetDB"),            // from i1
-				Scope:  ptr.New(input.ScopePrivate), // from i2
-				Args:   []any{"localhost", 3306},    // from i2
+				Getter: ptr.New("GetDB"),              // from i1
+				Scope:  ptr.New(input.ScopeNonShared), // from i2
+				Args:   []any{"localhost", 3306},      // from i2
 			},
 			"logger": {
 				Args: []any{"@stdout"},

@@ -130,7 +130,7 @@ func TestStepCompileServices_Process(t *testing.T) {
 						Scope: ptr.New(input.ScopeContextual),
 					},
 					"serviceC": {
-						Scope: ptr.New(input.ScopePrivate),
+						Scope: ptr.New(input.ScopeNonShared),
 					},
 				},
 			},
@@ -149,7 +149,7 @@ func TestStepCompileServices_Process(t *testing.T) {
 					{
 						Name:  "serviceC",
 						Type:  "interface{}",
-						Scope: output.ScopePrivate,
+						Scope: output.ScopeNonShared,
 					},
 				},
 			},

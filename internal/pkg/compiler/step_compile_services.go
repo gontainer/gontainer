@@ -54,8 +54,8 @@ func (s StepCompileServices) processScopes(i input.Input, o *output.Output) {
 			o.Services[j].Scope = output.ScopeShared
 		case input.ScopeContextual:
 			o.Services[j].Scope = output.ScopeContextual
-		case input.ScopePrivate:
-			o.Services[j].Scope = output.ScopePrivate
+		case input.ScopeNonShared:
+			o.Services[j].Scope = output.ScopeNonShared
 		}
 
 	}

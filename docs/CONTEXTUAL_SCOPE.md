@@ -2,10 +2,10 @@
 
 ## Introduction
 
-Gontainer lets the object be either `shared`, `private`, or `contextual`.
+Gontainer lets the object be either `shared`, `non_shared`, or `contextual`.
 
 * `shared` - caches objects, so the same instance will be used always
-* `private` - enforces Gontainer to create a new instance always
+* `non_shared` - enforces Gontainer to create a new instance always
 * `contextual` - shares the same instance only in the given context (the context is determined by a single invocation to the Gontainer, e.g. func `Get`)
 
 **Default scope**
@@ -30,7 +30,7 @@ services:
   transaction:
     scope: "contextual"
   imageStorage:
-    scope: "private"
+    scope: "non_shared"
     constructor: "NewImageStorage"
     arguments: ["@transaction"]
   userStorage:
@@ -51,7 +51,7 @@ services:
             |                         |
             |                         |---------------------------------------------|
             |                         ↓                                             ↓
-            |                imageStorage (private)                    userStorage (scope not defined)
+            |                imageStorage (non_shared)                    userStorage (scope not defined)
             |                         |                                             |
             |                         |-----------|              |------------------|
             |                                     ↓              ↓

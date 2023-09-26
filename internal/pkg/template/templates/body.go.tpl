@@ -183,7 +183,7 @@ func {{ .Output.Meta.ContainerConstructor }}() (rootGontainer interface{
 				s.ScopeShared()
 			{{ else if $service.Scope.IsContextual }}
 				s.ScopeContextual()
-			{{ else if $service.Scope.IsPrivate }}
+			{{ else if $service.Scope.IsNonShared }}
 				s.ScopePrivate())
 			{{ end }}
 

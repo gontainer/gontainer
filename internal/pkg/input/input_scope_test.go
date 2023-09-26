@@ -29,9 +29,9 @@ func TestScope_UnmarshalYAML(t *testing.T) {
 			Expected: input.ScopeContextual,
 		},
 		{
-			Name:     "private",
-			Input:    "private",
-			Expected: input.ScopePrivate,
+			Name:     "non_shared",
+			Input:    "non_shared",
+			Expected: input.ScopeNonShared,
 		},
 		{
 			Name:  "error #1",

@@ -7,7 +7,7 @@ import (
 const (
 	ScopeShared Scope = iota + 1
 	ScopeContextual
-	ScopePrivate
+	ScopeNonShared
 )
 
 var (
@@ -19,7 +19,7 @@ func init() {
 	mapScopeString = map[Scope]string{
 		ScopeShared:     "shared",
 		ScopeContextual: "contextual",
-		ScopePrivate:    "private",
+		ScopeNonShared:  "non_shared",
 	}
 	mapStringScope = make(map[string]Scope)
 	for sc, str := range mapScopeString {

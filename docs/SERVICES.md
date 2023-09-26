@@ -22,7 +22,7 @@ services:
     fields:
       Timeout: "%timeout%"
     tags:  ["my-name", {"name": "another-tag", "priority": 50}]
-    scope: "shared" # enum("shared", "contextual", "private")
+    scope: "shared" # enum("shared", "contextual", "non_shared")
     todo: false
 ```
 
@@ -155,7 +155,7 @@ services:
 
 **scope**
 
-Defines whether the service can be cached and reused (`shared`) or no (`private`).
+Defines whether the service can be cached and reused (`shared`) or no (`non_shared`).
 The third value (`contextual`) is documented [here](CONTEXTUAL_SCOPE.md).
 
 **todo**
