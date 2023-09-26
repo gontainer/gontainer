@@ -319,12 +319,12 @@ services:
 
   db:
     constructor: "sql.Open"
-    args: [ /* TODO */ ]
+    arguments: [ /* TODO */ ]
 
   transaction:
     scope: "contextual" # It must be contextual. Scopes of other objects are determined automatically.
     constructor: "NewTx"
-    args: [ "@db" ]
+    arguments: [ "@db" ]
 
   ##################
   # App components #
