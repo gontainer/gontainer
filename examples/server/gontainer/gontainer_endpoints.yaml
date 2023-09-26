@@ -1,0 +1,16 @@
+parameters:
+  pathHomepage: "/"
+
+services:
+  endpointHomepage:
+    constructor: "http.NewHomepage"
+    arguments: ["%pathHomepage%"]
+    tags: ["http.endpoint"]
+
+  endpointHelloWorld:
+    constructor: "http.NewHelloWorld"
+    tags: ["http.endpoint"]
+
+  endpointContactUs:
+    constructor: "http.NewContactUs"
+    tags: ["http.endpoint"]

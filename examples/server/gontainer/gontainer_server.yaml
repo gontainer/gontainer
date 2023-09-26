@@ -1,0 +1,21 @@
+parameters:
+  "appPort": '%envInt("APP_PORT", 9090)%'
+  "hostPort": "localhost/%appPort%"
+
+services:
+  serveMux:
+    value: '&"http".ServeMux{}'
+    calls:
+      - [ "Handle", [ "%pathHomepage%", "@endpointHomepage" ] ]
+      - [ "Handle", [ "/hello-world", "@endpointHelloWorld" ] ]
+      - [ "Handle", [ "/contact-us", "@endpointContactUs" ] ]
+      - [ "HandleDynamic", [ "/transaction", "inTransactionHandler", "$gontainer" ] ]
+
+  server:
+    getter: "GetServer"
+    must_getter: true
+    value: '&"net/http".Server{}'
+    type: '*"net/http".Server'
+    fields:
+      Addr: ":%appPort%"
+      Handler: "@serveMux"

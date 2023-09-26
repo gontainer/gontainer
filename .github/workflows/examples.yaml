@@ -1,0 +1,50 @@
+name: Examples
+
+on:
+  push:
+    tags:
+      - v*
+    branches:
+      - main
+  pull_request:
+
+env:
+  GOPROXY: direct
+
+jobs:
+
+  build:
+    name: Examples
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [ '1.14' ]
+    steps:
+
+    - name: Set up Go 1.x
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{ matrix.go }}
+      id: go
+
+    - name: Check out code into the Go module directory
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Get dependencies
+      run: go mod download
+
+    - name: Global
+      run: |
+        sudo make global
+        gontainer -v
+
+    - name: Example "Server"
+      run: |
+        make build-example-server
+        cat examples/server/gontainer/gontainer.go
+
+    - name: Example "Transactions"
+      run: |
+        make run-example-transactions

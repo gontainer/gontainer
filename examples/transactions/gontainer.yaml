@@ -1,0 +1,29 @@
+meta:
+  pkg: "main"
+  container_type: "container"
+  container_constructor: "NewContainer"
+
+services:
+  transaction:
+    constructor: "NewMockTransaction"
+    scope: "contextual"
+
+  userStorage:
+    value: "&UserStorage{}"
+    fields:
+      Transaction: "@transaction"
+
+  imageStorage:
+    value: "&ImageStorage{}"
+    fields:
+      Transaction: "@transaction"
+
+  teamStorage:
+    value: "&TeamStorage{}"
+    type: "*TeamStorage"
+    getter: "NewTeamStorage"
+    must_getter: true
+    fields:
+      Transaction: "@transaction"
+      ImageStorage: "@imageStorage"
+      UserStorage: "@userStorage"

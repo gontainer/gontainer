@@ -1,0 +1,11 @@
+Default input···············································
+Default input END········································[✓]
+Read config·················································
+  Patterns
+  1. testdata/circular-dep-services.yaml
+     • testdata/circular-dep-services.yaml [✓]
+  2. testdata/circular-*-services.yaml
+     • testdata/circular-dep-services.yaml [✓]
+Read config END··········································[⨉] (1 error)
+Errors:
+1. runner.StepReadConfig: file "testdata/circular-dep-services.yaml" matches more than one pattern: {"testdata/circular-dep-services.yaml", "testdata/circular-*-services.yaml"}

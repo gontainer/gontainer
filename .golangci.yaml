@@ -1,0 +1,8 @@
+run:
+  build-tags:
+    - functional
+issues:
+  exclude-rules:
+    - linters:
+        - gosimple
+      text: "S1005:"

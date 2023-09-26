@@ -1,0 +1,12 @@
+meta:
+  pkg: "gontainer"
+  container_type: "gontainer"
+  container_constructor: "New"
+  imports:
+    "http": "server/http"
+    "decorators": "server/decorators"
+    "pkg": "server/pkg"
+
+services:
+  logger:
+    constructor: "log.Default"

@@ -1,0 +1,14 @@
+services:
+    db:
+        constructor: "NewDB"
+        arguments: ["@storage"]
+        tags: ["sql"]
+    storage:
+        constructor: "NewStorage"
+        arguments: ["@db"]
+    company:
+        constructor: "NewCompany"
+        arguments: ["@hr"]
+    hr:
+        constructor: "NewCompany"
+        arguments: ["@company"]

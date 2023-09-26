@@ -1,0 +1,3 @@
+parameters:
+    name: "%firstname%"
+    firstname: "%name%"

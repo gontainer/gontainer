@@ -1,0 +1,10 @@
+Default input···············································
+Default input END········································[✓]
+Read config·················································
+  Patterns
+  1. []
+     No files
+Read config END··········································[⨉] (2 errors)
+Errors:
+1. runner.StepReadConfig: pattern: "[]": syntax error in pattern
+2. runner.StepReadConfig: could not process any files
