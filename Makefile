@@ -28,10 +28,6 @@ build: clean
 global: export GONTAINER_BINARY = /usr/local/bin/gontainer
 global: build
 
-clean-up-go-sum:
-	rm go.sum || true
-	cd examples/server && rm go.sum || true
-
 build-example-server: build
 	./app.bin build -i examples/server/gontainer/gontainer.yaml -i examples/server/gontainer/gontainer_\*.yaml -o examples/server/gontainer/gontainer.go
 
