@@ -8,9 +8,6 @@ on:
 permissions:
   contents: write
 
-env:
-  GOPROXY: direct
-
 jobs:
   goreleaser:
     runs-on: ubuntu-latest

@@ -8,9 +8,6 @@ on:
       - main
   pull_request:
 
-env:
-  GOPROXY: direct
-
 jobs:
 
   build:
