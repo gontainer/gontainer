@@ -1,4 +1,5 @@
 [![Build Status](https://github.com/gontainer/gontainer/workflows/Tests/badge.svg?branch=main)](https://github.com/gontainer/gontainer/actions?query=workflow%3ATests)
+[![Coverage Status](https://coveralls.io/repos/github/gontainer/gontainer/badge.svg?branch=main)](https://coveralls.io/github/gontainer/gontainer?branch=main)
 
 # Gontainer
 
