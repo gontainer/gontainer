@@ -5,6 +5,7 @@ import (
 
 	"github.com/gontainer/gontainer/internal/pkg/input"
 	"github.com/stretchr/testify/assert"
+	"gopkg.in/yaml.v3"
 )
 
 func TestCall_UnmarshalYAML(t *testing.T) {
