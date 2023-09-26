@@ -13,9 +13,20 @@ func TestValidateParamsExist(t *testing.T) {
 		{Name: "firstname"},
 		{Name: "name", DependsOn: []string{"firstname", "lastname"}},
 	}
+	d.Services = []output.Service{
+		{
+			Name: "db",
+			Fields: []output.Field{
+				{Name: "Host", Value: output.Arg{DependsOnParams: []string{"host"}}},
+				{Name: "Port", Value: output.Arg{DependsOnParams: []string{"port"}}},
+			},
+		},
+	}
 
 	expected := []string{
-		`output.ValidateParamsExist: "name": param "lastname" does not exist`,
+		`output.ValidateParamsExist: "%name%": param "lastname" does not exist`,
+		`output.ValidateParamsExist: "@db": param "host" does not exist`,
+		`output.ValidateParamsExist: "@db": param "port" does not exist`,
 	}
 
 	err := output.ValidateParamsExist(d)
