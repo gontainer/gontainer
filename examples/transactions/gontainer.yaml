@@ -15,6 +15,7 @@ services:
 
   imageStorage:
     value: "&ImageStorage{}"
+    scope: "non_shared"
     fields:
       Transaction: "@transaction"
 
