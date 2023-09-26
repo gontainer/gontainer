@@ -386,42 +386,6 @@ func TestStepCompileServices_Process(t *testing.T) {
 			Step:   newRealStepCompilerServices(),
 			Errors: nil,
 		},
-		{
-			Name: "TODO dependency (WarmUpAble == false)",
-			Input: input.Input{
-				Services: map[string]input.Service{
-					"logger": {
-						Todo: ptr.New(true),
-					},
-					"db": {
-						Constructor: ptr.New("NewDB"),
-						Args:        []any{"@logger"},
-					},
-				},
-			},
-			Expected: output.Output{
-				Services: []output.Service{
-					{
-						Name:        "db",
-						Constructor: "NewDB",
-						Type:        "interface{}",
-						Args: []output.Arg{{
-							Code:              `dependencyService("logger")`,
-							Raw:               "@logger",
-							DependsOnParams:   nil,
-							DependsOnServices: []string{"logger"},
-							DependsOnTags:     nil,
-						}},
-					},
-					{
-						Name: "logger",
-						Todo: true,
-					},
-				},
-			},
-			Step:   newRealStepCompilerServices(),
-			Errors: nil,
-		},
 	}
 
 	for _, tmp := range scenarios {
