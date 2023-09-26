@@ -17,7 +17,17 @@ func ValidateParamsExist(o Output) error {
 	for _, p := range o.Params {
 		for _, n := range p.DependsOn {
 			if _, ok := names[n]; !ok {
-				errs = append(errs, fmt.Errorf("%+q: param %+q does not exist", p.Name, n))
+				errs = append(errs, fmt.Errorf("%+q: param %+q does not exist", "%"+p.Name+"%", n))
+			}
+		}
+	}
+
+	for _, s := range o.Services {
+		for _, a := range s.AllArgs() {
+			for _, n := range a.DependsOnParams {
+				if _, ok := names[n]; !ok {
+					errs = append(errs, fmt.Errorf("%+q: param %+q does not exist", "@"+s.Name, n))
+				}
 			}
 		}
 	}
