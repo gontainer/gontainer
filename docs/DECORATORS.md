@@ -13,11 +13,11 @@ services:
 decorators:
   - tag: "http.handler"
     decorator: 'EndpointWithExecutionTime'
-    args: ["@logger"]
+    arguments: ["@logger"]
 ```
 
 A decorator must have at least two arguments. The first one is always the name of the service that is being decorated.
-The second one is always the service. More arguments can be passed using `args`.
+The second one is always the service. More arguments can be passed using `arguments`.
 
 ```go
 // Middleware

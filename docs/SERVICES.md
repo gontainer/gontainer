@@ -15,7 +15,7 @@ services:
     type:        '*"net/http".Server'
     value:       '&"net/http".Server{}'
     constructor: '"my/import".NewServer'
-    args:        ["%appPort%"]
+    arguments:   ["%appPort%"]
     calls:
       - ["SetTimeout", ["%timeout%"]]
       - ["WithTimeout", ["%timeout%"], true]
@@ -102,15 +102,15 @@ Constructor must refer to a valid func. The given func must return a single or t
 If the func returns two values, the second value should be of type error.
 If the second value is not nil, the error will be reported.
 
-**args**
+**arguments**
 
 ```yaml
 services:
   logger:
     constructor: "NewLogger"
-  db:                                    # It is the equivalent of the following code:
-    constructor:  'NewDB'                #
-    args: ["localhost", 3306, "@logger"] # NewDB("localhost", 3306, gontainer.Get("logger"))
+  db:                                         # It is the equivalent of the following code:
+    constructor:  'NewDB'                     #
+    arguments: ["localhost", 3306, "@logger"] # NewDB("localhost", 3306, gontainer.Get("logger"))
 ```
 
 **calls**
@@ -118,7 +118,7 @@ services:
 A single call is an array of 3 elements:
 
 1. Method name
-2. Args
+2. Arguments
 3. Is it a wither or a getter (`false`: getter, `true`: wither, default `false`)
 
 ```yaml
@@ -169,7 +169,7 @@ services:
 
   db:
     constructor: "NewDB"
-    args: ["@logger"]
+    arguments: ["@logger"]
 ```
 
 ```go
@@ -215,10 +215,10 @@ Since Gontainer uses `type` to generate getters, `type` does not exclude `constr
 ```yaml
 services:
   db:
-    constructor: "NewDB"                              # service := NewDB(
-    args: ['%env("DB_HOST")%', '%envInt("DB_PORT")%'] #     getEnv("DB_HOST"),
-                                                      #     getEnv("DB_PORT"),
-                                                      # )
+    constructor: "NewDB"                                   # service := NewDB(
+    arguments: ['%env("DB_HOST")%', '%envInt("DB_PORT")%'] #     getEnv("DB_HOST"),
+                                                           #     getEnv("DB_PORT"),
+                                                           # )
 ```
 
 **value**
