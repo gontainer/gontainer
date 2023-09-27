@@ -1,0 +1,25 @@
+Default input···············································
+Default input END········································[✓]
+Read config·················································
+  Patterns
+  1. testdata/missing-params-and-services.yaml
+     • testdata/missing-params-and-services.yaml [✓]
+Read config END··········································[✓]
+Compile·····················································
+Compile END··············································[✓]
+Validate output·············································
+  Scope·····················································
+  Scope END··············································[✓]
+  Circular deps in params···································
+  Circular deps in params END····························[✓]
+  Circular deps in services·································
+  Circular deps in services END··························[✓]
+  Missing parameters········································
+  Missing parameters END·································[⨉] (2 errors)
+  Missing services··········································
+  Missing services END···································[⨉] (1 error)
+Validate output END······································[⨉] (3 errors)
+Errors:
+1. output.ValidateParamsExist: "%hostPort%": param "host" does not exist
+2. output.ValidateParamsExist: "%hostPort%": param "port" does not exist
+3. output.ValidateServicesExist: "team": service "teamLeader" does not exist

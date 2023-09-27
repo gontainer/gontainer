@@ -33,7 +33,7 @@ func (s *StepVerboseSwitchable) Run(i *input.Input, o *output.Output) error {
 	n := s.name()
 	s.printer.PrintAlignedLn(n)
 	if !s.active {
-		s.printer.PrintAlignedLn(n, "ignored")
+		s.printer.PrintAlignedLn(n+" END", "ignored")
 		return nil
 	}
 

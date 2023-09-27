@@ -1,0 +1,7 @@
+parameters:
+    hostPort: "%host%:%port%"
+
+services:
+    team:
+        constructor: NewTeam
+        arguments: [ "@teamLeader" ]

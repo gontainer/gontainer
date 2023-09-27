@@ -1,0 +1,23 @@
+Default input···············································
+Default input END········································[✓]
+Read config·················································
+  Patterns
+  1. testdata/missing-params-and-services.yaml
+     • testdata/missing-params-and-services.yaml [✓]
+Read config END··········································[✓]
+Compile·····················································
+Compile END··············································[✓]
+Validate output·············································
+  Scope·····················································
+  Scope END··············································[✓]
+  Circular deps in params···································
+  Circular deps in params END····························[✓]
+  Circular deps in services·································
+  Circular deps in services END··························[✓]
+  Missing parameters········································
+  Missing parameters END·····························ignored
+  Missing services··········································
+  Missing services END···································[⨉] (1 error)
+Validate output END······································[⨉] (1 error)
+Errors:
+1. output.ValidateServicesExist: "team": service "teamLeader" does not exist
