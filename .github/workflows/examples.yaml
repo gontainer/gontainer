@@ -12,7 +12,7 @@ jobs:
 
   build:
     name: Examples
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     strategy:
       matrix:
         go: [ '1.20' ]
@@ -29,8 +29,12 @@ jobs:
       with:
         fetch-depth: 0
 
+    - run: brew install gontainer/homebrew-tap/gontainer
+    - run: gontainer -v
+    - run: make self-compile
+
     - name: Get dependencies
-      run: go mod download
+      run: go mod vendor
 
     - name: Global
       run: |

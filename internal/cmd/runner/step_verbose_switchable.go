@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/gontainer/gontainer-helpers/container"
 	"github.com/gontainer/gontainer-helpers/errors"
 	"github.com/gontainer/gontainer/internal/pkg/input"
 	"github.com/gontainer/gontainer/internal/pkg/output"
@@ -14,6 +15,10 @@ type StepVerboseSwitchable struct {
 	printer  printer
 	indenter indenter
 	active   bool
+}
+
+func DecorateStepVerboseSwitchable(ctx container.DecoratorContext, p printer, i indenter) *StepVerboseSwitchable {
+	return NewStepVerboseSwitchable(ctx.Service.(Step), p, i)
 }
 
 func NewStepVerboseSwitchable(parent Step, printer printer, i indenter) *StepVerboseSwitchable {

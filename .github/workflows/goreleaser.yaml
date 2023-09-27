@@ -20,6 +20,11 @@ jobs:
       -
         name: Set up Go
         uses: actions/setup-go@v4
+
+      - run: brew install gontainer/homebrew-tap/gontainer
+      - run: gontainer -v
+      - run: make self-compile
+
       -
         name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v4

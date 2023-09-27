@@ -1,0 +1,23 @@
+# The following parameters and services MUST be defined and configured in the execution time.
+# We cannot define them here because these are dynamic ones. They depend on the input provided to the command.
+#
+# If these params and services weren't defined explicitly as TODO, the command `gontainer build` would have reported such errors:
+#     output.ValidateParamsExist: "@inputValidator": param "version" does not exist
+#     output.ValidateParamsExist: "@stepCodeGenerator": param "outputFile" does not exist
+#     output.ValidateParamsExist: "@stepReadConfig": param "inputPatterns" does not exist
+#     output.ValidateParamsExist: "@templateWithBuildInfo": param "buildInfo" does not exist
+#     output.ValidateServicesExist: "printer": service "writer" does not exist
+#
+# Another solution would be using the following flags:
+#  - ignore-missing-params
+#  - ignore-missing-services
+
+parameters:
+  version: "%todo()%"
+  buildInfo: "%todo()%"
+  inputPatterns: "%todo()%"
+  outputFile: "%todo()%"
+
+services:
+  writer:
+    todo: true

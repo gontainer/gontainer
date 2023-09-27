@@ -1,0 +1,92 @@
+services:
+  printer:
+    constructor: runner.NewPrinter
+    arguments: [ "@writer" ]
+
+  stepOutputServicesScopes:
+    constructor: runner.NewStepOutputValidationRule
+    arguments:
+      - "!value output.ValidateServicesScopes"
+      - "Scope"
+    tags: [ "step-runner-verbose" ]
+
+  stepOutputParamsCircular:
+    constructor: runner.NewStepOutputValidationRule
+    arguments:
+      - "!value output.ValidateParamsCircularDeps"
+      - "Circular deps in params"
+    tags: [ "step-runner-verbose" ]
+
+  stepOutputServicesCircular:
+    constructor: runner.NewStepOutputValidationRule
+    arguments:
+      - "!value output.ValidateServicesCircularDeps"
+      - "Circular deps in services"
+    tags: [ "step-runner-verbose" ]
+
+  stepOutputParamsExist:
+    constructor: runner.NewStepOutputValidationRule
+    arguments:
+      - "!value output.ValidateParamsExist"
+      - "Missing parameters"
+    getter: GetStepValidateParamsExist
+    type: "*runner.StepVerboseSwitchable"
+    tags: [ "step-runner-verbose" ]
+
+  stepOutputServicesExist:
+    constructor: runner.NewStepOutputValidationRule
+    arguments:
+      - "!value output.ValidateServicesExist"
+      - "Missing services"
+    getter: GetStepValidateServicesExist
+    type: "*runner.StepVerboseSwitchable"
+    tags: [ "step-runner-verbose" ]
+
+  stepDefaultInput:
+    value: runner.StepDefaultInput{}
+    tags: [ "step-runner-verbose" ]
+
+  stepReadConfig:
+    constructor: runner.NewStepReadConfig
+    arguments: [ "@printer", "%inputPatterns%" ]
+    tags: [ "step-runner-verbose" ]
+
+  stepCompile:
+    constructor: runner.NewStepCompile
+    arguments: [ "@compiler" ]
+    tags: [ "step-runner-verbose" ]
+
+  stepValidateOutput:
+    constructor: runner.NewStepAmalgamated
+    arguments:
+      - "Validate output"
+      - "@stepOutputServicesScopes"
+      - "@stepOutputParamsCircular"
+      - "@stepOutputServicesCircular"
+      - "@stepOutputParamsExist"
+      - "@stepOutputServicesExist"
+    tags: [ "step-runner-verbose" ]
+
+  stepCodeGenerator:
+    constructor: runner.NewStepCodeGenerator
+    arguments:
+      - "@printer"
+      - "@templateBuilder"
+      - "%outputFile%"
+    tags: [ "step-runner-verbose" ]
+
+  runner:
+    constructor: runner.NewRunner
+    arguments:
+      - "@stepDefaultInput"
+      - "@stepReadConfig"
+      - "@stepCompile"
+      - "@stepValidateOutput"
+      - "@stepCodeGenerator"
+    type: "*runner.Runner"
+    getter: GetRunner
+
+decorators:
+  - tag: "step-runner-verbose"
+    decorator: "runner.DecorateStepVerboseSwitchable"
+    arguments: [ "@printer", "@printer" ]
