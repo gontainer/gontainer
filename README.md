@@ -55,7 +55,7 @@ services:
       - [ "Handle", [ "/hello-world", "@endpointHelloWorld" ] ] # serveMux.Handle("/hello-world", gontainer.Get("endpointHelloWorld"))
 
   server:
-    getter: "GetServer"           # func (*gontainer) GetServer() *http.Server { ... }
+    getter: "GetServer"           # func (*gontainer) GetServer() (*http.Server, error) { ... }
     must_getter: true             # func (*gontainer) MustGetServer() *http.Server { ... }
     type: '*"net/http".Server'    # 
     value: '&"net/http".Server{}' # server := &http.Server{}
