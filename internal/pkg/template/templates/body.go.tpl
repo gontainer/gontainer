@@ -186,9 +186,8 @@ func {{ .Output.Meta.ContainerConstructor }}() (rootGontainer interface{
 			{{ else if $service.Scope.IsNonShared }}
 				s.ScopeNonShared()
 			{{ end }}
-
-			sc.OverrideService({{ export $service.Name }}, s)
 		{{ end }}
+		sc.OverrideService({{ export $service.Name }}, s)
 	}()
 	{{end}}
 
