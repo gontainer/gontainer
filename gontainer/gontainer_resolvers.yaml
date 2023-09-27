@@ -1,0 +1,67 @@
+services:
+  tokenChunker:
+    constructor: token.NewChunker
+
+  tokenizer:
+    constructor: token.NewTokenizer
+    arguments:
+      - "@tokenChunker"
+      - "@tokenStrategyFactory"
+
+  tokenStrategyFactory:
+    constructor: token.NewStrategyFactory
+    arguments:
+      - "!value token.FactoryPercentMark{}"
+      - "!value token.FactoryReference{}"
+      - "!value token.FactoryUnexpectedFunction{}"
+      - "!value token.FactoryUnexpectedToken{}"
+      - "!value token.FactoryString{}"
+
+  fnRegisterer:
+    constructor: token.NewFuncRegisterer
+    arguments:
+      - "@tokenStrategyFactory"
+      - "@imports"
+
+  primitiveArgResolver:
+    constructor: resolver.NewArgResolver
+    arguments:
+      - "@nonStringPrimitiveResolver"
+      - "@patternResolver"
+
+  nonStringPrimitiveResolver:
+    constructor: resolver.NewNonStringPrimitiveResolver
+
+  valueResolver:
+    constructor: resolver.NewValueResolver
+    arguments: [ "@imports" ]
+
+  serviceResolver:
+    constructor: resolver.NewServiceResolver
+
+  taggedResolver:
+    constructor: resolver.NewTaggedResolver
+
+  gontainerValueResolver:
+    constructor: resolver.NewFixedValueResolver
+    arguments:
+      - "!value consts.SpecialGontainerID"
+      - "!value consts.SpecialGontainerValue"
+
+  patternResolver:
+    constructor: resolver.NewPatternResolver
+    arguments: [ "@tokenizer" ]
+
+  paramResolver:
+    constructor: resolver.NewParamResolver
+    arguments: [ "@primitiveArgResolver" ]
+
+  argResolver:
+    constructor: resolver.NewArgResolver
+    arguments:
+      - "@nonStringPrimitiveResolver"
+      - "@valueResolver"
+      - "@serviceResolver"
+      - "@taggedResolver"
+      - "@gontainerValueResolver"
+      - "@patternResolver"

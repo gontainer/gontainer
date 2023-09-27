@@ -39,6 +39,9 @@ run-example-transactions: build
 	./app.bin build -i examples/transactions/gontainer.yaml -o examples/transactions/gontainer.go
 	cd examples/transactions && go mod tidy && go mod vendor && go run .
 
+self-compile:
+	gontainer build -i gontainer/gontainer.yaml -i gontainer/gontainer_\*.yaml -o gontainer/gontainer.go
+
 tests: tests-unit tests-functional lint
 
 .DEFAULT_GOAL := build

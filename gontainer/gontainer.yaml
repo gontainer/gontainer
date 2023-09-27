@@ -1,0 +1,15 @@
+meta:
+  pkg: "gontainer"
+  container_type: "gontainer"
+  container_constructor: "New"
+  default_must_getter: true
+  imports:
+    runner: "github.com/gontainer/gontainer/internal/cmd/runner"
+    token: "github.com/gontainer/gontainer/internal/pkg/token"
+    imports: "github.com/gontainer/gontainer/internal/pkg/imports"
+    resolver: "github.com/gontainer/gontainer/internal/pkg/resolver"
+    consts: "github.com/gontainer/gontainer/internal/pkg/consts"
+    compiler: "github.com/gontainer/gontainer/internal/pkg/compiler"
+    input: "github.com/gontainer/gontainer/internal/pkg/input"
+    template: "github.com/gontainer/gontainer/internal/pkg/template"
+    output: "github.com/gontainer/gontainer/internal/pkg/output"

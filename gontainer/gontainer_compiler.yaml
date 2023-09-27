@@ -1,0 +1,33 @@
+services:
+  inputValidator:
+    constructor: input.NewDefaultValidator
+    arguments: [ "%version%" ]
+
+  stepValidateInput:
+    constructor: compiler.NewStepValidateInput
+    arguments: [ "@inputValidator" ]
+
+  stepCompileMeta:
+    constructor: compiler.NewStepCompileMeta
+    arguments: [ "@imports", "@fnRegisterer" ]
+
+  stepCompileParams:
+    constructor: compiler.NewStepCompileParams
+    arguments: [ "@paramResolver" ]
+
+  stepCompileServices:
+    constructor: compiler.NewStepCompileServices
+    arguments: [ "@imports", "@argResolver" ]
+
+  stepCompileDecorators:
+    constructor: compiler.NewStepCompileDecorators
+    arguments: [ "@imports", "@argResolver" ]
+
+  compiler:
+    constructor: compiler.New
+    arguments:
+      - "@stepValidateInput"
+      - "@stepCompileMeta"
+      - "@stepCompileParams"
+      - "@stepCompileServices"
+      - "@stepCompileDecorators"
