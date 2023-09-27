@@ -31,20 +31,6 @@ Using the bootstrapping technique, Gontainer uses itself to compile its dependen
 brew install gontainer/homebrew-tap/gontainer
 ```
 
-**go install**
-
-```bash
-go install github.com/gontainer/gontainer@latest
-```
-
-**Manual compilation**
-
-```bash
-git clone git@github.com:gontainer/gontainer.git
-cd gontainer
-GONTAINER_BINARY=/usr/local/bin/gontainer make build
-```
-
 ## TL;DR
 
 **Describe dependencies in YAML**
