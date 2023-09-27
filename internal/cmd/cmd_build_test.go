@@ -21,6 +21,12 @@ var (
 	buildCircularDepsServices string
 	//go:embed testdata/matches-more-than-one.txt
 	buildMatchesManyPatterns string
+	//go:embed testdata/missing-params-and-services.txt
+	buildMissingParamsAndServices string
+	//go:embed testdata/missing-params-and-services-ignore-all.txt
+	buildMissingParamsAndServicesIgnoreAll string
+	//go:embed testdata/missing-params-and-services-ignore-params.txt
+	buildMissingParamsAndServicesIgnoreParams string
 )
 
 func TestNewBuildCmd(t *testing.T) {
@@ -62,6 +68,24 @@ func TestNewBuildCmd(t *testing.T) {
 			cmd:   newCmd(),
 			args:  "-i testdata/circular-dep-services.yaml -i testdata/circular-*-services.yaml -o /dev/null",
 			out:   buildMatchesManyPatterns,
+			error: true,
+		},
+		{
+			cmd:   newCmd(),
+			args:  "-i testdata/missing-params-and-services.yaml -o /dev/null",
+			out:   buildMissingParamsAndServices,
+			error: true,
+		},
+		{
+			cmd:   newCmd(),
+			args:  "-i testdata/missing-params-and-services.yaml -o /dev/null --ignore-missing-params --ignore-missing-services",
+			out:   buildMissingParamsAndServicesIgnoreAll,
+			error: false,
+		},
+		{
+			cmd:   newCmd(),
+			args:  "-i testdata/missing-params-and-services.yaml -o /dev/null --ignore-missing-params",
+			out:   buildMissingParamsAndServicesIgnoreParams,
 			error: true,
 		},
 	}
