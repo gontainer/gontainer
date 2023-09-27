@@ -1,8 +1,3 @@
-
-
-
-
-
 [![Build Status](https://github.com/gontainer/gontainer/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/gontainer/gontainer/actions?query=workflow%3ATests)
 [![Coverage Status](https://coveralls.io/repos/github/gontainer/gontainer/badge.svg?branch=main)](https://coveralls.io/github/gontainer/gontainer?branch=main)
 
@@ -85,7 +80,7 @@ services:
 gontainer build -i gontainer/gontainer.yaml -o gontainer/container.go
 
 # it can read multiple configuration files, e.g.
-# gontainer build -i gontainer/gontainer.yaml -i gontainer/dev/*.yaml -o gontainer/container.go
+# gontainer build -i gontainer/gontainer.yaml -i gontainer/dev/\*.yaml -o gontainer/container.go
 ```
 
 **Voilà!**
