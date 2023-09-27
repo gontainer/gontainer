@@ -46,22 +46,22 @@ parameters:
   appPort: '%envInt("APP_PORT", 9090)%' # get the port from the ENV variable if it exists, otherwise, use the default one
 
 services:
-  endpointHelloWorld: # sample HTTP endpoint
+  endpointHelloWorld:
     constructor: "http.NewHelloWorld"
 
   serveMux:
-    constructor: '"net/http".NewServeMux'
-    calls:
-      - [ "Handle", [ "/hello-world", "@endpointHelloWorld" ] ]
+    constructor: '"net/http".NewServeMux'                       # serveMux := http.NewServerMux()
+    calls:                                                      #
+      - [ "Handle", [ "/hello-world", "@endpointHelloWorld" ] ] # serveMux.Handle("/hello-world", gontainer.Get("endpointHelloWorld"))
 
   server:
-    getter: "GetServer"
-    must_getter: true # define method MustGetServer
-    value: '&"net/http".Server{}'
-    type: '*"net/http".Server'
-    fields:
-      Addr: ":%appPort%"
-      Handler: "@serveMux"
+    getter: "GetServer"           #
+    must_getter: true             # define method MustGetServer
+    type: '*"net/http".Server'    # 
+    value: '&"net/http".Server{}' # server := &http.Server{}
+    fields:                       #
+      Addr: ":%appPort%"          # server.Addr = ":" + gontainer.GetParam("appPort")
+      Handler: "@serveMux"        # server.Handler = gontainer.Get("serverMux")
 ```
 
 **Compile it**

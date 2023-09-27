@@ -1,6 +1,5 @@
 parameters:
   "appPort": '%envInt("APP_PORT", 9090)%'
-  "hostPort": "localhost/%appPort%"
 
 services:
   serveMux:
