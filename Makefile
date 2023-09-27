@@ -32,7 +32,6 @@ build-example-server: build
 	./app.bin build -i examples/server/gontainer/gontainer.yaml -i examples/server/gontainer/gontainer_\*.yaml -o examples/server/gontainer/gontainer.go
 
 run-example-server: build-example-server
-	./app.bin build -i examples/server/gontainer/gontainer.yaml -i examples/server/gontainer/gontainer_\*.yaml -o examples/server/gontainer/gontainer.go
 	cd examples/server && go mod tidy && go mod vendor && go run .
 
 run-example-transactions: build
