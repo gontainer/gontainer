@@ -31,25 +31,13 @@ type Builder struct {
 	buildInfo       string
 }
 
-type Option func(*Builder)
-
-func WithBuildInfo(v string) Option {
-	return func(b *Builder) {
-		b.buildInfo = v
-	}
-}
-
-func NewBuilder(a aliaser, ip importProvider, cf codeFormatter, opts ...Option) *Builder {
-	b := &Builder{
+func NewBuilder(a aliaser, ip importProvider, cf codeFormatter, buildInfo string) *Builder {
+	return &Builder{
 		aliaser:         a,
 		importsProvider: ip,
 		formatter:       cf,
-		buildInfo:       "unknown version",
+		buildInfo:       buildInfo,
 	}
-	for _, o := range opts {
-		o(b)
-	}
-	return b
 }
 
 func (b Builder) Build(o output.Output) (string, error) {

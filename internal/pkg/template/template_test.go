@@ -39,7 +39,7 @@ func TestBuilder_Build(t *testing.T) {
 			},
 		},
 		template.NewCodeFormatter(),
-		template.WithBuildInfo(ver),
+		ver,
 	)
 	code, err := b.Build(output.Output{
 		Meta: output.Meta{

@@ -2,14 +2,10 @@ services:
   codeFormatter:
     constructor: template.NewCodeFormatter
 
-  templateWithBuildInfo:
-    constructor: template.WithBuildInfo
-    arguments: [ "%buildInfo%" ]
-
   templateBuilder:
     constructor: template.NewBuilder
     arguments:
       - "@imports"
       - "@imports"
       - "@codeFormatter"
-      - "@templateWithBuildInfo"
+      - "%buildInfo%"
