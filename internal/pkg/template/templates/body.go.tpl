@@ -141,7 +141,7 @@ func {{ .Output.Meta.ContainerConstructor }}() (rootGontainer interface{
 	func() {
 		s := newService()
 		{{ if eq $service.Todo true }}
-			s.SetConstructor(func () (interface{}, error) { return nil, {{ importAlias "errors" }}.New("todo") })
+			s.SetConstructor(func () (interface{}, error) { return nil, {{ importAlias "errors" }}.New("service todo") })
 		{{ else }}
 			{{ if ne $service.Constructor "" }}
 				s.SetConstructor(
