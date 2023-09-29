@@ -15,6 +15,7 @@ func NewBuildCmd(version string, buildInfo string) *cobra.Command {
 		ignoreMissingParams   bool
 		ignoreMissingServices bool
 		quiet                 bool
+		stub                  bool
 		cmd                   *cobra.Command
 	)
 
@@ -38,6 +39,7 @@ func NewBuildCmd(version string, buildInfo string) *cobra.Command {
 				!ignoreMissingServices,
 				inputPatterns,
 				outputFile,
+				stub,
 			).Run()
 
 			if err == nil {
@@ -67,6 +69,7 @@ func NewBuildCmd(version string, buildInfo string) *cobra.Command {
 	cmd.Flags().BoolVarP(&ignoreMissingParams, "ignore-missing-params", "", false, "ignore missing parameters")
 	cmd.Flags().BoolVarP(&ignoreMissingServices, "ignore-missing-services", "", false, "ignore missing services")
 	cmd.Flags().BoolVarP(&quiet, "quiet", "q", false, "")
+	cmd.Flags().BoolVarP(&stub, "stub", "", false, "generate a stub")
 
 	return cmd
 }

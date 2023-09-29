@@ -29,14 +29,16 @@ type Builder struct {
 	importsProvider importProvider
 	formatter       codeFormatter
 	buildInfo       string
+	stub            bool
 }
 
-func NewBuilder(a aliaser, ip importProvider, cf codeFormatter, buildInfo string) *Builder {
+func NewBuilder(a aliaser, ip importProvider, cf codeFormatter, buildInfo string, stub bool) *Builder {
 	return &Builder{
 		aliaser:         a,
 		importsProvider: ip,
 		formatter:       cf,
 		buildInfo:       buildInfo,
+		stub:            stub,
 	}
 }
 
@@ -55,11 +57,18 @@ func (b Builder) Build(o output.Output) (string, error) {
 	)
 
 	tplBody := tpl{
-		fsys:     templates.Body,
-		data:     d,
-		funcs:    funcs,
-		name:     "body.go.tpl",
-		patterns: []string{"body.go.tpl", "body-*.go.tpl"},
+		data:  d,
+		funcs: funcs,
+	}
+
+	if b.stub {
+		tplBody.fsys = templates.BodyStub
+		tplBody.name = "stub-body.go.tpl"
+		tplBody.patterns = []string{"stub-body.go.tpl"}
+	} else {
+		tplBody.fsys = templates.Body
+		tplBody.name = "body.go.tpl"
+		tplBody.patterns = []string{"body.go.tpl", "body-*.go.tpl"}
 	}
 
 	tplHead := tpl{
