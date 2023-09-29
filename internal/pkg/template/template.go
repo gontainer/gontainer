@@ -47,6 +47,7 @@ func (b Builder) Build(o output.Output) (string, error) {
 		ImportCollection: b.importsProvider,
 		Output:           o,
 		BuildInfo:        b.buildInfo,
+		Stub:             b.stub,
 	}
 
 	funcs := createDefaultFunctions(b.aliaser, o)

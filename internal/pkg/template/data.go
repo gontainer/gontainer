@@ -9,4 +9,5 @@ type data struct {
 	ImportCollection importProvider
 	Output           output.Output
 	BuildInfo        string
+	Stub             bool
 }
