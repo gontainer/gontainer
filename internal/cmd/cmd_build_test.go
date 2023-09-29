@@ -27,6 +27,8 @@ var (
 	buildMissingParamsAndServicesIgnoreAll string
 	//go:embed testdata/missing-params-and-services-ignore-params.txt
 	buildMissingParamsAndServicesIgnoreParams string
+	//go:embed testdata/func-does-not-exist.txt
+	buildFuncDoesNotExist string
 )
 
 func TestNewBuildCmd(t *testing.T) {
@@ -86,6 +88,12 @@ func TestNewBuildCmd(t *testing.T) {
 			cmd:   newCmd(),
 			args:  "-i testdata/missing-params-and-services.yaml -o /dev/null --ignore-missing-params",
 			out:   buildMissingParamsAndServicesIgnoreParams,
+			error: true,
+		},
+		{
+			cmd:   newCmd(),
+			args:  "-i testdata/func-does-not-exist.yaml -o /dev/null",
+			out:   buildFuncDoesNotExist,
 			error: true,
 		},
 	}
