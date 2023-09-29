@@ -17,6 +17,7 @@ parameters:
   buildInfo: "%todo()%"
   inputPatterns: "%todo()%"
   outputFile: "%todo()%"
+  stub: "%todo()%"
 
 services:
   writer:

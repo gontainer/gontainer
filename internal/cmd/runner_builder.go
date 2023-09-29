@@ -16,6 +16,7 @@ func buildRunner(
 	servicesExistActive bool,
 	inputPatterns []string,
 	outputFile string,
+	stub bool,
 ) *runner.Runner {
 	c := gontainer.New()
 
@@ -35,6 +36,9 @@ func buildRunner(
 
 	// %outputFile%
 	c.OverrideParam("outputFile", container.NewDependencyValue(outputFile))
+
+	// %stub%
+	c.OverrideParam("stub", container.NewDependencyValue(stub))
 
 	// method "Active" is over the value that decorator runner.DecorateStepVerboseSwitchable returns,
 	// so it must be called manually, it cannot be registered in the YAML file
