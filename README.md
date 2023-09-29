@@ -49,7 +49,7 @@ meta:
   pkg: "gontainer"
   constructor: "New"
   imports:
-     mypkg: "github.com/my/repo/pkg"
+     mypkg: "github.com/user/repo/pkg"
 
 parameters:
   appPort: '%envInt("APP_PORT", 9090)%' # get the port from the ENV variable if it exists, otherwise, use the default one
@@ -96,7 +96,7 @@ import (
    "os"
 
    "github.com/gontainer/gontainer-helpers/container"
-   "github.com/my/repo/pkg"
+   "github.com/user/repo/pkg"
 )
 
 type gontainer struct {
