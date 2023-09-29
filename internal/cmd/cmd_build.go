@@ -31,16 +31,16 @@ func NewBuildCmd(version string, buildInfo string) *cobra.Command {
 				out = cmd.OutOrStdout()
 			}
 
-			err := buildRunner(
-				out,
-				version,
-				buildInfo,
-				!ignoreMissingParams,
-				!ignoreMissingServices,
-				inputPatterns,
-				outputFile,
-				stub,
-			).Run()
+			err := buildRunner(runnerPayload{
+				writer:              out,
+				version:             version,
+				buildInfo:           buildInfo,
+				paramsExistActive:   !ignoreMissingParams,
+				servicesExistActive: !ignoreMissingServices,
+				inputPatterns:       inputPatterns,
+				outputFile:          outputFile,
+				stub:                stub,
+			}).Run()
 
 			if err == nil {
 				return nil
