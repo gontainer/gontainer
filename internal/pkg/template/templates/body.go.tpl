@@ -28,7 +28,7 @@ func {{ .Output.Meta.ContainerConstructor }}() (rootGontainer interface{
 	// getters
 {{ range $service := .Output.Services }}
 	{{ if ne $service.Getter "" }}
-		{{ $service.Getter }}() (result {{ $service.Type }}, err error)
+		{{ $service.Getter }}() ({{ $service.Type }}, error)
 		{{ if $service.MustGetter }}
 			Must{{ $service.Getter }}() {{ $service.Type }}
 		{{end}}
