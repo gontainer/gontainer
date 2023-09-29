@@ -29,6 +29,8 @@ var (
 	buildMissingParamsAndServicesIgnoreParams string
 	//go:embed testdata/func-does-not-exist.txt
 	buildFuncDoesNotExist string
+	//go:embed testdata/invalid-scope.txt
+	buildInvalidScope string
 )
 
 func TestNewBuildCmd(t *testing.T) {
@@ -94,6 +96,12 @@ func TestNewBuildCmd(t *testing.T) {
 			cmd:   newCmd(),
 			args:  "-i testdata/func-does-not-exist.yaml -o /dev/null",
 			out:   buildFuncDoesNotExist,
+			error: true,
+		},
+		{
+			cmd:   newCmd(),
+			args:  "-i testdata/invalid-scope.yaml -o /dev/null",
+			out:   buildInvalidScope,
 			error: true,
 		},
 	}

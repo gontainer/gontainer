@@ -1,0 +1,23 @@
+Default input···············································
+Default input END········································[✓]
+Read config·················································
+  Patterns
+  1. testdata/invalid-scope.yaml
+     • testdata/invalid-scope.yaml [✓]
+Read config END··········································[✓]
+Compile·····················································
+Compile END··············································[✓]
+Validate output·············································
+  Scope·····················································
+  Scope END··············································[⨉] (1 error)
+  Circular deps in params···································
+  Circular deps in params END····························[✓]
+  Circular deps in services·································
+  Circular deps in services END··························[✓]
+  Missing parameters········································
+  Missing parameters END·································[✓]
+  Missing services··········································
+  Missing services END···································[✓]
+Validate output END······································[⨉] (1 error)
+Errors:
+1. output.ValidateServicesScopes: "server": service is shared, but dependant "myEndpoint" is contextual

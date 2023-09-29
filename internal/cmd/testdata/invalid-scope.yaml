@@ -1,0 +1,10 @@
+services:
+  myEndpoint:
+    constructor: NewEndpoint
+    scope: contextual
+
+  server:
+    constructor: NewServer
+    calls:
+      - [ "Handle", [ "/endpoint", "@myEndpoint" ] ]
+    scope: shared
