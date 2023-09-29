@@ -20,7 +20,7 @@ func (p PatternResolver) ResolveArg(i any) (e ArgExpr, _ error) {
 	v := i.(string)
 	tkns, err := p.tokenizer.Tokenize(v)
 	if err != nil {
-		return e, err // todo decorate?
+		return e, err
 	}
 
 	var dependsOn []string

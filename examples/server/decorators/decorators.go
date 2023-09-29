@@ -9,7 +9,7 @@ import (
 )
 
 func EndpointWithLogger(ctx container.DecoratorContext, l *log.Logger) http.Handler {
-	return pkgHttp.NewLoggerMiddleware(l, ctx.Service.(http.Handler)) // todo do we need to have conversion here? maybe this context isn't the best idea
+	return pkgHttp.NewLoggerMiddleware(l, ctx.Service.(http.Handler))
 }
 
 func EndpointWithExecutionTime(ctx container.DecoratorContext, l *log.Logger) http.Handler {
