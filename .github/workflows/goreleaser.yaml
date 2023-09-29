@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   goreleaser:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       -
         name: Checkout
@@ -20,10 +20,6 @@ jobs:
       -
         name: Set up Go
         uses: actions/setup-go@v4
-
-      - run: brew install gontainer/homebrew-tap/gontainer
-      - run: gontainer -v
-      - run: make self-compile
 
       -
         name: Run GoReleaser

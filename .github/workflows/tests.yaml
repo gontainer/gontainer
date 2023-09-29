@@ -12,13 +12,11 @@ jobs:
 
   build:
     name: Tests
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         go: [ '1.20' ]
     steps:
-    - run: brew install gontainer/homebrew-tap/gontainer
-    - run: gontainer -v
 
     - name: Set up Go 1.x
       uses: actions/setup-go@v2
@@ -30,9 +28,6 @@ jobs:
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
-
-    - name: Self compile
-      run: make self-compile
 
     - name: Get dependencies
       run: go mod vendor
