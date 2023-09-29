@@ -5,7 +5,7 @@
 
 # Gontainer
 
-A Depenendency Injection container for GO inspired by [Symfony](https://symfony.com/doc/current/components/dependency_injection.html).
+A Dependency Injection container for GO inspired by [Symfony](https://symfony.com/doc/current/components/dependency_injection.html).
 
 Using the bootstrapping technique, Gontainer uses itself to compile its dependencies.
 1. [Configuration](gontainer)
