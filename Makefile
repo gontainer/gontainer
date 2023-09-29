@@ -41,6 +41,9 @@ run-example-transactions: build
 self-compile:
 	gontainer build -i gontainer/gontainer.yaml -i gontainer/gontainer_\*.yaml -o gontainer/gontainer.go
 
+generate-stub:
+	gontainer build -i gontainer/gontainer.yaml -i gontainer/gontainer_\*.yaml -o gontainer/stub.go --stub
+
 tests: tests-unit tests-functional lint
 
 .DEFAULT_GOAL := build
