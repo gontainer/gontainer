@@ -35,7 +35,12 @@ brew install gontainer/homebrew-tap/gontainer
 
 ## TL;DR
 
-**Describe dependencies in YAML**
+**Describe dependencies**
+
+Either YAML or GO
+
+<details>
+  <summary>YAML</summary>
 
 File `gontainer/gontainer.yaml`:
 
@@ -43,13 +48,15 @@ File `gontainer/gontainer.yaml`:
 meta:
   pkg: "gontainer"
   constructor: "New"
+  imports:
+     mypkg: "github.com/my/repo/pkg"
 
 parameters:
   appPort: '%envInt("APP_PORT", 9090)%' # get the port from the ENV variable if it exists, otherwise, use the default one
 
 services:
   endpointHelloWorld:
-    constructor: "http.NewHelloWorld"
+    constructor: "mypkg.NewHelloWorld"
 
   serveMux:
     constructor: '"net/http".NewServeMux'                       # serveMux := http.NewServerMux()
@@ -74,6 +81,72 @@ gontainer build -i gontainer/gontainer.yaml -o gontainer/container.go
 # it can read multiple configuration files, e.g.
 # gontainer build -i gontainer/gontainer.yaml -i gontainer/dev/\*.yaml -o gontainer/container.go
 ```
+</details>
+
+<details>
+<summary>GO</summary>
+
+File `gontainer/gontainer.go`:
+
+```go
+package gontainer
+
+import (
+   "net/http"
+   "os"
+
+   "github.com/gontainer/gontainer-helpers/container"
+   "github.com/my/repo/pkg"
+)
+
+type gontainer struct {
+   *container.SuperContainer
+}
+
+func (g *gontainer) MustGetServer() (r *http.Server) {
+   err := g.CopyServiceTo("server", &r)
+   if err != nil {
+      panic(err)
+   }
+   return
+}
+
+func New() *gontainer {
+   sc := &gontainer{
+      SuperContainer: container.NewSuperContainer(),
+   }
+
+   sc.OverrideParam("serverAddr", container.NewDependencyProvider(func() string {
+      if v, ok := os.LookupEnv("APP_PORT"); ok {
+         return ":" + v
+      }
+      return ":9090"
+   }))
+
+   endpointHelloWorld := container.NewService()
+   endpointHelloWorld.SetConstructor(pkg.NewHelloWorld)
+   sc.OverrideService("endpointHelloWorld", endpointHelloWorld)
+
+   serveMux := container.NewService()
+   serveMux.SetConstructor(http.NewServeMux)
+   serveMux.AppendCall("Handle", container.NewDependencyService("endpointHelloWorld"))
+   sc.OverrideService("serveMux", serveMux)
+
+   server := container.NewService()
+   server.SetConstructor(func() *http.Server {
+      return &http.Server{}
+   })
+   server.SetField("Addr", container.NewDependencyProvider(func() (interface{}, error) {
+      return sc.GetParam("serverAddr")
+   }))
+   server.SetField("Handler", container.NewDependencyService("serveMux"))
+   sc.OverrideService("server", server)
+
+   return sc
+}
+
+```
+</details>
 
 **Voilà!**
 
