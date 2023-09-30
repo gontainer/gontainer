@@ -153,6 +153,8 @@ func {{ .Output.Meta.ContainerConstructor }}() (rootGontainer interface{
 				)
 			{{ else if ne $service.Value "" }}
 				s.SetConstructor(func () {{if ne $service.Type "" }} {{$service.Type}} {{else}} interface{} {{end}} { return {{ $service.Value }} })
+			{{ else if ne $service.Type "" }}
+				s.SetConstructor(func () (result {{ $service.Type }}) { return })
 			{{ end }}
 
 			{{ range $field := $service.Fields }}
