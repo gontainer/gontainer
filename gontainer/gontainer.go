@@ -2,7 +2,7 @@
 
 package gontainer
 
-// gontainer 0.3.1 b0d8167b3a4d9021461a3fac56e0d383e1d9b15a-clean 2023-09-29T12:00:16Z
+// gontainer 0.3.3 54f86410439efee1813fb664715f5144e609a360-clean 2023-09-30T09:09:03Z
 
 import (
 	i1_fmt "fmt"
@@ -285,11 +285,11 @@ func New() (rootGontainer interface {
 	GetParam(paramID string) (interface{}, error)
 	OverrideParam(paramID string, d ib_gontainer_helpers_container.Dependency)
 	// getters
-	GetRunner() (result *i9_cmd_runner.Runner, err error)
+	GetRunner() (*i9_cmd_runner.Runner, error)
 	MustGetRunner() *i9_cmd_runner.Runner
-	GetStepValidateParamsExist() (result *i9_cmd_runner.StepVerboseSwitchable, err error)
+	GetStepValidateParamsExist() (*i9_cmd_runner.StepVerboseSwitchable, error)
 	MustGetStepValidateParamsExist() *i9_cmd_runner.StepVerboseSwitchable
-	GetStepValidateServicesExist() (result *i9_cmd_runner.StepVerboseSwitchable, err error)
+	GetStepValidateServicesExist() (*i9_cmd_runner.StepVerboseSwitchable, error)
 	MustGetStepValidateServicesExist() *i9_cmd_runner.StepVerboseSwitchable
 }) {
 	sc := ib_gontainer_helpers_container.NewSuperContainer()
@@ -419,7 +419,7 @@ func New() (rootGontainer interface {
 	//
 	//
 	// "argResolver"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i2_pkg_resolver.NewArgResolver,
@@ -438,18 +438,18 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("argResolver", s)
-	}()
+	}
 	// "codeFormatter"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i3_pkg_template.NewCodeFormatter,
 		)
 		s.ScopeDefault()
 		sc.OverrideService("codeFormatter", s)
-	}()
+	}
 	// "compiler"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i4_pkg_compiler.New,
@@ -466,9 +466,9 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("compiler", s)
-	}()
+	}
 	// "fnRegisterer"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i5_pkg_token.NewFuncRegisterer,
@@ -479,9 +479,9 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("fnRegisterer", s)
-	}()
+	}
 	// "gontainerValueResolver"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i2_pkg_resolver.NewFixedValueResolver,
@@ -492,18 +492,18 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("gontainerValueResolver", s)
-	}()
+	}
 	// "imports"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i7_pkg_imports.New,
 		)
 		s.ScopeDefault()
 		sc.OverrideService("imports", s)
-	}()
+	}
 	// "inputValidator"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i8_pkg_input.NewDefaultValidator,
@@ -512,18 +512,18 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("inputValidator", s)
-	}()
+	}
 	// "nonStringPrimitiveResolver"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i2_pkg_resolver.NewNonStringPrimitiveResolver,
 		)
 		s.ScopeDefault()
 		sc.OverrideService("nonStringPrimitiveResolver", s)
-	}()
+	}
 	// "paramResolver"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i2_pkg_resolver.NewParamResolver,
@@ -532,9 +532,9 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("paramResolver", s)
-	}()
+	}
 	// "patternResolver"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i2_pkg_resolver.NewPatternResolver,
@@ -543,9 +543,9 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("patternResolver", s)
-	}()
+	}
 	// "primitiveArgResolver"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i2_pkg_resolver.NewArgResolver,
@@ -556,9 +556,9 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("primitiveArgResolver", s)
-	}()
+	}
 	// "printer"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i9_cmd_runner.NewPrinter,
@@ -567,9 +567,9 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("printer", s)
-	}()
+	}
 	// "runner"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i9_cmd_runner.NewRunner,
@@ -586,18 +586,18 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("runner", s)
-	}()
+	}
 	// "serviceResolver"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i2_pkg_resolver.NewServiceResolver,
 		)
 		s.ScopeDefault()
 		sc.OverrideService("serviceResolver", s)
-	}()
+	}
 	// "stepCodeGenerator"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i9_cmd_runner.NewStepCodeGenerator,
@@ -611,9 +611,9 @@ func New() (rootGontainer interface {
 		s.Tag("step-runner-verbose", int(0))
 		s.ScopeDefault()
 		sc.OverrideService("stepCodeGenerator", s)
-	}()
+	}
 	// "stepCompile"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i9_cmd_runner.NewStepCompile,
@@ -623,9 +623,9 @@ func New() (rootGontainer interface {
 		s.Tag("step-runner-verbose", int(0))
 		s.ScopeDefault()
 		sc.OverrideService("stepCompile", s)
-	}()
+	}
 	// "stepCompileDecorators"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i4_pkg_compiler.NewStepCompileDecorators,
@@ -636,9 +636,9 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("stepCompileDecorators", s)
-	}()
+	}
 	// "stepCompileMeta"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i4_pkg_compiler.NewStepCompileMeta,
@@ -649,9 +649,9 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("stepCompileMeta", s)
-	}()
+	}
 	// "stepCompileParams"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i4_pkg_compiler.NewStepCompileParams,
@@ -660,9 +660,9 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("stepCompileParams", s)
-	}()
+	}
 	// "stepCompileServices"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i4_pkg_compiler.NewStepCompileServices,
@@ -673,17 +673,17 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("stepCompileServices", s)
-	}()
+	}
 	// "stepDefaultInput"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(func() interface{} { return i9_cmd_runner.StepDefaultInput{} })
 		s.Tag("step-runner-verbose", int(0))
 		s.ScopeDefault()
 		sc.OverrideService("stepDefaultInput", s)
-	}()
+	}
 	// "stepOutputParamsCircular"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i9_cmd_runner.NewStepOutputValidationRule,
@@ -695,9 +695,9 @@ func New() (rootGontainer interface {
 		s.Tag("step-runner-verbose", int(0))
 		s.ScopeDefault()
 		sc.OverrideService("stepOutputParamsCircular", s)
-	}()
+	}
 	// "stepOutputParamsExist"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i9_cmd_runner.NewStepOutputValidationRule,
@@ -709,9 +709,9 @@ func New() (rootGontainer interface {
 		s.Tag("step-runner-verbose", int(0))
 		s.ScopeDefault()
 		sc.OverrideService("stepOutputParamsExist", s)
-	}()
+	}
 	// "stepOutputServicesCircular"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i9_cmd_runner.NewStepOutputValidationRule,
@@ -723,9 +723,9 @@ func New() (rootGontainer interface {
 		s.Tag("step-runner-verbose", int(0))
 		s.ScopeDefault()
 		sc.OverrideService("stepOutputServicesCircular", s)
-	}()
+	}
 	// "stepOutputServicesExist"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i9_cmd_runner.NewStepOutputValidationRule,
@@ -737,9 +737,9 @@ func New() (rootGontainer interface {
 		s.Tag("step-runner-verbose", int(0))
 		s.ScopeDefault()
 		sc.OverrideService("stepOutputServicesExist", s)
-	}()
+	}
 	// "stepOutputServicesScopes"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i9_cmd_runner.NewStepOutputValidationRule,
@@ -751,9 +751,9 @@ func New() (rootGontainer interface {
 		s.Tag("step-runner-verbose", int(0))
 		s.ScopeDefault()
 		sc.OverrideService("stepOutputServicesScopes", s)
-	}()
+	}
 	// "stepReadConfig"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i9_cmd_runner.NewStepReadConfig,
@@ -765,9 +765,9 @@ func New() (rootGontainer interface {
 		s.Tag("step-runner-verbose", int(0))
 		s.ScopeDefault()
 		sc.OverrideService("stepReadConfig", s)
-	}()
+	}
 	// "stepValidateInput"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i4_pkg_compiler.NewStepValidateInput,
@@ -776,9 +776,9 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("stepValidateInput", s)
-	}()
+	}
 	// "stepValidateOutput"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i9_cmd_runner.NewStepAmalgamated,
@@ -798,18 +798,18 @@ func New() (rootGontainer interface {
 		s.Tag("step-runner-verbose", int(0))
 		s.ScopeDefault()
 		sc.OverrideService("stepValidateOutput", s)
-	}()
+	}
 	// "taggedResolver"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i2_pkg_resolver.NewTaggedResolver,
 		)
 		s.ScopeDefault()
 		sc.OverrideService("taggedResolver", s)
-	}()
+	}
 	// "templateBuilder"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i3_pkg_template.NewBuilder,
@@ -826,18 +826,18 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("templateBuilder", s)
-	}()
+	}
 	// "tokenChunker"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i5_pkg_token.NewChunker,
 		)
 		s.ScopeDefault()
 		sc.OverrideService("tokenChunker", s)
-	}()
+	}
 	// "tokenStrategyFactory"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i5_pkg_token.NewStrategyFactory,
@@ -854,9 +854,9 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("tokenStrategyFactory", s)
-	}()
+	}
 	// "tokenizer"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i5_pkg_token.NewTokenizer,
@@ -867,9 +867,9 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("tokenizer", s)
-	}()
+	}
 	// "valueResolver"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(
 			i2_pkg_resolver.NewValueResolver,
@@ -878,13 +878,13 @@ func New() (rootGontainer interface {
 		)
 		s.ScopeDefault()
 		sc.OverrideService("valueResolver", s)
-	}()
+	}
 	// "writer"
-	func() {
+	{
 		s := newService()
 		s.SetConstructor(func() (interface{}, error) { return nil, ie_errors.New("service todo") })
 		sc.OverrideService("writer", s)
-	}()
+	}
 	//
 	//
 	// ########################################
