@@ -7,7 +7,7 @@ import (
 // Keys returns sorted keys of the input map.
 func Keys[K ~string, V any](input map[K]V) []K {
 	keys := make([]K, 0, len(input))
-	for k, _ := range input {
+	for k := range input {
 		keys = append(keys, k)
 	}
 	sort.Slice(keys, func(i, j int) bool {
