@@ -138,7 +138,7 @@ func {{ .Output.Meta.ContainerConstructor }}() (rootGontainer interface{
 	{{ end }}
 	{{range $service := .Output.Services}}
 	// {{ export $service.Name }}
-	func() {
+	{
 		s := newService()
 		{{ if eq $service.Todo true }}
 			s.SetConstructor(func () (interface{}, error) { return nil, {{ importAlias "errors" }}.New("service todo") })
@@ -188,7 +188,7 @@ func {{ .Output.Meta.ContainerConstructor }}() (rootGontainer interface{
 			{{ end }}
 		{{ end }}
 		sc.OverrideService({{ export $service.Name }}, s)
-	}()
+	}
 	{{end}}
 
 	{{ if .Output.Decorators }}
