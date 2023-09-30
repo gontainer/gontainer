@@ -31,6 +31,8 @@ github.com/goccmack/gocc v0.0.0-20230228185258-2292f9e40198/go.mod h1:DTh/Y2+Nbn
 github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0/go.mod h1:E/TSTwGwJL78qG/PmXZO1EjYhfJinVAhrmmHX6Z8B9k=
 github.com/gontainer/gontainer-helpers v1.0.0 h1:8wPlnMwvRGBzCbsYJcryrckdeEzHHI3F0heaT/0PmLs=
 github.com/gontainer/gontainer-helpers v1.0.0/go.mod h1:271WL9Rjybh9KlbPXuj/Vc4aZO1YggYIkEiUd/HQgGY=
+github.com/gontainer/gontainer-helpers v1.0.4 h1:tzLXX/L3KG9dHaiWnrpWRyz4E4YFtAj24ZPVHVHOegs=
+github.com/gontainer/gontainer-helpers v1.0.4/go.mod h1:271WL9Rjybh9KlbPXuj/Vc4aZO1YggYIkEiUd/HQgGY=
 github.com/google/go-cmp v0.5.8/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
 github.com/jung-kurt/gofpdf v1.0.0/go.mod h1:7Id9E/uU8ce6rXgefFLlgrJj/GYY22cpxn+r32jIOes=
 github.com/jung-kurt/gofpdf v1.0.3-0.20190309125859-24315acbbda5/go.mod h1:7Id9E/uU8ce6rXgefFLlgrJj/GYY22cpxn+r32jIOes=
