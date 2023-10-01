@@ -17,8 +17,8 @@ type StepVerboseSwitchable struct {
 	active   bool
 }
 
-func DecorateStepVerboseSwitchable(ctx container.DecoratorContext, p printer, i indenter) *StepVerboseSwitchable {
-	return NewStepVerboseSwitchable(ctx.Service.(Step), p, i)
+func DecorateStepVerboseSwitchable(payload container.DecoratorPayload, p printer, i indenter) *StepVerboseSwitchable {
+	return NewStepVerboseSwitchable(payload.Service.(Step), p, i)
 }
 
 func NewStepVerboseSwitchable(parent Step, printer printer, i indenter) *StepVerboseSwitchable {
