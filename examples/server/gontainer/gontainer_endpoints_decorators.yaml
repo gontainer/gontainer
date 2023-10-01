@@ -1,8 +1,0 @@
-decorators:
-  - tag: "http.endpoint"
-    decorator: "decorators.EndpointWithLogger"
-    arguments: ["@logger"]
-
-  - tag: "http.endpoint"
-    decorator: "decorators.EndpointWithExecutionTime"
-    arguments: ["@logger"]
