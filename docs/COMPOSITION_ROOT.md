@@ -41,7 +41,7 @@ l := logger.New()
 db := sql.New(l)
 userRepository := user.NewRepository(db)
 userHandler := http.NewLogExecutionTimeEndpoint(
-    http.http.NewLoggableEndpoint(
+    http.NewLoggableEndpoint(
         http.NewUserHandler(userRepository, l),
     ),
 )
