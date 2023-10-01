@@ -16,8 +16,9 @@ decorators:
     arguments: ["@logger"]
 ```
 
-A decorator must have at least two arguments. The first one is always the name of the service that is being decorated.
-The second one is always the service. More arguments can be passed using `arguments`.
+A decorator must have at least one argument. The first one is always an instance of `container.DecoratorPayload`,
+tt holds the information about the used tag, the service name, and the created service we aim to decorate.
+More arguments can be passed using `arguments`.
 
 ```go
 // Middleware
@@ -30,8 +31,8 @@ func NewLogExecutionTimeMiddleware(id string, l logger, n http.Handler) http.Han
 }
 
 // Decorator
-func EndpointWithExecutionTime(id string, h http.Handler, l *log.Logger) http.Handler {
-	return NewLogExecutionTimeMiddleware(id, l, h)
+func EndpointWithExecutionTime(payload container.DecoratorPayload, l *log.Logger) http.Handler {
+	return NewLogExecutionTimeMiddleware(payload.ServiceID, l, payload.Service.(http.Handler))
 }
 ```
 
@@ -40,6 +41,10 @@ gontainer.Get("contactUsHandler")
 
 // The above code is the equivalent of the following one:
 //
-// handler := NewContactUsHandler()
-// handler = EndpointWithExecutionTime("contactUsHandler", handler, gontainer.Get("logger"))
+// var handler interface{}
+// handler = NewContactUsHandler()
+// handler = EndpointWithExecutionTime(
+//    container.DecoratorPayload{Tag: "http.handler", ServiceID: "contactUsHandler", Service: handler},
+//    gontainer.Get("logger"),
+// )
 ```
