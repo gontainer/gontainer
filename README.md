@@ -24,6 +24,8 @@ Using the bootstrapping technique, Gontainer uses itself to compile its dependen
    1. [Composition root](docs/COMPOSITION_ROOT.md)
    2. [Contextual scope](docs/CONTEXTUAL_SCOPE.md)
 3. [Interface](docs/INTERFACE.md)
+4. Examples
+   1. [Server & contextual scope](https://github.com/gontainer/example-transactions)
 
 ## Installation
 
