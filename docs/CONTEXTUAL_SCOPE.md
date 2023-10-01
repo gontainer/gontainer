@@ -258,9 +258,9 @@ Notice that the following decorator can be reusable.
 
 ```go
 // NewTransactionAwareEndpoint does not know anything about business logic
-func NewTransactionAwareEndpoint(id string, h HttpHandlerWithErrorFunc, tx *sql.Tx) http.Handler {
+func NewTransactionAwareEndpoint(payload container.DecoratorPayload, tx *sql.Tx) http.Handler {
 	return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
-		err := h(writer, request)
+		err := payload.Service.(HttpHandlerWithErrorFunc)(writer, request)
 		if err != nil {
 			tx.Rollback()
 		} else {
