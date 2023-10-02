@@ -174,7 +174,7 @@ services:
 
 ```go
 db, err := gontainer.Get("db")
-fmt.Println(err) // error: cannot fetch the dependency @logger
+fmt.Println(err) // error: service todo
 
 gontainer.Override("logger", ...) // define a proper logger here
 db, err = gontainer.Get("db")
