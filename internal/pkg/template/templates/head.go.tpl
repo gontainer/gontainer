@@ -9,6 +9,8 @@ package {{.Output.Meta.Pkg}}
 
 // gontainer {{ .BuildInfo }}
 
+import (
 {{range $import := .ImportCollection.Imports -}}
-import {{$import.Alias}} "{{$import.Path}}"
+    {{$import.Alias}} "{{$import.Path}}"
 {{end}}
+)

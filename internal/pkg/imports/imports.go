@@ -3,10 +3,9 @@ package imports
 import (
 	"fmt"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
-
-	"github.com/gontainer/gontainer/internal/pkg/slices"
 )
 
 var (
@@ -19,10 +18,9 @@ type Import struct {
 }
 
 type imports struct {
-	counter      int64
-	imports      map[string]string // map[string]string{"viper": "i0_spf13_viper", "github.com/spf13/viper": "i0_spf13_viper"}
-	importsSlice []Import
-	prefixes     map[string]string // map[string]string{"viper": "github.com/spf13/viper"}
+	counter  int64
+	imports  map[string]string // map[string]string{"viper": "i0_spf13_viper", "github.com/spf13/viper": "i0_spf13_viper"}
+	prefixes map[string]string // map[string]string{"viper": "github.com/spf13/viper"}
 }
 
 func New() *imports {
@@ -56,27 +54,29 @@ func (i *imports) Alias(import_ string) string {
 	parts := strings.Split(import_, "/")
 
 	alias := parts[len(parts)-1]
-	if len(parts) >= 2 {
-		part := parts[len(parts)-2]
-		alias = part + "_" + alias
-	}
 	alias = regexNoAlphaNum.ReplaceAllString(alias, "_")
 	alias = fmt.Sprintf("i%s_%s", strconv.FormatInt(i.counter, 16), alias)
 
-	imp := Import{
-		Path:  import_,
-		Alias: alias,
-	}
 	i.imports[import_] = alias
 	i.counter++
-	i.importsSlice = append(i.importsSlice, imp)
 
 	return alias
 }
 
 // Imports returns all imports in order of using them.
 func (i *imports) Imports() []Import {
-	return slices.Copy(i.importsSlice)
+	imps := make([]Import, 0, len(i.imports))
+	for imp, alias := range i.imports {
+		imps = append(imps, Import{
+			Alias: alias,
+			Path:  imp,
+		})
+	}
+
+	sort.SliceStable(imps, func(i, j int) bool {
+		return imps[i].Path < imps[j].Path
+	})
+	return imps
 }
 
 func (i *imports) decorateImport(imp string) string {
