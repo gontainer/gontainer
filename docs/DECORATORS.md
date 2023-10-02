@@ -16,8 +16,8 @@ decorators:
     arguments: ["@logger"]
 ```
 
-A decorator must have at least one argument. The first one is always an instance of `container.DecoratorPayload`,
-tt holds the information about the used tag, the service name, and the created service we aim to decorate.
+A decorator must have at least 1 argument. The first one is always an instance of `container.DecoratorPayload`,
+it holds the information about the used tag, the service name, and the created service we aim to decorate.
 More arguments can be passed using `arguments`.
 
 ```go

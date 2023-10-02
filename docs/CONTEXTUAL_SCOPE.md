@@ -375,9 +375,10 @@ decorators:
   # decorate all services tagged as "sql.transaction"
   - tag: "sql.transaction"
     decorator: "NewTransactionAwareEndpoint"
-    # Decorators must have at least 2 arguments.
-    # The first one is the ID of the service being decorated.
-    # The second one is the service itself.
+    # Decorators must have at least 1 argument.
+    # The first one is always an instance of `container.DecoratorPayload`,
+    # it holds the information about the used tag, the service name,
+    # and the created service we aim to decorate.
     # Next arguments must be defined as `arguments`.
     arguments: [ "@transaction" ]
 ```
