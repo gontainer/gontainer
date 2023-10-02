@@ -77,3 +77,24 @@ func todo(params ...string) (interface{}, error) {
     return nil, errors.New("parameter todo")
 }
 ```
+
+You can mark a parameter as `todo`,
+it means that Gontainer won't print an error `param "myParam" does not exist` during the compilation time,
+but accessing that parameter during the execution time reports an error.
+Use that if you want to define the param value during the execution time.
+
+```yaml
+parameters:
+  startedAt: "%todo()%"
+
+service:
+  server:
+    value: "MyServer{}"
+    fields:
+      StartedAt: "%startedAt%"
+```
+
+```go
+g := gontainer.New()
+g.OverrideParam("startedAt", container.NewDependencyValue(time.Now()))
+```
