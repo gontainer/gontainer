@@ -2,42 +2,28 @@
 
 package gontainer
 
-// gontainer 0.3.3 54f86410439efee1813fb664715f5144e609a360-clean 2023-09-30T09:09:03Z
+// gontainer 0.4.1 5c369427e26725b18b902b9d5c7193c6a9dfdc00-clean 2023-10-02T15:50:39Z
 
 import (
-	i1_fmt "fmt"
-
-	i0_gontainer_helpers_caller "github.com/gontainer/gontainer-helpers/caller"
-
-	i2_pkg_resolver "github.com/gontainer/gontainer/internal/pkg/resolver"
-
-	i3_pkg_template "github.com/gontainer/gontainer/internal/pkg/template"
-
-	i4_pkg_compiler "github.com/gontainer/gontainer/internal/pkg/compiler"
-
-	i5_pkg_token "github.com/gontainer/gontainer/internal/pkg/token"
-
-	i6_pkg_consts "github.com/gontainer/gontainer/internal/pkg/consts"
-
-	i7_pkg_imports "github.com/gontainer/gontainer/internal/pkg/imports"
-
-	i8_pkg_input "github.com/gontainer/gontainer/internal/pkg/input"
-
-	i9_cmd_runner "github.com/gontainer/gontainer/internal/cmd/runner"
-
-	ia_pkg_output "github.com/gontainer/gontainer/internal/pkg/output"
-
-	ib_gontainer_helpers_container "github.com/gontainer/gontainer-helpers/container"
-
-	ic_gontainer_helpers_errors "github.com/gontainer/gontainer-helpers/errors"
-
-	id_gontainer_helpers_exporter "github.com/gontainer/gontainer-helpers/exporter"
-
 	ie_errors "errors"
-
+	i1_fmt "fmt"
 	if_os "os"
-
 	i10_strconv "strconv"
+
+	i9_runner "github.com/gontainer/gontainer/internal/cmd/runner"
+	i4_compiler "github.com/gontainer/gontainer/internal/pkg/compiler"
+	i6_consts "github.com/gontainer/gontainer/internal/pkg/consts"
+	i7_imports "github.com/gontainer/gontainer/internal/pkg/imports"
+	i8_input "github.com/gontainer/gontainer/internal/pkg/input"
+	ia_output "github.com/gontainer/gontainer/internal/pkg/output"
+	i2_resolver "github.com/gontainer/gontainer/internal/pkg/resolver"
+	i3_template "github.com/gontainer/gontainer/internal/pkg/template"
+	i5_token "github.com/gontainer/gontainer/internal/pkg/token"
+
+	i0_caller "github.com/gontainer/gontainer-helpers/caller"
+	ib_container "github.com/gontainer/gontainer-helpers/container"
+	ic_errors "github.com/gontainer/gontainer-helpers/errors"
+	id_exporter "github.com/gontainer/gontainer-helpers/exporter"
 )
 
 // ············································································
@@ -45,23 +31,23 @@ import (
 // ············································································
 // #### buildInfo
 // Raw: "%todo()%"
-// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_gontainer_helpers_caller.CallProvider(paramTodo); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
+// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_caller.CallProvider(paramTodo); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
 // ············································································
 // #### inputPatterns
 // Raw: "%todo()%"
-// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_gontainer_helpers_caller.CallProvider(paramTodo); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
+// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_caller.CallProvider(paramTodo); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
 // ············································································
 // #### outputFile
 // Raw: "%todo()%"
-// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_gontainer_helpers_caller.CallProvider(paramTodo); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
+// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_caller.CallProvider(paramTodo); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
 // ············································································
 // #### stub
 // Raw: "%todo()%"
-// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_gontainer_helpers_caller.CallProvider(paramTodo); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
+// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_caller.CallProvider(paramTodo); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
 // ············································································
 // #### version
 // Raw: "%todo()%"
-// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_gontainer_helpers_caller.CallProvider(paramTodo); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
+// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_caller.CallProvider(paramTodo); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
 // ············································································
 
 // ············································································
@@ -69,170 +55,170 @@ import (
 // ············································································
 // #### argResolver
 // var service interface{}
-// service = i2_pkg_resolver.NewArgResolver(eval("@nonStringPrimitiveResolver"), eval("@valueResolver"), eval("@serviceResolver"), eval("@taggedResolver"), eval("@gontainerValueResolver"), eval("@patternResolver"))
+// service = i2_resolver.NewArgResolver(eval("@nonStringPrimitiveResolver"), eval("@valueResolver"), eval("@serviceResolver"), eval("@taggedResolver"), eval("@gontainerValueResolver"), eval("@patternResolver"))
 // ············································································
 // #### codeFormatter
 // var service interface{}
-// service = i3_pkg_template.NewCodeFormatter()
+// service = i3_template.NewCodeFormatter()
 // ············································································
 // #### compiler
 // var service interface{}
-// service = i4_pkg_compiler.New(eval("@stepValidateInput"), eval("@stepCompileMeta"), eval("@stepCompileParams"), eval("@stepCompileServices"), eval("@stepCompileDecorators"))
+// service = i4_compiler.New(eval("@stepValidateInput"), eval("@stepCompileMeta"), eval("@stepCompileParams"), eval("@stepCompileServices"), eval("@stepCompileDecorators"))
 // ············································································
 // #### fnRegisterer
 // var service interface{}
-// service = i5_pkg_token.NewFuncRegisterer(eval("@tokenStrategyFactory"), eval("@imports"))
+// service = i5_token.NewFuncRegisterer(eval("@tokenStrategyFactory"), eval("@imports"))
 // ············································································
 // #### gontainerValueResolver
 // var service interface{}
-// service = i2_pkg_resolver.NewFixedValueResolver(eval("!value consts.SpecialGontainerID"), eval("!value consts.SpecialGontainerValue"))
+// service = i2_resolver.NewFixedValueResolver(eval("!value consts.SpecialGontainerID"), eval("!value consts.SpecialGontainerValue"))
 // ············································································
 // #### imports
 // var service interface{}
-// service = i7_pkg_imports.New()
+// service = i7_imports.New()
 // ············································································
 // #### inputValidator
 // var service interface{}
-// service = i8_pkg_input.NewDefaultValidator(eval("%version%"))
+// service = i8_input.NewDefaultValidator(eval("%version%"))
 // ············································································
 // #### nonStringPrimitiveResolver
 // var service interface{}
-// service = i2_pkg_resolver.NewNonStringPrimitiveResolver()
+// service = i2_resolver.NewNonStringPrimitiveResolver()
 // ············································································
 // #### paramResolver
 // var service interface{}
-// service = i2_pkg_resolver.NewParamResolver(eval("@primitiveArgResolver"))
+// service = i2_resolver.NewParamResolver(eval("@primitiveArgResolver"))
 // ············································································
 // #### patternResolver
 // var service interface{}
-// service = i2_pkg_resolver.NewPatternResolver(eval("@tokenizer"))
+// service = i2_resolver.NewPatternResolver(eval("@tokenizer"))
 // ············································································
 // #### primitiveArgResolver
 // var service interface{}
-// service = i2_pkg_resolver.NewArgResolver(eval("@nonStringPrimitiveResolver"), eval("@patternResolver"))
+// service = i2_resolver.NewArgResolver(eval("@nonStringPrimitiveResolver"), eval("@patternResolver"))
 // ············································································
 // #### printer
 // var service interface{}
-// service = i9_cmd_runner.NewPrinter(eval("@writer"))
+// service = i9_runner.NewPrinter(eval("@writer"))
 // ············································································
 // #### runner
-// var service *i9_cmd_runner.Runner
-// service = i9_cmd_runner.NewRunner(eval("@stepDefaultInput"), eval("@stepReadConfig"), eval("@stepCompile"), eval("@stepValidateOutput"), eval("@stepCodeGenerator"))
+// var service *i9_runner.Runner
+// service = i9_runner.NewRunner(eval("@stepDefaultInput"), eval("@stepReadConfig"), eval("@stepCompile"), eval("@stepValidateOutput"), eval("@stepCodeGenerator"))
 // ············································································
 // #### serviceResolver
 // var service interface{}
-// service = i2_pkg_resolver.NewServiceResolver()
+// service = i2_resolver.NewServiceResolver()
 // ············································································
 // #### stepCodeGenerator
 // var service interface{}
-// service = i9_cmd_runner.NewStepCodeGenerator(eval("@printer"), eval("@templateBuilder"), eval("%outputFile%"))
-// service = i9_cmd_runner.DecorateStepVerboseSwitchable("stepCodeGenerator", service, eval("@printer"), eval("@printer"))
+// service = i9_runner.NewStepCodeGenerator(eval("@printer"), eval("@templateBuilder"), eval("%outputFile%"))
+// service = i9_runner.DecorateStepVerboseSwitchable("stepCodeGenerator", service, eval("@printer"), eval("@printer"))
 // ············································································
 // #### stepCompile
 // var service interface{}
-// service = i9_cmd_runner.NewStepCompile(eval("@compiler"))
-// service = i9_cmd_runner.DecorateStepVerboseSwitchable("stepCompile", service, eval("@printer"), eval("@printer"))
+// service = i9_runner.NewStepCompile(eval("@compiler"))
+// service = i9_runner.DecorateStepVerboseSwitchable("stepCompile", service, eval("@printer"), eval("@printer"))
 // ············································································
 // #### stepCompileDecorators
 // var service interface{}
-// service = i4_pkg_compiler.NewStepCompileDecorators(eval("@imports"), eval("@argResolver"))
+// service = i4_compiler.NewStepCompileDecorators(eval("@imports"), eval("@argResolver"))
 // ············································································
 // #### stepCompileMeta
 // var service interface{}
-// service = i4_pkg_compiler.NewStepCompileMeta(eval("@imports"), eval("@fnRegisterer"))
+// service = i4_compiler.NewStepCompileMeta(eval("@imports"), eval("@fnRegisterer"))
 // ············································································
 // #### stepCompileParams
 // var service interface{}
-// service = i4_pkg_compiler.NewStepCompileParams(eval("@paramResolver"))
+// service = i4_compiler.NewStepCompileParams(eval("@paramResolver"))
 // ············································································
 // #### stepCompileServices
 // var service interface{}
-// service = i4_pkg_compiler.NewStepCompileServices(eval("@imports"), eval("@argResolver"))
+// service = i4_compiler.NewStepCompileServices(eval("@imports"), eval("@argResolver"))
 // ············································································
 // #### stepDefaultInput
-// service := i9_cmd_runner.StepDefaultInput{}
-// service = i9_cmd_runner.DecorateStepVerboseSwitchable("stepDefaultInput", service, eval("@printer"), eval("@printer"))
+// service := i9_runner.StepDefaultInput{}
+// service = i9_runner.DecorateStepVerboseSwitchable("stepDefaultInput", service, eval("@printer"), eval("@printer"))
 // ············································································
 // #### stepOutputParamsCircular
 // var service interface{}
-// service = i9_cmd_runner.NewStepOutputValidationRule(eval("!value output.ValidateParamsCircularDeps"), eval("Circular deps in params"))
-// service = i9_cmd_runner.DecorateStepVerboseSwitchable("stepOutputParamsCircular", service, eval("@printer"), eval("@printer"))
+// service = i9_runner.NewStepOutputValidationRule(eval("!value output.ValidateParamsCircularDeps"), eval("Circular deps in params"))
+// service = i9_runner.DecorateStepVerboseSwitchable("stepOutputParamsCircular", service, eval("@printer"), eval("@printer"))
 // ············································································
 // #### stepOutputParamsExist
-// var service *i9_cmd_runner.StepVerboseSwitchable
-// service = i9_cmd_runner.NewStepOutputValidationRule(eval("!value output.ValidateParamsExist"), eval("Missing parameters"))
-// service = i9_cmd_runner.DecorateStepVerboseSwitchable("stepOutputParamsExist", service, eval("@printer"), eval("@printer"))
+// var service *i9_runner.StepVerboseSwitchable
+// service = i9_runner.NewStepOutputValidationRule(eval("!value output.ValidateParamsExist"), eval("Missing parameters"))
+// service = i9_runner.DecorateStepVerboseSwitchable("stepOutputParamsExist", service, eval("@printer"), eval("@printer"))
 // ············································································
 // #### stepOutputServicesCircular
 // var service interface{}
-// service = i9_cmd_runner.NewStepOutputValidationRule(eval("!value output.ValidateServicesCircularDeps"), eval("Circular deps in services"))
-// service = i9_cmd_runner.DecorateStepVerboseSwitchable("stepOutputServicesCircular", service, eval("@printer"), eval("@printer"))
+// service = i9_runner.NewStepOutputValidationRule(eval("!value output.ValidateServicesCircularDeps"), eval("Circular deps in services"))
+// service = i9_runner.DecorateStepVerboseSwitchable("stepOutputServicesCircular", service, eval("@printer"), eval("@printer"))
 // ············································································
 // #### stepOutputServicesExist
-// var service *i9_cmd_runner.StepVerboseSwitchable
-// service = i9_cmd_runner.NewStepOutputValidationRule(eval("!value output.ValidateServicesExist"), eval("Missing services"))
-// service = i9_cmd_runner.DecorateStepVerboseSwitchable("stepOutputServicesExist", service, eval("@printer"), eval("@printer"))
+// var service *i9_runner.StepVerboseSwitchable
+// service = i9_runner.NewStepOutputValidationRule(eval("!value output.ValidateServicesExist"), eval("Missing services"))
+// service = i9_runner.DecorateStepVerboseSwitchable("stepOutputServicesExist", service, eval("@printer"), eval("@printer"))
 // ············································································
 // #### stepOutputServicesScopes
 // var service interface{}
-// service = i9_cmd_runner.NewStepOutputValidationRule(eval("!value output.ValidateServicesScopes"), eval("Scope"))
-// service = i9_cmd_runner.DecorateStepVerboseSwitchable("stepOutputServicesScopes", service, eval("@printer"), eval("@printer"))
+// service = i9_runner.NewStepOutputValidationRule(eval("!value output.ValidateServicesScopes"), eval("Scope"))
+// service = i9_runner.DecorateStepVerboseSwitchable("stepOutputServicesScopes", service, eval("@printer"), eval("@printer"))
 // ············································································
 // #### stepReadConfig
 // var service interface{}
-// service = i9_cmd_runner.NewStepReadConfig(eval("@printer"), eval("%inputPatterns%"))
-// service = i9_cmd_runner.DecorateStepVerboseSwitchable("stepReadConfig", service, eval("@printer"), eval("@printer"))
+// service = i9_runner.NewStepReadConfig(eval("@printer"), eval("%inputPatterns%"))
+// service = i9_runner.DecorateStepVerboseSwitchable("stepReadConfig", service, eval("@printer"), eval("@printer"))
 // ············································································
 // #### stepValidateInput
 // var service interface{}
-// service = i4_pkg_compiler.NewStepValidateInput(eval("@inputValidator"))
+// service = i4_compiler.NewStepValidateInput(eval("@inputValidator"))
 // ············································································
 // #### stepValidateOutput
 // var service interface{}
-// service = i9_cmd_runner.NewStepAmalgamated(eval("Validate output"), eval("@stepOutputServicesScopes"), eval("@stepOutputParamsCircular"), eval("@stepOutputServicesCircular"), eval("@stepOutputParamsExist"), eval("@stepOutputServicesExist"))
-// service = i9_cmd_runner.DecorateStepVerboseSwitchable("stepValidateOutput", service, eval("@printer"), eval("@printer"))
+// service = i9_runner.NewStepAmalgamated(eval("Validate output"), eval("@stepOutputServicesScopes"), eval("@stepOutputParamsCircular"), eval("@stepOutputServicesCircular"), eval("@stepOutputParamsExist"), eval("@stepOutputServicesExist"))
+// service = i9_runner.DecorateStepVerboseSwitchable("stepValidateOutput", service, eval("@printer"), eval("@printer"))
 // ············································································
 // #### taggedResolver
 // var service interface{}
-// service = i2_pkg_resolver.NewTaggedResolver()
+// service = i2_resolver.NewTaggedResolver()
 // ············································································
 // #### templateBuilder
 // var service interface{}
-// service = i3_pkg_template.NewBuilder(eval("@imports"), eval("@imports"), eval("@codeFormatter"), eval("%buildInfo%"), eval("%stub%"))
+// service = i3_template.NewBuilder(eval("@imports"), eval("@imports"), eval("@codeFormatter"), eval("%buildInfo%"), eval("%stub%"))
 // ············································································
 // #### tokenChunker
 // var service interface{}
-// service = i5_pkg_token.NewChunker()
+// service = i5_token.NewChunker()
 // ············································································
 // #### tokenStrategyFactory
 // var service interface{}
-// service = i5_pkg_token.NewStrategyFactory(eval("!value token.FactoryPercentMark{}"), eval("!value token.FactoryReference{}"), eval("!value token.FactoryUnexpectedFunction{}"), eval("!value token.FactoryUnexpectedToken{}"), eval("!value token.FactoryString{}"))
+// service = i5_token.NewStrategyFactory(eval("!value token.FactoryPercentMark{}"), eval("!value token.FactoryReference{}"), eval("!value token.FactoryUnexpectedFunction{}"), eval("!value token.FactoryUnexpectedToken{}"), eval("!value token.FactoryString{}"))
 // ············································································
 // #### tokenizer
 // var service interface{}
-// service = i5_pkg_token.NewTokenizer(eval("@tokenChunker"), eval("@tokenStrategyFactory"))
+// service = i5_token.NewTokenizer(eval("@tokenChunker"), eval("@tokenStrategyFactory"))
 // ············································································
 // #### valueResolver
 // var service interface{}
-// service = i2_pkg_resolver.NewValueResolver(eval("@imports"))
+// service = i2_resolver.NewValueResolver(eval("@imports"))
 // ············································································
 // #### writer
 // var service interface{}
 // ············································································
 
 type gontainer struct {
-	*ib_gontainer_helpers_container.SuperContainer
+	*ib_container.SuperContainer
 }
 
-func (c *gontainer) GetRunner() (result *i9_cmd_runner.Runner, err error) {
-	err = ic_gontainer_helpers_errors.PrefixedGroup(
+func (c *gontainer) GetRunner() (result *i9_runner.Runner, err error) {
+	err = ic_errors.PrefixedGroup(
 		i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetRunner"),
 		c.CopyServiceTo("runner", &result),
 	)
 	return
 }
 
-func (c *gontainer) MustGetRunner() *i9_cmd_runner.Runner {
+func (c *gontainer) MustGetRunner() *i9_runner.Runner {
 	r, err := c.GetRunner()
 	if err != nil {
 		panic(err.Error())
@@ -240,15 +226,15 @@ func (c *gontainer) MustGetRunner() *i9_cmd_runner.Runner {
 	return r
 }
 
-func (c *gontainer) GetStepValidateParamsExist() (result *i9_cmd_runner.StepVerboseSwitchable, err error) {
-	err = ic_gontainer_helpers_errors.PrefixedGroup(
+func (c *gontainer) GetStepValidateParamsExist() (result *i9_runner.StepVerboseSwitchable, err error) {
+	err = ic_errors.PrefixedGroup(
 		i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateParamsExist"),
 		c.CopyServiceTo("stepOutputParamsExist", &result),
 	)
 	return
 }
 
-func (c *gontainer) MustGetStepValidateParamsExist() *i9_cmd_runner.StepVerboseSwitchable {
+func (c *gontainer) MustGetStepValidateParamsExist() *i9_runner.StepVerboseSwitchable {
 	r, err := c.GetStepValidateParamsExist()
 	if err != nil {
 		panic(err.Error())
@@ -256,15 +242,15 @@ func (c *gontainer) MustGetStepValidateParamsExist() *i9_cmd_runner.StepVerboseS
 	return r
 }
 
-func (c *gontainer) GetStepValidateServicesExist() (result *i9_cmd_runner.StepVerboseSwitchable, err error) {
-	err = ic_gontainer_helpers_errors.PrefixedGroup(
+func (c *gontainer) GetStepValidateServicesExist() (result *i9_runner.StepVerboseSwitchable, err error) {
+	err = ic_errors.PrefixedGroup(
 		i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateServicesExist"),
 		c.CopyServiceTo("stepOutputServicesExist", &result),
 	)
 	return
 }
 
-func (c *gontainer) MustGetStepValidateServicesExist() *i9_cmd_runner.StepVerboseSwitchable {
+func (c *gontainer) MustGetStepValidateServicesExist() *i9_runner.StepVerboseSwitchable {
 	r, err := c.GetStepValidateServicesExist()
 	if err != nil {
 		panic(err.Error())
@@ -276,23 +262,23 @@ func New() (rootGontainer interface {
 	// service container
 	Get(serviceID string) (interface{}, error)
 	CircularDeps() error
-	OverrideService(serviceID string, s ib_gontainer_helpers_container.Service)
-	AddDecorator(tag string, decorator interface{}, deps ...ib_gontainer_helpers_container.Dependency)
+	OverrideService(serviceID string, s ib_container.Service)
+	AddDecorator(tag string, decorator interface{}, deps ...ib_container.Dependency)
 	IsTaggedBy(serviceID string, tag string) bool
 	GetTaggedBy(tag string) ([]interface{}, error)
 	CopyServiceTo(serviceID string, dst interface{}) error
 	// param container
 	GetParam(paramID string) (interface{}, error)
-	OverrideParam(paramID string, d ib_gontainer_helpers_container.Dependency)
+	OverrideParam(paramID string, d ib_container.Dependency)
 	// getters
-	GetRunner() (*i9_cmd_runner.Runner, error)
-	MustGetRunner() *i9_cmd_runner.Runner
-	GetStepValidateParamsExist() (*i9_cmd_runner.StepVerboseSwitchable, error)
-	MustGetStepValidateParamsExist() *i9_cmd_runner.StepVerboseSwitchable
-	GetStepValidateServicesExist() (*i9_cmd_runner.StepVerboseSwitchable, error)
-	MustGetStepValidateServicesExist() *i9_cmd_runner.StepVerboseSwitchable
+	GetRunner() (*i9_runner.Runner, error)
+	MustGetRunner() *i9_runner.Runner
+	GetStepValidateParamsExist() (*i9_runner.StepVerboseSwitchable, error)
+	MustGetStepValidateParamsExist() *i9_runner.StepVerboseSwitchable
+	GetStepValidateServicesExist() (*i9_runner.StepVerboseSwitchable, error)
+	MustGetStepValidateServicesExist() *i9_runner.StepVerboseSwitchable
 }) {
-	sc := ib_gontainer_helpers_container.NewSuperContainer()
+	sc := ib_container.NewSuperContainer()
 	rootGontainer = &gontainer{
 		SuperContainer: sc,
 	}
@@ -302,15 +288,15 @@ func New() (rootGontainer interface {
 	// ############## Helpers ##############
 	//
 	//
-	dependencyService := ib_gontainer_helpers_container.NewDependencyService
+	dependencyService := ib_container.NewDependencyService
 	_ = dependencyService
-	dependencyValue := ib_gontainer_helpers_container.NewDependencyValue
+	dependencyValue := ib_container.NewDependencyValue
 	_ = dependencyValue
-	dependencyTag := ib_gontainer_helpers_container.NewDependencyTag
+	dependencyTag := ib_container.NewDependencyTag
 	_ = dependencyTag
-	dependencyProvider := ib_gontainer_helpers_container.NewDependencyProvider
+	dependencyProvider := ib_container.NewDependencyProvider
 	_ = dependencyProvider
-	newService := ib_gontainer_helpers_container.NewService
+	newService := ib_container.NewService
 	_ = newService
 	concatenateChunks := func(first func() (interface{}, error), chunks ...func() (interface{}, error)) (string, error) {
 		r := ""
@@ -319,7 +305,7 @@ func New() (rootGontainer interface {
 			if err != nil {
 				return "", err
 			}
-			s, err := id_gontainer_helpers_exporter.ToString(chunk)
+			s, err := id_exporter.ToString(chunk)
 			if err != nil {
 				return "", err
 			}
@@ -374,7 +360,7 @@ func New() (rootGontainer interface {
 	//
 	// "buildInfo": "%todo()%"
 	sc.OverrideParam("buildInfo", dependencyProvider(func() (r interface{}, err error) {
-		r, err = i0_gontainer_helpers_caller.CallProvider(paramTodo)
+		r, err = i0_caller.CallProvider(paramTodo)
 		if err != nil {
 			err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err)
 		}
@@ -382,7 +368,7 @@ func New() (rootGontainer interface {
 	}))
 	// "inputPatterns": "%todo()%"
 	sc.OverrideParam("inputPatterns", dependencyProvider(func() (r interface{}, err error) {
-		r, err = i0_gontainer_helpers_caller.CallProvider(paramTodo)
+		r, err = i0_caller.CallProvider(paramTodo)
 		if err != nil {
 			err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err)
 		}
@@ -390,7 +376,7 @@ func New() (rootGontainer interface {
 	}))
 	// "outputFile": "%todo()%"
 	sc.OverrideParam("outputFile", dependencyProvider(func() (r interface{}, err error) {
-		r, err = i0_gontainer_helpers_caller.CallProvider(paramTodo)
+		r, err = i0_caller.CallProvider(paramTodo)
 		if err != nil {
 			err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err)
 		}
@@ -398,7 +384,7 @@ func New() (rootGontainer interface {
 	}))
 	// "stub": "%todo()%"
 	sc.OverrideParam("stub", dependencyProvider(func() (r interface{}, err error) {
-		r, err = i0_gontainer_helpers_caller.CallProvider(paramTodo)
+		r, err = i0_caller.CallProvider(paramTodo)
 		if err != nil {
 			err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err)
 		}
@@ -406,7 +392,7 @@ func New() (rootGontainer interface {
 	}))
 	// "version": "%todo()%"
 	sc.OverrideParam("version", dependencyProvider(func() (r interface{}, err error) {
-		r, err = i0_gontainer_helpers_caller.CallProvider(paramTodo)
+		r, err = i0_caller.CallProvider(paramTodo)
 		if err != nil {
 			err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err)
 		}
@@ -422,7 +408,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i2_pkg_resolver.NewArgResolver,
+			i2_resolver.NewArgResolver,
 			// "@nonStringPrimitiveResolver"
 			dependencyService("nonStringPrimitiveResolver"),
 			// "@valueResolver"
@@ -443,7 +429,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i3_pkg_template.NewCodeFormatter,
+			i3_template.NewCodeFormatter,
 		)
 		s.ScopeDefault()
 		sc.OverrideService("codeFormatter", s)
@@ -452,7 +438,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i4_pkg_compiler.New,
+			i4_compiler.New,
 			// "@stepValidateInput"
 			dependencyService("stepValidateInput"),
 			// "@stepCompileMeta"
@@ -471,7 +457,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i5_pkg_token.NewFuncRegisterer,
+			i5_token.NewFuncRegisterer,
 			// "@tokenStrategyFactory"
 			dependencyService("tokenStrategyFactory"),
 			// "@imports"
@@ -484,11 +470,11 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i2_pkg_resolver.NewFixedValueResolver,
+			i2_resolver.NewFixedValueResolver,
 			// "!value consts.SpecialGontainerID"
-			dependencyValue(i6_pkg_consts.SpecialGontainerID),
+			dependencyValue(i6_consts.SpecialGontainerID),
 			// "!value consts.SpecialGontainerValue"
-			dependencyValue(i6_pkg_consts.SpecialGontainerValue),
+			dependencyValue(i6_consts.SpecialGontainerValue),
 		)
 		s.ScopeDefault()
 		sc.OverrideService("gontainerValueResolver", s)
@@ -497,7 +483,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i7_pkg_imports.New,
+			i7_imports.New,
 		)
 		s.ScopeDefault()
 		sc.OverrideService("imports", s)
@@ -506,7 +492,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i8_pkg_input.NewDefaultValidator,
+			i8_input.NewDefaultValidator,
 			// "%version%"
 			dependencyProvider(func() (interface{}, error) { return getParam("version") }),
 		)
@@ -517,7 +503,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i2_pkg_resolver.NewNonStringPrimitiveResolver,
+			i2_resolver.NewNonStringPrimitiveResolver,
 		)
 		s.ScopeDefault()
 		sc.OverrideService("nonStringPrimitiveResolver", s)
@@ -526,7 +512,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i2_pkg_resolver.NewParamResolver,
+			i2_resolver.NewParamResolver,
 			// "@primitiveArgResolver"
 			dependencyService("primitiveArgResolver"),
 		)
@@ -537,7 +523,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i2_pkg_resolver.NewPatternResolver,
+			i2_resolver.NewPatternResolver,
 			// "@tokenizer"
 			dependencyService("tokenizer"),
 		)
@@ -548,7 +534,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i2_pkg_resolver.NewArgResolver,
+			i2_resolver.NewArgResolver,
 			// "@nonStringPrimitiveResolver"
 			dependencyService("nonStringPrimitiveResolver"),
 			// "@patternResolver"
@@ -561,7 +547,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i9_cmd_runner.NewPrinter,
+			i9_runner.NewPrinter,
 			// "@writer"
 			dependencyService("writer"),
 		)
@@ -572,7 +558,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i9_cmd_runner.NewRunner,
+			i9_runner.NewRunner,
 			// "@stepDefaultInput"
 			dependencyService("stepDefaultInput"),
 			// "@stepReadConfig"
@@ -591,7 +577,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i2_pkg_resolver.NewServiceResolver,
+			i2_resolver.NewServiceResolver,
 		)
 		s.ScopeDefault()
 		sc.OverrideService("serviceResolver", s)
@@ -600,7 +586,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i9_cmd_runner.NewStepCodeGenerator,
+			i9_runner.NewStepCodeGenerator,
 			// "@printer"
 			dependencyService("printer"),
 			// "@templateBuilder"
@@ -616,7 +602,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i9_cmd_runner.NewStepCompile,
+			i9_runner.NewStepCompile,
 			// "@compiler"
 			dependencyService("compiler"),
 		)
@@ -628,7 +614,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i4_pkg_compiler.NewStepCompileDecorators,
+			i4_compiler.NewStepCompileDecorators,
 			// "@imports"
 			dependencyService("imports"),
 			// "@argResolver"
@@ -641,7 +627,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i4_pkg_compiler.NewStepCompileMeta,
+			i4_compiler.NewStepCompileMeta,
 			// "@imports"
 			dependencyService("imports"),
 			// "@fnRegisterer"
@@ -654,7 +640,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i4_pkg_compiler.NewStepCompileParams,
+			i4_compiler.NewStepCompileParams,
 			// "@paramResolver"
 			dependencyService("paramResolver"),
 		)
@@ -665,7 +651,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i4_pkg_compiler.NewStepCompileServices,
+			i4_compiler.NewStepCompileServices,
 			// "@imports"
 			dependencyService("imports"),
 			// "@argResolver"
@@ -677,7 +663,7 @@ func New() (rootGontainer interface {
 	// "stepDefaultInput"
 	{
 		s := newService()
-		s.SetConstructor(func() interface{} { return i9_cmd_runner.StepDefaultInput{} })
+		s.SetConstructor(func() interface{} { return i9_runner.StepDefaultInput{} })
 		s.Tag("step-runner-verbose", int(0))
 		s.ScopeDefault()
 		sc.OverrideService("stepDefaultInput", s)
@@ -686,9 +672,9 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i9_cmd_runner.NewStepOutputValidationRule,
+			i9_runner.NewStepOutputValidationRule,
 			// "!value output.ValidateParamsCircularDeps"
-			dependencyValue(ia_pkg_output.ValidateParamsCircularDeps),
+			dependencyValue(ia_output.ValidateParamsCircularDeps),
 			// "Circular deps in params"
 			dependencyProvider(func() (r interface{}, err error) { return "Circular deps in params", nil }),
 		)
@@ -700,9 +686,9 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i9_cmd_runner.NewStepOutputValidationRule,
+			i9_runner.NewStepOutputValidationRule,
 			// "!value output.ValidateParamsExist"
-			dependencyValue(ia_pkg_output.ValidateParamsExist),
+			dependencyValue(ia_output.ValidateParamsExist),
 			// "Missing parameters"
 			dependencyProvider(func() (r interface{}, err error) { return "Missing parameters", nil }),
 		)
@@ -714,9 +700,9 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i9_cmd_runner.NewStepOutputValidationRule,
+			i9_runner.NewStepOutputValidationRule,
 			// "!value output.ValidateServicesCircularDeps"
-			dependencyValue(ia_pkg_output.ValidateServicesCircularDeps),
+			dependencyValue(ia_output.ValidateServicesCircularDeps),
 			// "Circular deps in services"
 			dependencyProvider(func() (r interface{}, err error) { return "Circular deps in services", nil }),
 		)
@@ -728,9 +714,9 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i9_cmd_runner.NewStepOutputValidationRule,
+			i9_runner.NewStepOutputValidationRule,
 			// "!value output.ValidateServicesExist"
-			dependencyValue(ia_pkg_output.ValidateServicesExist),
+			dependencyValue(ia_output.ValidateServicesExist),
 			// "Missing services"
 			dependencyProvider(func() (r interface{}, err error) { return "Missing services", nil }),
 		)
@@ -742,9 +728,9 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i9_cmd_runner.NewStepOutputValidationRule,
+			i9_runner.NewStepOutputValidationRule,
 			// "!value output.ValidateServicesScopes"
-			dependencyValue(ia_pkg_output.ValidateServicesScopes),
+			dependencyValue(ia_output.ValidateServicesScopes),
 			// "Scope"
 			dependencyProvider(func() (r interface{}, err error) { return "Scope", nil }),
 		)
@@ -756,7 +742,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i9_cmd_runner.NewStepReadConfig,
+			i9_runner.NewStepReadConfig,
 			// "@printer"
 			dependencyService("printer"),
 			// "%inputPatterns%"
@@ -770,7 +756,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i4_pkg_compiler.NewStepValidateInput,
+			i4_compiler.NewStepValidateInput,
 			// "@inputValidator"
 			dependencyService("inputValidator"),
 		)
@@ -781,7 +767,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i9_cmd_runner.NewStepAmalgamated,
+			i9_runner.NewStepAmalgamated,
 			// "Validate output"
 			dependencyProvider(func() (r interface{}, err error) { return "Validate output", nil }),
 			// "@stepOutputServicesScopes"
@@ -803,7 +789,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i2_pkg_resolver.NewTaggedResolver,
+			i2_resolver.NewTaggedResolver,
 		)
 		s.ScopeDefault()
 		sc.OverrideService("taggedResolver", s)
@@ -812,7 +798,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i3_pkg_template.NewBuilder,
+			i3_template.NewBuilder,
 			// "@imports"
 			dependencyService("imports"),
 			// "@imports"
@@ -831,7 +817,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i5_pkg_token.NewChunker,
+			i5_token.NewChunker,
 		)
 		s.ScopeDefault()
 		sc.OverrideService("tokenChunker", s)
@@ -840,17 +826,17 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i5_pkg_token.NewStrategyFactory,
+			i5_token.NewStrategyFactory,
 			// "!value token.FactoryPercentMark{}"
-			dependencyValue(i5_pkg_token.FactoryPercentMark{}),
+			dependencyValue(i5_token.FactoryPercentMark{}),
 			// "!value token.FactoryReference{}"
-			dependencyValue(i5_pkg_token.FactoryReference{}),
+			dependencyValue(i5_token.FactoryReference{}),
 			// "!value token.FactoryUnexpectedFunction{}"
-			dependencyValue(i5_pkg_token.FactoryUnexpectedFunction{}),
+			dependencyValue(i5_token.FactoryUnexpectedFunction{}),
 			// "!value token.FactoryUnexpectedToken{}"
-			dependencyValue(i5_pkg_token.FactoryUnexpectedToken{}),
+			dependencyValue(i5_token.FactoryUnexpectedToken{}),
 			// "!value token.FactoryString{}"
-			dependencyValue(i5_pkg_token.FactoryString{}),
+			dependencyValue(i5_token.FactoryString{}),
 		)
 		s.ScopeDefault()
 		sc.OverrideService("tokenStrategyFactory", s)
@@ -859,7 +845,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i5_pkg_token.NewTokenizer,
+			i5_token.NewTokenizer,
 			// "@tokenChunker"
 			dependencyService("tokenChunker"),
 			// "@tokenStrategyFactory"
@@ -872,7 +858,7 @@ func New() (rootGontainer interface {
 	{
 		s := newService()
 		s.SetConstructor(
-			i2_pkg_resolver.NewValueResolver,
+			i2_resolver.NewValueResolver,
 			// "@imports"
 			dependencyService("imports"),
 		)
@@ -893,7 +879,7 @@ func New() (rootGontainer interface {
 	//
 	sc.AddDecorator(
 		"step-runner-verbose",
-		i9_cmd_runner.DecorateStepVerboseSwitchable,
+		i9_runner.DecorateStepVerboseSwitchable,
 		dependencyService("printer"),
 		dependencyService("printer"),
 	)
