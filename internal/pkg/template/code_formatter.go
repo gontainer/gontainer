@@ -8,6 +8,10 @@ import (
 	"golang.org/x/tools/imports"
 )
 
+func init() {
+	imports.LocalPrefix = "github.com/gontainer/gontainer-helpers"
+}
+
 type CodeFormatter struct {
 }
 

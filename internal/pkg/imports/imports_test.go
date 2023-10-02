@@ -15,8 +15,8 @@ func Test_imports_RegisterPrefixAlias(t *testing.T) {
 	t.Run("Given scenario", func(t *testing.T) {
 		i := imports.New()
 		shortcut := "viper"
-		expectedViper := "i0_spf13_viper"
-		expectedRemote := "i1_viper_remote"
+		expectedViper := "i0_viper"
+		expectedRemote := "i1_remote"
 
 		if !assert.NoError(t, i.RegisterPrefixAlias(shortcut, viperPkg)) {
 			return
@@ -35,8 +35,8 @@ func Test_imports_RegisterPrefixAlias(t *testing.T) {
 		assert.Equal(
 			t,
 			[]imports.Import{
-				{Alias: "i0_spf13_viper", Path: "github.com/spf13/viper"},
-				{Alias: "i1_viper_remote", Path: "github.com/spf13/viper/remote"},
+				{Alias: expectedViper, Path: "github.com/spf13/viper"},
+				{Alias: expectedRemote, Path: "github.com/spf13/viper/remote"},
 			},
 			i.Imports(),
 		)
