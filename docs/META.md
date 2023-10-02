@@ -88,8 +88,8 @@ parameters:
   startedAt: "%todo()%"
 
 service:
-  server:
-    value: "MyServer{}"
+  application:
+    value: "MyApplication{}"
     fields:
       StartedAt: "%startedAt%"
 ```
