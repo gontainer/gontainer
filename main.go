@@ -22,7 +22,6 @@ package main
 
 import (
 	_ "embed"
-	"fmt"
 	"os"
 	"strings"
 
@@ -63,7 +62,7 @@ func main() {
 	rootCmd.AddCommand(
 		cmd.NewBuildCmd(
 			bv.GitVersion,
-			fmt.Sprintf("%s %s-%s %s", bv.GitVersion, bv.GitCommit, bv.GitTreeState, bv.BuildDate),
+			buildInfo(bv),
 		),
 	)
 
@@ -73,6 +72,21 @@ func main() {
 	if err := rootCmd.Execute(); err != nil {
 		os.Exit(1)
 	}
+}
+
+func buildInfo(v goversion.Info) string {
+	const unknown = "unknown"
+	r := v.GitVersion
+	if v.GitCommit != unknown {
+		r += " " + v.GitCommit
+		if v.GitTreeState != unknown {
+			r += "-" + v.GitTreeState
+		}
+	}
+	if v.BuildDate != unknown {
+		r += " (build date " + v.BuildDate + ")"
+	}
+	return r
 }
 
 func buildVersion() goversion.Info {
