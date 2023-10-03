@@ -7,7 +7,7 @@
 
 package {{.Output.Meta.Pkg}}
 
-// gontainer {{ .BuildInfo }}
+// gontainer version: {{ .BuildInfo }}
 
 import (
 {{range $import := .ImportCollection.Imports -}}
