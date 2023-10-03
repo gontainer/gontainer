@@ -1,6 +1,8 @@
 package token
 
-import "github.com/gontainer/gontainer-helpers/errors"
+import (
+	"github.com/gontainer/gontainer-helpers/errors"
+)
 
 type factory interface {
 	Create(string) (Token, error)
