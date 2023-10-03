@@ -4,8 +4,8 @@ import (
 	"io"
 
 	"github.com/gontainer/gontainer-helpers/container"
-	"github.com/gontainer/gontainer/gontainer"
 	"github.com/gontainer/gontainer/internal/cmd/runner"
+	"github.com/gontainer/gontainer/internal/gontainer"
 )
 
 type runnerPayload struct {

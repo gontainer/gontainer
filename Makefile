@@ -39,10 +39,10 @@ run-example-transactions: build
 	cd examples/transactions && go mod tidy && go mod vendor && go run .
 
 self-compile:
-	gontainer build -i gontainer/gontainer.yaml -i gontainer/gontainer_\*.yaml -o gontainer/gontainer.go
+	gontainer build -i internal/gontainer/gontainer.yaml -i internal/gontainer/gontainer_\*.yaml -o internal/gontainer/gontainer.go
 
 generate-stub:
-	gontainer build -i gontainer/gontainer.yaml -i gontainer/gontainer_\*.yaml -o gontainer/stub.go --stub
+	gontainer build -i internal/gontainer/gontainer.yaml -i internal/gontainer/gontainer_\*.yaml -o internal/gontainer/stub.go --stub
 
 tests: tests-unit tests-functional lint
 
