@@ -11,37 +11,41 @@
 
 {{ range $service := .Output.Services -}}
     // #### {{$service.Name}}
-    {{- if ne $service.Value "" -}}
-        {{ "\n" }}// service := {{ $service.Value }}
-    {{- else if ne $service.Type "" -}}
-        {{ "\n" }}// var service {{ $service.Type }}
-    {{- else -}}
-        {{ "\n "}}// var service interface{}
-    {{- end -}}
-
-    {{- if ne $service.Constructor "" -}}
-        {{ "\n" }}// service = {{$service.Constructor}}({{template "func-args" $service.Args}})
-    {{- end -}}
-
-    {{- range $call := $service.Calls -}}
-        {{- if $call.Immutable -}}
-            {{ "\n" }}// service = service.{{ $call.Method }}({{template "func-args" $call.Args}})
+	{{- if $service.Todo -}}
+	    {{ "\n" }}// panic("todo")
+	{{- else -}}
+        {{- if ne $service.Value "" -}}
+            {{ "\n" }}// service := {{ $service.Value }}
+        {{- else if ne $service.Type "" -}}
+            {{ "\n" }}// var service {{ $service.Type }}
         {{- else -}}
-            {{ "\n" }}// service.{{ $call.Method }}({{template "func-args" $call.Args}})
-		{{- end -}}
+            {{ "\n "}}// var service interface{}
+        {{- end -}}
+
+        {{- if ne $service.Constructor "" -}}
+            {{ "\n" }}// service = {{$service.Constructor}}({{template "func-args" $service.Args}})
+        {{- end -}}
+
+        {{- range $call := $service.Calls -}}
+            {{- if $call.Immutable -}}
+                {{ "\n" }}// service = service.{{ $call.Method }}({{template "func-args" $call.Args}})
+            {{- else -}}
+                {{ "\n" }}// service.{{ $call.Method }}({{template "func-args" $call.Args}})
+            {{- end -}}
+        {{- end -}}
+
+        {{- range $field := $service.Fields -}}
+            {{ "\n" }}// {{ $service.Name }}.{{ $field.Name }} = {{template "export-raw" $field.Value.Raw}}
+        {{- end -}}
+
+        {{- range $decorator := $decorators -}}
+            {{- if isTagged $service.Name $decorator.Tag -}}
+                {{ "\n" }}// service = {{ $decorator.Decorator }}({{ export $service.Name }}, service{{ if $decorator.Args }}, {{template "func-args" $decorator.Args}}{{ end }})
+            {{- end -}}
+        {{- end -}}
     {{- end -}}
 
-    {{- range $field := $service.Fields -}}
-        {{ "\n" }}// {{ $service.Name }}.{{ $field.Name }} = {{template "export-raw" $field.Value.Raw}}
-    {{- end -}}
-
-	{{- range $decorator := $decorators -}}
-	    {{- if isTagged $service.Name $decorator.Tag -}}
-		    {{ "\n" }}// service = {{ $decorator.Decorator }}({{ export $service.Name }}, service{{ if $decorator.Args }}, {{template "func-args" $decorator.Args}}{{ end }})
-		{{- end -}}
-	{{- end -}}
-
-    {{ "\n" }}// ············································································
+    {{- "\n" -}}// ············································································
 {{end}}
 
 {{end}}
