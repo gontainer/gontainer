@@ -6,7 +6,8 @@ Read config··································�
      • testdata/invalid-tokens.yaml [✓]
 Read config END··········································[✓]
 Compile·····················································
-Compile END··············································[⨉] (2 errors)
+Compile END··············································[⨉] (3 errors)
 Errors:
 1. compiler.StepCompileParams: "addr": unexpected function: "getHost": "%getHost()%"
 2. compiler.StepCompileParams: "addr": unexpected function: "getPort": "%getPort()%"
+3. compiler.StepCompileParams: "slash": unexpected token: "%/%"

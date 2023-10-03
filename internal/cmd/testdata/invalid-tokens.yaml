@@ -1,2 +1,3 @@
 parameters:
     addr: "%getHost()%:%getPort()%"
+    slash: "%/%"
