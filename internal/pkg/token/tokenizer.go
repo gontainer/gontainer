@@ -1,5 +1,7 @@
 package token
 
+import "github.com/gontainer/gontainer-helpers/errors"
+
 type factory interface {
 	Create(string) (Token, error)
 }
@@ -20,19 +22,18 @@ func NewTokenizer(ch chunker, f factory) *Tokenizer {
 	}
 }
 
-func (t *Tokenizer) Tokenize(s string) (r Tokens, _ error) {
+func (t *Tokenizer) Tokenize(s string) (Tokens, error) {
 	chunks, err := t.chunker.Chunks(s)
 	if err != nil {
 		return nil, err
 	}
 
-	for _, ch := range chunks {
-		tk, err := t.factory.Create(ch)
-		if err != nil {
-			return nil, err
-		}
-		r = append(r, tk)
+	errs := make([]error, len(chunks))
+	tkns := make(Tokens, len(chunks))
+
+	for i, ch := range chunks {
+		tkns[i], errs[i] = t.factory.Create(ch)
 	}
 
-	return r, nil
+	return tkns, errors.Group(errs...)
 }

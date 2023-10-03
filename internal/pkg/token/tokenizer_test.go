@@ -3,6 +3,7 @@ package token_test
 import (
 	"testing"
 
+	errAssert "github.com/gontainer/gontainer-helpers/errors/assert"
 	"github.com/gontainer/gontainer/internal/pkg/token"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -162,7 +163,6 @@ func TestTokenizer_Tokenize(t *testing.T) {
 			tkns, err := s.Tokenizer.Tokenize(s.Input)
 			if s.Error != "" {
 				assert.EqualError(t, err, s.Error)
-				assert.Empty(t, tkns)
 				return
 			}
 
@@ -180,4 +180,13 @@ func TestTokenizer_Tokenize(t *testing.T) {
 			assert.Equal(t, s.Code, code)
 		})
 	}
+
+	t.Run("Error group", func(t *testing.T) {
+		_, err := tokenizer.Tokenize("%getHost()%:%getPort(80)%")
+		expected := []string{
+			`unexpected function: "getHost": "%getHost()%"`,
+			`unexpected function: "getPort": "%getPort(80)%"`,
+		}
+		errAssert.EqualErrorGroup(t, err, expected)
+	})
 }

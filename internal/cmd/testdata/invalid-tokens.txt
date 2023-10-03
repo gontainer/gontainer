@@ -1,0 +1,12 @@
+Default input···············································
+Default input END········································[✓]
+Read config·················································
+  Patterns
+  1. testdata/invalid-tokens.yaml
+     • testdata/invalid-tokens.yaml [✓]
+Read config END··········································[✓]
+Compile·····················································
+Compile END··············································[⨉] (2 errors)
+Errors:
+1. compiler.StepCompileParams: "addr": unexpected function: "getHost": "%getHost()%"
+2. compiler.StepCompileParams: "addr": unexpected function: "getPort": "%getPort()%"

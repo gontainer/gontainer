@@ -31,6 +31,8 @@ var (
 	buildFuncDoesNotExist string
 	//go:embed testdata/invalid-scope.txt
 	buildInvalidScope string
+	//go:embed testdata/invalid-tokens.txt
+	buildInvalidTokens string
 )
 
 func TestNewBuildCmd(t *testing.T) {
@@ -102,6 +104,12 @@ func TestNewBuildCmd(t *testing.T) {
 			cmd:   newCmd(),
 			args:  "-i testdata/invalid-scope.yaml -o /dev/null",
 			out:   buildInvalidScope,
+			error: true,
+		},
+		{
+			cmd:   newCmd(),
+			args:  "-i testdata/invalid-tokens.yaml -o /dev/null",
+			out:   buildInvalidTokens,
 			error: true,
 		},
 	}
