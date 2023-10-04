@@ -52,7 +52,6 @@ brews:
     dependencies:
       - name: go
         type: optional
-      - name: git
     install: |-
       bin.install "gontainer"
     commit_author:
