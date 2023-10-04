@@ -26,16 +26,16 @@
             {{ "\n" }}// service = {{$service.Constructor}}({{template "func-args" $service.Args}})
         {{- end -}}
 
+        {{- range $field := $service.Fields -}}
+            {{ "\n" }}// {{ $service.Name }}.{{ $field.Name }} = {{template "export-raw" $field.Value.Raw}}
+        {{- end -}}
+
         {{- range $call := $service.Calls -}}
             {{- if $call.Immutable -}}
                 {{ "\n" }}// service = service.{{ $call.Method }}({{template "func-args" $call.Args}})
             {{- else -}}
                 {{ "\n" }}// service.{{ $call.Method }}({{template "func-args" $call.Args}})
             {{- end -}}
-        {{- end -}}
-
-        {{- range $field := $service.Fields -}}
-            {{ "\n" }}// {{ $service.Name }}.{{ $field.Name }} = {{template "export-raw" $field.Value.Raw}}
         {{- end -}}
 
         {{- range $decorator := $decorators -}}
