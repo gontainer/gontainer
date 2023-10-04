@@ -28,16 +28,6 @@ build: clean
 global: export GONTAINER_BINARY = /usr/local/bin/gontainer
 global: build
 
-build-example-server: build
-	./app.bin build -i examples/server/gontainer/gontainer.yaml -i examples/server/gontainer/gontainer_\*.yaml -o examples/server/gontainer/gontainer.go
-
-run-example-server: build-example-server
-	cd examples/server && go mod tidy && go mod vendor && go run .
-
-run-example-transactions: build
-	./app.bin build -i examples/transactions/gontainer.yaml -o examples/transactions/gontainer.go
-	cd examples/transactions && go mod tidy && go mod vendor && go run .
-
 self-compile:
 	gontainer build -i internal/gontainer/gontainer.yaml -i internal/gontainer/gontainer_\*.yaml -o internal/gontainer/gontainer.go
 
