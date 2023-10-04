@@ -176,7 +176,7 @@ services:
 db, err := gontainer.Get("db")
 fmt.Println(err) // error: service todo
 
-gontainer.Override("logger", ...) // define a proper logger here
+gontainer.OverrideService("logger", ...) // define a proper logger here
 db, err = gontainer.Get("db")
 fmt.Println(err) // nil
 ```
