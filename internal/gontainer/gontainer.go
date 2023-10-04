@@ -2,7 +2,7 @@
 
 package gontainer
 
-// gontainer 0.4.1 5c369427e26725b18b902b9d5c7193c6a9dfdc00-clean 2023-10-02T15:50:39Z
+// gontainer version: 0.4.2 4c1d673605072aba90c73ef5e6fef2280ae846db-clean (build date 2023-10-04T16:31:00Z)
 
 import (
 	ie_errors "errors"
@@ -203,7 +203,7 @@ import (
 // service = i2_resolver.NewValueResolver(eval("@imports"))
 // ············································································
 // #### writer
-// var service interface{}
+// panic("todo")
 // ············································································
 
 type gontainer struct {
