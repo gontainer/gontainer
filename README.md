@@ -47,7 +47,7 @@ go install github.com/gontainer/gontainer@latest
 ```bash
 git clone git@github.com:gontainer/gontainer.git
 cd gontainer
-GONTAINER_BINARY=/usr/local/bin/gontainer make build
+GONTAINER_BINARY=/usr/local/bin/gontainer make
 ```
 
 ## TL;DR
