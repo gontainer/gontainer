@@ -58,18 +58,11 @@ func (b Builder) Build(o output.Output) (string, error) {
 	)
 
 	tplBody := tpl{
-		data:  d,
-		funcs: funcs,
-	}
-
-	if b.stub {
-		tplBody.fsys = templates.BodyStub
-		tplBody.name = "stub-body.go.tpl"
-		tplBody.patterns = []string{"stub-body.go.tpl"}
-	} else {
-		tplBody.fsys = templates.Body
-		tplBody.name = "body.go.tpl"
-		tplBody.patterns = []string{"body.go.tpl", "body-*.go.tpl"}
+		data:     d,
+		funcs:    funcs,
+		fsys:     templates.Body,
+		name:     "body.go.tpl",
+		patterns: []string{"body.go.tpl", "body-*.go.tpl"},
 	}
 
 	tplHead := tpl{
