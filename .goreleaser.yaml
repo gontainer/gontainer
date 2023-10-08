@@ -38,7 +38,7 @@ archives:
       - docs/*.md
 
 brews:
-  - tap:
+  - repository:
       owner: gontainer
       name: homebrew-tap
     folder: Formula
