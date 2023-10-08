@@ -2,10 +2,10 @@
 
 package gontainer
 
-// gontainer version: 0.4.29 4e3fcee14d8b29c47fe168848a18768b4b0bf85e-clean (build date 2023-10-08T19:23:17Z)
+// gontainer version: 0.5.0 dd9edec6fcf7443e89ba9395c3f63a18ed73eee0-clean (build date 2023-10-08T20:12:51Z)
 
 import (
-	ie_errors "errors"
+	id_errors "errors"
 	i1_fmt "fmt"
 	if_os "os"
 	i10_strconv "strconv"
@@ -23,7 +23,7 @@ import (
 	i0_caller "github.com/gontainer/gontainer-helpers/caller"
 	ib_container "github.com/gontainer/gontainer-helpers/container"
 	ic_errors "github.com/gontainer/gontainer-helpers/errors"
-	id_exporter "github.com/gontainer/gontainer-helpers/exporter"
+	ie_exporter "github.com/gontainer/gontainer-helpers/exporter"
 )
 
 // ············································································
@@ -278,10 +278,10 @@ func New() (rootGontainer interface {
 	GetStepValidateServicesExist() (*i9_runner.StepVerboseSwitchable, error)
 	MustGetStepValidateServicesExist() *i9_runner.StepVerboseSwitchable
 }) {
-	sc := ib_container.NewSuperContainer()
-	rootGontainer = &gontainer{
-		SuperContainer: sc,
+	sc := &gontainer{
+		SuperContainer: ib_container.NewSuperContainer(),
 	}
+	rootGontainer = sc
 	//
 	//
 	// #####################################
@@ -298,59 +298,15 @@ func New() (rootGontainer interface {
 	_ = dependencyProvider
 	newService := ib_container.NewService
 	_ = newService
-	concatenateChunks := func(first func() (interface{}, error), chunks ...func() (interface{}, error)) (string, error) {
-		r := ""
-		for _, p := range append([]func() (interface{}, error){first}, chunks...) {
-			chunk, err := p()
-			if err != nil {
-				return "", err
-			}
-			s, err := id_exporter.ToString(chunk)
-			if err != nil {
-				return "", err
-			}
-			r += s
-		}
-		return r, nil
-	}
+	concatenateChunks := sc._concatenateChunks
 	_ = concatenateChunks
-	paramTodo := func(params ...string) (interface{}, error) {
-		if len(params) > 0 {
-			return nil, ie_errors.New(params[0])
-		}
-		return nil, ie_errors.New("parameter todo")
-	}
+	paramTodo := sc._paramTodo
 	_ = paramTodo
-	const envVarDoesntExist = "environment variable %+q does not exist"
-	getEnv := func(key string, def ...string) (string, error) {
-		val, ok := if_os.LookupEnv(key)
-		if !ok {
-			if len(def) > 0 {
-				return def[0], nil
-			}
-			return "", i1_fmt.Errorf(envVarDoesntExist, key)
-		}
-		return val, nil
-	}
+	getEnv := sc._getEnv
 	_ = getEnv
-	getEnvInt := func(key string, def ...int) (int, error) {
-		val, ok := if_os.LookupEnv(key)
-		if !ok {
-			if len(def) > 0 {
-				return def[0], nil
-			}
-			return 0, i1_fmt.Errorf(envVarDoesntExist, key)
-		}
-		res, err := i10_strconv.Atoi(val)
-		if err != nil {
-			return 0, i1_fmt.Errorf("cannot cast env(%+q) to int: %w", key, err)
-		}
-		return res, nil
-	}
+	getEnvInt := sc._getEnvInt
 	_ = getEnvInt
-	getParam := func(n string) (interface{}, error) {
-		return sc.GetParam(n)
-	}
+	getParam := sc.GetParam
 	_ = getParam
 	//
 	//
@@ -868,7 +824,7 @@ func New() (rootGontainer interface {
 	// "writer"
 	{
 		s := newService()
-		s.SetConstructor(func() (interface{}, error) { return nil, ie_errors.New("service todo") })
+		s.SetConstructor(func() (interface{}, error) { return nil, id_errors.New("service todo") })
 		sc.OverrideService("writer", s)
 	}
 	//
@@ -884,4 +840,57 @@ func New() (rootGontainer interface {
 		dependencyService("printer"),
 	)
 	return
+}
+
+// Deprecated: do not use it, only for internal purposes, that method can be changed at any time
+func (c *gontainer) _concatenateChunks(first func() (interface{}, error), chunks ...func() (interface{}, error)) (string, error) {
+	r := ""
+	for _, p := range append([]func() (interface{}, error){first}, chunks...) {
+		chunk, err := p()
+		if err != nil {
+			return "", err
+		}
+		s, err := ie_exporter.ToString(chunk)
+		if err != nil {
+			return "", err
+		}
+		r += s
+	}
+	return r, nil
+}
+
+// Deprecated: do not use it, only for internal purposes, that method can be changed at any time
+func (c *gontainer) _paramTodo(params ...string) (interface{}, error) {
+	if len(params) > 0 {
+		return nil, id_errors.New(params[0])
+	}
+	return nil, id_errors.New("parameter todo")
+}
+
+// Deprecated: do not use it, only for internal purposes, that method can be changed at any time
+func (c *gontainer) _getEnv(key string, def ...string) (string, error) {
+	val, ok := if_os.LookupEnv(key)
+	if !ok {
+		if len(def) > 0 {
+			return def[0], nil
+		}
+		return "", i1_fmt.Errorf("environment variable %+q does not exist", key)
+	}
+	return val, nil
+}
+
+// Deprecated: do not use it, only for internal purposes, that method can be changed at any time
+func (c *gontainer) _getEnvInt(key string, def ...int) (int, error) {
+	val, ok := if_os.LookupEnv(key)
+	if !ok {
+		if len(def) > 0 {
+			return def[0], nil
+		}
+		return 0, i1_fmt.Errorf("environment variable %+q does not exist", key)
+	}
+	res, err := i10_strconv.Atoi(val)
+	if err != nil {
+		return 0, i1_fmt.Errorf("cannot cast env(%+q) to int: %w", key, err)
+	}
+	return res, nil
 }
