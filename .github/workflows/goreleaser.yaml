@@ -30,7 +30,7 @@ jobs:
           version: latest
           args: release --clean
         env:
-          GITHUB_TOKEN: ${{ secrets.GORELEASER_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASES_TOKEN }}
           BREW_TAG_PUSHER_NAME: ${{ github.event.pusher.name }}
           BREW_TAG_PUSHER_EMAIL: ${{ github.event.pusher.email }}
           # Your GoReleaser Pro key, if you are using the 'goreleaser-pro' distribution
