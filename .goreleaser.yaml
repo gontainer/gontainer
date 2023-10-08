@@ -56,6 +56,7 @@ brews:
     commit_author:
       name: "{{ .Env.BREW_TAG_PUSHER_NAME }}"
       email: "{{ .Env.BREW_TAG_PUSHER_EMAIL }}"
+    commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
 
 checksum:
   name_template: 'checksums.txt'
