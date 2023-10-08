@@ -2,10 +2,10 @@
 
 {{define "container-constructor"}}
 	{{ $containerType := .Output.Meta.ContainerType }}
-	sc := {{ containerAlias }}.NewSuperContainer()
-	rootGontainer = &{{$containerType}}{
-		SuperContainer: sc,
+	sc := &{{$containerType}}{
+		SuperContainer: {{ containerAlias }}.NewSuperContainer(),
 	}
+	rootGontainer = sc
 
 	//
 	//
@@ -23,63 +23,15 @@
 	_ = dependencyProvider
 	newService := {{ containerAlias }}.NewService
 	_ = newService
-	concatenateChunks := func(first func() (interface{}, error), chunks ...func() (interface{}, error)) (string, error) {
-		r := ""
-		for _, p := range append([]func() (interface{}, error){first}, chunks...) {
-			chunk, err := p()
-			if err != nil {
-				return "", err
-			}
-			s, err := {{ exporterAlias }}.ToString(chunk)
-			if err != nil {
-				return "", err
-			}
-			r += s
-		}
-		return r, nil
-	}
+	concatenateChunks := sc._concatenateChunks
 	_ = concatenateChunks
-	paramTodo := func(params ...string) (interface{}, error) {
-		if len(params) > 0 {
-			return nil, {{ importAlias "errors" }}.New(params[0])
-		}
-			return nil, {{ importAlias "errors" }}.New("parameter todo")
-		}
+	paramTodo := sc._paramTodo
 	_ = paramTodo
-
-	const envVarDoesntExist = "environment variable %+q does not exist"
-
-	getEnv := func(key string, def ...string) (string, error) {
-		val, ok := {{ importAlias "os" }}.LookupEnv(key)
-		if !ok {
-			if len(def) > 0 {
-				return def[0], nil
-			}
-			return "", {{ importAlias "fmt" }}.Errorf(envVarDoesntExist, key)
-		}
-		return val, nil
-	}
+	getEnv := sc._getEnv
 	_ = getEnv
-
-	getEnvInt := func(key string, def ...int) (int, error) {
-		val, ok := {{ importAlias "os" }}.LookupEnv(key)
-		if !ok {
-			if len(def) > 0 {
-				return def[0], nil
-			}
-			return 0, {{ importAlias "fmt" }}.Errorf(envVarDoesntExist, key)
-		}
-		res, err := {{ importAlias "strconv" }}.Atoi(val)
-		if err != nil {
-			return 0, {{ importAlias "fmt" }}.Errorf("cannot cast env(%+q) to int: %w", key, err)
-		}
-		return res, nil
-	}
+	getEnvInt := sc._getEnvInt
 	_ = getEnvInt
-
-	getParam := func(n string) (interface{}, error) {
-		return sc.GetParam(n)
-	}
+	getParam := sc.GetParam
 	_ = getParam
 
 	{{ if .Output.Params }}
