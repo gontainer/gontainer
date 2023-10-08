@@ -55,8 +55,8 @@ brews:
     install: |-
       bin.install "gontainer"
     commit_author:
-      name: "{{ .Env.GIT_AUTHOR_NAME }}"
-      email: "{{ .Env.GIT_AUTHOR_EMAIL }}"
+      name: "{{ .Env.BREW_TAG_PUSHER_NAME }}"
+      email: "{{ .Env.BREW_TAG_PUSHER_EMAIL }}"
 
 checksum:
   name_template: 'checksums.txt'
