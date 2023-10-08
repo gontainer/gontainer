@@ -2,9 +2,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/gontainer/gontainer/badge.svg?branch=main)](https://coveralls.io/github/gontainer/gontainer?branch=main)
 [![Go Report Card](https://goreportcard.com/badge/github.com/gontainer/gontainer)](https://goreportcard.com/report/github.com/gontainer/gontainer)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=gontainer_gontainer&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=gontainer_gontainer)
-<br/>
-[![Mentioned in Awesome Go](https://awesome.re/mentioned-badge.svg)](https://github.com/avelino/awesome-go)
 [![Go Reference](https://pkg.go.dev/badge/github.com/gontainer/gontainer.svg)](https://pkg.go.dev/github.com/gontainer/gontainer)
+[![Mentioned in Awesome Go](https://awesome.re/mentioned-badge.svg)](https://github.com/avelino/awesome-go)
 
 # Gontainer
 
