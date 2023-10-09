@@ -2,7 +2,7 @@
 
 package gontainer
 
-// gontainer version: 0.5.0 dd9edec6fcf7443e89ba9395c3f63a18ed73eee0-clean (build date 2023-10-08T20:12:51Z)
+// gontainer version: 0.6.0 c2011e0bd3204234184b6aac4519c8289f33033e-clean (build date 2023-10-09T21:24:28Z)
 
 import (
 	id_errors "errors"
@@ -850,7 +850,7 @@ func (c *gontainer) _concatenateChunks(first func() (interface{}, error), chunks
 		if err != nil {
 			return "", err
 		}
-		s, err := ie_exporter.ToString(chunk)
+		s, err := ie_exporter.CastToString(chunk)
 		if err != nil {
 			return "", err
 		}
