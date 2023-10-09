@@ -53,7 +53,7 @@ func (c *{{$containerType}}) _concatenateChunks(first func() (interface{}, error
 		if err != nil {
 			return "", err
 		}
-		s, err := {{ exporterAlias }}.ToString(chunk)
+		s, err := {{ exporterAlias }}.CastToString(chunk)
 		if err != nil {
 			return "", err
 		}
