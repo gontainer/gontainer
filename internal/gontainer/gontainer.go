@@ -2,7 +2,7 @@
 
 package gontainer
 
-// gontainer version: 0.6.0 c2011e0bd3204234184b6aac4519c8289f33033e-clean (build date 2023-10-09T21:24:28Z)
+// gontainer version: 0.6.1 72f337a3531d016da3797555cdfaff14d091b8ef-clean (build date 2023-10-13T20:09:29Z)
 
 import (
 	id_errors "errors"
