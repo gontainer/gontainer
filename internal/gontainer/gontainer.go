@@ -2,13 +2,14 @@
 
 package gontainer
 
-// gontainer version: 0.6.1 72f337a3531d016da3797555cdfaff14d091b8ef-clean (build date 2023-10-13T20:09:29Z)
+// gontainer version: dev-gontainer-helpers@1.4 033aeed4f4c9521236c17b3e51b2f6f9e52b51d4-dirty (build date 2023-10-15T17:43:11Z)
 
 import (
-	id_errors "errors"
+	ie_context "context"
+	if_errors "errors"
 	i1_fmt "fmt"
-	if_os "os"
-	i10_strconv "strconv"
+	i11_os "os"
+	i12_strconv "strconv"
 
 	i9_runner "github.com/gontainer/gontainer/internal/cmd/runner"
 	i4_compiler "github.com/gontainer/gontainer/internal/pkg/compiler"
@@ -22,8 +23,9 @@ import (
 
 	i0_caller "github.com/gontainer/gontainer-helpers/caller"
 	ib_container "github.com/gontainer/gontainer-helpers/container"
+	id_copier "github.com/gontainer/gontainer-helpers/copier"
 	ic_errors "github.com/gontainer/gontainer-helpers/errors"
-	ie_exporter "github.com/gontainer/gontainer-helpers/exporter"
+	i10_exporter "github.com/gontainer/gontainer-helpers/exporter"
 )
 
 // ············································································
@@ -211,9 +213,33 @@ type gontainer struct {
 }
 
 func (c *gontainer) GetRunner() (result *i9_runner.Runner, err error) {
+	var s interface{}
+	s, err = c.Get("runner")
+	if err != nil {
+		return nil, ic_errors.PrefixedGroup(
+			i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetRunner"),
+			err,
+		)
+	}
 	err = ic_errors.PrefixedGroup(
 		i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetRunner"),
-		c.CopyServiceTo("runner", &result),
+		id_copier.ConvertAndCopy(s, &result),
+	)
+	return
+}
+
+func (c *gontainer) GetRunnerContext(ctx ie_context.Context) (result *i9_runner.Runner, err error) {
+	var s interface{}
+	s, err = c.GetWithContext(ctx, "runner")
+	if err != nil {
+		return nil, ic_errors.PrefixedGroup(
+			i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetRunner"),
+			err,
+		)
+	}
+	err = ic_errors.PrefixedGroup(
+		i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetRunner"),
+		id_copier.ConvertAndCopy(s, &result),
 	)
 	return
 }
@@ -226,10 +252,42 @@ func (c *gontainer) MustGetRunner() *i9_runner.Runner {
 	return r
 }
 
+func (c *gontainer) MustGetRunnerContext(ctx ie_context.Context) *i9_runner.Runner {
+	r, err := c.GetRunnerContext(ctx)
+	if err != nil {
+		panic(err.Error())
+	}
+	return r
+}
+
 func (c *gontainer) GetStepValidateParamsExist() (result *i9_runner.StepVerboseSwitchable, err error) {
+	var s interface{}
+	s, err = c.Get("stepOutputParamsExist")
+	if err != nil {
+		return nil, ic_errors.PrefixedGroup(
+			i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateParamsExist"),
+			err,
+		)
+	}
 	err = ic_errors.PrefixedGroup(
 		i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateParamsExist"),
-		c.CopyServiceTo("stepOutputParamsExist", &result),
+		id_copier.ConvertAndCopy(s, &result),
+	)
+	return
+}
+
+func (c *gontainer) GetStepValidateParamsExistContext(ctx ie_context.Context) (result *i9_runner.StepVerboseSwitchable, err error) {
+	var s interface{}
+	s, err = c.GetWithContext(ctx, "stepOutputParamsExist")
+	if err != nil {
+		return nil, ic_errors.PrefixedGroup(
+			i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateParamsExist"),
+			err,
+		)
+	}
+	err = ic_errors.PrefixedGroup(
+		i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateParamsExist"),
+		id_copier.ConvertAndCopy(s, &result),
 	)
 	return
 }
@@ -242,10 +300,42 @@ func (c *gontainer) MustGetStepValidateParamsExist() *i9_runner.StepVerboseSwitc
 	return r
 }
 
+func (c *gontainer) MustGetStepValidateParamsExistContext(ctx ie_context.Context) *i9_runner.StepVerboseSwitchable {
+	r, err := c.GetStepValidateParamsExistContext(ctx)
+	if err != nil {
+		panic(err.Error())
+	}
+	return r
+}
+
 func (c *gontainer) GetStepValidateServicesExist() (result *i9_runner.StepVerboseSwitchable, err error) {
+	var s interface{}
+	s, err = c.Get("stepOutputServicesExist")
+	if err != nil {
+		return nil, ic_errors.PrefixedGroup(
+			i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateServicesExist"),
+			err,
+		)
+	}
 	err = ic_errors.PrefixedGroup(
 		i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateServicesExist"),
-		c.CopyServiceTo("stepOutputServicesExist", &result),
+		id_copier.ConvertAndCopy(s, &result),
+	)
+	return
+}
+
+func (c *gontainer) GetStepValidateServicesExistContext(ctx ie_context.Context) (result *i9_runner.StepVerboseSwitchable, err error) {
+	var s interface{}
+	s, err = c.GetWithContext(ctx, "stepOutputServicesExist")
+	if err != nil {
+		return nil, ic_errors.PrefixedGroup(
+			i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateServicesExist"),
+			err,
+		)
+	}
+	err = ic_errors.PrefixedGroup(
+		i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateServicesExist"),
+		id_copier.ConvertAndCopy(s, &result),
 	)
 	return
 }
@@ -258,24 +348,36 @@ func (c *gontainer) MustGetStepValidateServicesExist() *i9_runner.StepVerboseSwi
 	return r
 }
 
+func (c *gontainer) MustGetStepValidateServicesExistContext(ctx ie_context.Context) *i9_runner.StepVerboseSwitchable {
+	r, err := c.GetStepValidateServicesExistContext(ctx)
+	if err != nil {
+		panic(err.Error())
+	}
+	return r
+}
+
 func New() (rootGontainer interface {
 	// service container
 	Get(serviceID string) (interface{}, error)
+	GetWithContext(ctx ie_context.Context, serviceID string) (interface{}, error)
 	CircularDeps() error
 	OverrideService(serviceID string, s ib_container.Service)
 	AddDecorator(tag string, decorator interface{}, deps ...ib_container.Dependency)
 	IsTaggedBy(serviceID string, tag string) bool
 	GetTaggedBy(tag string) ([]interface{}, error)
-	CopyServiceTo(serviceID string, dst interface{}) error
+	GetTaggedByWithContext(ctx ie_context.Context, tag string) ([]interface{}, error)
 	// param container
 	GetParam(paramID string) (interface{}, error)
 	OverrideParam(paramID string, d ib_container.Dependency)
 	// getters
 	GetRunner() (*i9_runner.Runner, error)
+	GetRunnerContext(ctx ie_context.Context) (*i9_runner.Runner, error)
 	MustGetRunner() *i9_runner.Runner
 	GetStepValidateParamsExist() (*i9_runner.StepVerboseSwitchable, error)
+	GetStepValidateParamsExistContext(ctx ie_context.Context) (*i9_runner.StepVerboseSwitchable, error)
 	MustGetStepValidateParamsExist() *i9_runner.StepVerboseSwitchable
 	GetStepValidateServicesExist() (*i9_runner.StepVerboseSwitchable, error)
+	GetStepValidateServicesExistContext(ctx ie_context.Context) (*i9_runner.StepVerboseSwitchable, error)
 	MustGetStepValidateServicesExist() *i9_runner.StepVerboseSwitchable
 }) {
 	sc := &gontainer{
@@ -824,7 +926,7 @@ func New() (rootGontainer interface {
 	// "writer"
 	{
 		s := newService()
-		s.SetConstructor(func() (interface{}, error) { return nil, id_errors.New("service todo") })
+		s.SetConstructor(func() (interface{}, error) { return nil, if_errors.New("service todo") })
 		sc.OverrideService("writer", s)
 	}
 	//
@@ -850,7 +952,7 @@ func (c *gontainer) _concatenateChunks(first func() (interface{}, error), chunks
 		if err != nil {
 			return "", err
 		}
-		s, err := ie_exporter.CastToString(chunk)
+		s, err := i10_exporter.CastToString(chunk)
 		if err != nil {
 			return "", err
 		}
@@ -862,14 +964,14 @@ func (c *gontainer) _concatenateChunks(first func() (interface{}, error), chunks
 // Deprecated: do not use it, only for internal purposes, that method can be changed at any time
 func (c *gontainer) _paramTodo(params ...string) (interface{}, error) {
 	if len(params) > 0 {
-		return nil, id_errors.New(params[0])
+		return nil, if_errors.New(params[0])
 	}
-	return nil, id_errors.New("parameter todo")
+	return nil, if_errors.New("parameter todo")
 }
 
 // Deprecated: do not use it, only for internal purposes, that method can be changed at any time
 func (c *gontainer) _getEnv(key string, def ...string) (string, error) {
-	val, ok := if_os.LookupEnv(key)
+	val, ok := i11_os.LookupEnv(key)
 	if !ok {
 		if len(def) > 0 {
 			return def[0], nil
@@ -881,14 +983,14 @@ func (c *gontainer) _getEnv(key string, def ...string) (string, error) {
 
 // Deprecated: do not use it, only for internal purposes, that method can be changed at any time
 func (c *gontainer) _getEnvInt(key string, def ...int) (int, error) {
-	val, ok := if_os.LookupEnv(key)
+	val, ok := i11_os.LookupEnv(key)
 	if !ok {
 		if len(def) > 0 {
 			return def[0], nil
 		}
 		return 0, i1_fmt.Errorf("environment variable %+q does not exist", key)
 	}
-	res, err := i10_strconv.Atoi(val)
+	res, err := i12_strconv.Atoi(val)
 	if err != nil {
 		return 0, i1_fmt.Errorf("cannot cast env(%+q) to int: %w", key, err)
 	}

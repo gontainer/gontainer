@@ -107,10 +107,16 @@ func ValidateServiceGetter(s Service) error {
 	if reservedGetters[*s.Getter] {
 		return fmt.Errorf("getter: %+q is reserved", *s.Getter)
 	}
+
+	var errs []error
 	if strings.HasPrefix(*s.Getter, "Must") {
-		return errors.New(`getter: prefix "Must" is not allowed`)
+		errs = append(errs, errors.New(`getter: prefix "Must" is not allowed`))
 	}
-	return validateRegexField("getter", *s.Getter, regexServiceGetter)
+	if strings.HasSuffix(*s.Getter, "Context") {
+		errs = append(errs, errors.New(`getter: suffix "Context" is not allowed`))
+	}
+	errs = append(errs, validateRegexField("getter", *s.Getter, regexServiceGetter))
+	return errors.Group(errs...)
 }
 
 func ValidateServiceType(s Service) error {

@@ -16,12 +16,13 @@ type {{$containerType}} struct {
 func {{ .Output.Meta.ContainerConstructor }}() ({{ if not .Stub}}rootGontainer{{end}} interface{
 	// service container
 	Get(serviceID string) (interface{}, error)
+	GetWithContext(ctx {{importAlias "context"}}.Context, serviceID string) (interface{}, error)
 	CircularDeps() error
 	OverrideService(serviceID string, s {{ containerAlias }}.Service)
 	AddDecorator(tag string, decorator interface{}, deps ...{{ containerAlias }}.Dependency)
 	IsTaggedBy(serviceID string, tag string) bool
 	GetTaggedBy(tag string) ([]interface{}, error)
-	CopyServiceTo(serviceID string, dst interface{}) error
+	GetTaggedByWithContext(ctx {{importAlias "context"}}.Context, tag string) ([]interface{}, error)
 
 	// param container
 	GetParam(paramID string) (interface{}, error)
@@ -31,6 +32,7 @@ func {{ .Output.Meta.ContainerConstructor }}() ({{ if not .Stub}}rootGontainer{{
 {{ range $service := .Output.Services }}
 	{{ if ne $service.Getter "" }}
 		{{ $service.Getter }}() ({{ $service.Type }}, error)
+		{{ $service.Getter }}Context(ctx {{ importAlias "context" }}.Context) ({{ $service.Type }}, error)
 		{{ if $service.MustGetter }}
 			Must{{ $service.Getter }}() {{ $service.Type }}
 		{{end}}
