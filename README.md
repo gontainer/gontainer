@@ -166,7 +166,6 @@ func New() *gontainer {
 
    return sc
 }
-
 ```
 </details>
 
