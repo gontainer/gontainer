@@ -2,7 +2,7 @@
 
 package gontainer
 
-// gontainer version: dev-gontainer-helpers@1.4 04082d79974ea6df7541b635805532b8ba9d3ced-dirty (build date 2023-10-15T20:20:19Z)
+// gontainer version: dev-gontainer-helpers@1.4 7210e157cd296cf59e51d89f01803d9126f6177b-dirty (build date 2023-10-15T20:22:32Z)
 
 import (
 	ie_context "context"
@@ -230,7 +230,7 @@ func (c *gontainer) GetRunner() (result *i9_runner.Runner, err error) {
 
 func (c *gontainer) GetRunnerContext(ctx ie_context.Context) (result *i9_runner.Runner, err error) {
 	var s interface{}
-	s, err = c.GetWithContext(ctx, "runner")
+	s, err = c.GetInContext(ctx, "runner")
 	if err != nil {
 		return nil, ic_errors.PrefixedGroup(
 			i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetRunner"),
@@ -278,7 +278,7 @@ func (c *gontainer) GetStepValidateParamsExist() (result *i9_runner.StepVerboseS
 
 func (c *gontainer) GetStepValidateParamsExistContext(ctx ie_context.Context) (result *i9_runner.StepVerboseSwitchable, err error) {
 	var s interface{}
-	s, err = c.GetWithContext(ctx, "stepOutputParamsExist")
+	s, err = c.GetInContext(ctx, "stepOutputParamsExist")
 	if err != nil {
 		return nil, ic_errors.PrefixedGroup(
 			i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateParamsExist"),
@@ -326,7 +326,7 @@ func (c *gontainer) GetStepValidateServicesExist() (result *i9_runner.StepVerbos
 
 func (c *gontainer) GetStepValidateServicesExistContext(ctx ie_context.Context) (result *i9_runner.StepVerboseSwitchable, err error) {
 	var s interface{}
-	s, err = c.GetWithContext(ctx, "stepOutputServicesExist")
+	s, err = c.GetInContext(ctx, "stepOutputServicesExist")
 	if err != nil {
 		return nil, ic_errors.PrefixedGroup(
 			i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateServicesExist"),
