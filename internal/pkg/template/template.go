@@ -115,6 +115,9 @@ func createDefaultFunctions(a aliaser, o output.Output) template.FuncMap {
 		"exporterAlias": func() string {
 			return a.Alias(consts.GontainerHelperPath + "/exporter")
 		},
+		"copierAlias": func() string {
+			return a.Alias(consts.GontainerHelperPath + "/copier")
+		},
 		"isTagged": func(id string, tag string) bool {
 			_, ok := tagsServices[tag][id]
 			return ok

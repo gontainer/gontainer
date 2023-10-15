@@ -114,6 +114,7 @@ import (
    "os"
 
    "github.com/gontainer/gontainer-helpers/container"
+   "github.com/gontainer/gontainer-helpers/copier"
    "github.com/user/repo/pkg"
 )
 
@@ -122,9 +123,12 @@ type gontainer struct {
 }
 
 func (g *gontainer) MustGetServer() (r *http.Server) {
-   err := g.CopyServiceTo("server", &r)
+   raw, err := g.Get("server")
    if err != nil {
       panic(err)
+   }
+   if err := copier.ConvertAndCopy(raw, &r); err != nil {
+	   panic(err)
    }
    return
 }
@@ -162,7 +166,6 @@ func New() *gontainer {
 
    return sc
 }
-
 ```
 </details>
 
