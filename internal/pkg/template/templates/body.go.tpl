@@ -13,6 +13,20 @@ type {{$containerType}} struct {
 
 {{template "container-getters" .}}
 
+{{/*
+	TODO add a checker whether the generated type implements the given interface, e.g.:
+
+	func init() {
+		var x interface {
+			Get(serviceID string) (interface{}, error)
+			// ...
+		}
+		var y *gontainer
+		x = y
+		_ = x
+	}
+*/}}
+
 // *{{$containerType}} implements:
 type _ interface {
 	// service container
