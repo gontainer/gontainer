@@ -34,12 +34,12 @@
                 s, err = c.GetInContext(ctx, {{export $service.Name}})
                 if err != nil {
                     return nil, {{ errorsAlias }}.PrefixedGroup(
-                        {{ importAlias "fmt" }}.Sprintf("%s.%s(): ", {{export $containerType}}, {{export $service.Getter}}),
+                        {{ importAlias "fmt" }}.Sprintf("%s.%sInContext(): ", {{export $containerType}}, {{export $service.Getter}}),
                         err,
                     )
                 }
                 err = {{ errorsAlias }}.PrefixedGroup(
-                    {{ importAlias "fmt" }}.Sprintf("%s.%s(): ", {{export $containerType}}, {{export $service.Getter}}),
+                    {{ importAlias "fmt" }}.Sprintf("%s.%sInContext(): ", {{export $containerType}}, {{export $service.Getter}}),
                     {{copierAlias}}.ConvertAndCopy(s, &result),
                 )
                 return
