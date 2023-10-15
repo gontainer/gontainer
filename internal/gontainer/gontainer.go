@@ -2,7 +2,7 @@
 
 package gontainer
 
-// gontainer version: dev-gontainer-helpers@1.4 033aeed4f4c9521236c17b3e51b2f6f9e52b51d4-dirty (build date 2023-10-15T17:43:11Z)
+// gontainer version: dev-gontainer-helpers@1.4 5b717a2a4ce7f16a94edf4c1e645d49ca3d682da-dirty (build date 2023-10-15T19:46:04Z)
 
 import (
 	ie_context "context"
@@ -356,7 +356,8 @@ func (c *gontainer) MustGetStepValidateServicesExistContext(ctx ie_context.Conte
 	return r
 }
 
-func New() (rootGontainer interface {
+// *gontainer implements:
+type _ interface {
 	// service container
 	Get(serviceID string) (interface{}, error)
 	GetWithContext(ctx ie_context.Context, serviceID string) (interface{}, error)
@@ -379,7 +380,9 @@ func New() (rootGontainer interface {
 	GetStepValidateServicesExist() (*i9_runner.StepVerboseSwitchable, error)
 	GetStepValidateServicesExistContext(ctx ie_context.Context) (*i9_runner.StepVerboseSwitchable, error)
 	MustGetStepValidateServicesExist() *i9_runner.StepVerboseSwitchable
-}) {
+}
+
+func New() (rootGontainer *gontainer) {
 	sc := &gontainer{
 		SuperContainer: ib_container.NewSuperContainer(),
 	}

@@ -13,7 +13,8 @@ type {{$containerType}} struct {
 
 {{template "container-getters" .}}
 
-func {{ .Output.Meta.ContainerConstructor }}() ({{ if not .Stub}}rootGontainer{{end}} interface{
+// *{{$containerType}} implements:
+type _ interface {
 	// service container
 	Get(serviceID string) (interface{}, error)
 	GetWithContext(ctx {{importAlias "context"}}.Context, serviceID string) (interface{}, error)
@@ -29,16 +30,16 @@ func {{ .Output.Meta.ContainerConstructor }}() ({{ if not .Stub}}rootGontainer{{
 	OverrideParam(paramID string, d {{ containerAlias }}.Dependency)
 
 	// getters
-{{ range $service := .Output.Services }}
-	{{ if ne $service.Getter "" }}
-		{{ $service.Getter }}() ({{ $service.Type }}, error)
-		{{ $service.Getter }}Context(ctx {{ importAlias "context" }}.Context) ({{ $service.Type }}, error)
-		{{ if $service.MustGetter }}
-			Must{{ $service.Getter }}() {{ $service.Type }}
-		{{end}}
-	{{ end }}
-{{end}}
-}) {
+	{{ range $service := .Output.Services }}
+		{{ if ne $service.Getter "" }}
+			{{ $service.Getter }}() ({{ $service.Type }}, error)
+			{{ $service.Getter }}Context(ctx {{ importAlias "context" }}.Context) ({{ $service.Type }}, error)
+			{{ if $service.MustGetter }}Must{{ $service.Getter }}() {{ $service.Type }}{{end}}
+		{{ end }}
+	{{end}}
+}
+
+func {{ .Output.Meta.ContainerConstructor }}() ({{ if not .Stub}}rootGontainer{{end}} *{{$containerType}}) {
 	{{- if .Stub }}
 		panic("stub")
 	{{- else }}
