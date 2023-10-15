@@ -43,12 +43,12 @@ func TestValidateServices(t *testing.T) {
 				},
 				"ctx": {
 					Constructor: ptr.New("NewContext"),
-					Getter:      ptr.New("MustGetContext"),
+					Getter:      ptr.New("MustGetContextInContext"),
 				},
 			},
 			Errors: []string{
 				`services: "ctx": getter: prefix "Must" is not allowed`,
-				`services: "ctx": getter: suffix "Context" is not allowed`,
+				`services: "ctx": getter: suffix "InContext" is not allowed`,
 				`services: "data base": invalid name`,
 				`services: "data base": constructor: invalid "New DB"`,
 				`services: "data base": getter: "GetParam" is reserved`,

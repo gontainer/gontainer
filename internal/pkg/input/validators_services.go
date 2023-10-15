@@ -112,8 +112,8 @@ func ValidateServiceGetter(s Service) error {
 	if strings.HasPrefix(*s.Getter, "Must") {
 		errs = append(errs, errors.New(`getter: prefix "Must" is not allowed`))
 	}
-	if strings.HasSuffix(*s.Getter, "Context") {
-		errs = append(errs, errors.New(`getter: suffix "Context" is not allowed`))
+	if strings.HasSuffix(*s.Getter, "InContext") {
+		errs = append(errs, errors.New(`getter: suffix "InContext" is not allowed`))
 	}
 	errs = append(errs, validateRegexField("getter", *s.Getter, regexServiceGetter))
 	return errors.Group(errs...)

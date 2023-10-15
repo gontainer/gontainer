@@ -2,7 +2,7 @@
 
 package gontainer
 
-// gontainer version: dev-gontainer-helpers@1.4 1770e199b2da49e0ba1db77ee23d7b36b5e0e3ad-dirty (build date 2023-10-15T19:53:56Z)
+// gontainer version: dev-gontainer-helpers@1.4 04082d79974ea6df7541b635805532b8ba9d3ced-dirty (build date 2023-10-15T20:20:19Z)
 
 import (
 	ie_context "context"
@@ -360,29 +360,29 @@ func (c *gontainer) MustGetStepValidateServicesExistContext(ctx ie_context.Conte
 type _ interface {
 	// service container
 	Get(serviceID string) (interface{}, error)
-	GetWithContext(ctx ie_context.Context, serviceID string) (interface{}, error)
+	GetInContext(ctx ie_context.Context, serviceID string) (interface{}, error)
 	CircularDeps() error
 	OverrideService(serviceID string, s ib_container.Service)
 	AddDecorator(tag string, decorator interface{}, deps ...ib_container.Dependency)
 	IsTaggedBy(serviceID string, tag string) bool
 	GetTaggedBy(tag string) ([]interface{}, error)
-	GetTaggedByWithContext(ctx ie_context.Context, tag string) ([]interface{}, error)
+	GetTaggedByInContext(ctx ie_context.Context, tag string) ([]interface{}, error)
 	// param container
 	GetParam(paramID string) (interface{}, error)
 	OverrideParam(paramID string, d ib_container.Dependency)
 	// getters
 	GetRunner() (*i9_runner.Runner, error)
-	GetRunnerContext(ctx ie_context.Context) (*i9_runner.Runner, error)
+	GetRunnerInContext(ctx ie_context.Context) (*i9_runner.Runner, error)
 	MustGetRunner() *i9_runner.Runner
-	MustGetRunnerContext(ctx ie_context.Context) *i9_runner.Runner
+	MustGetRunnerInContext(ctx ie_context.Context) *i9_runner.Runner
 	GetStepValidateParamsExist() (*i9_runner.StepVerboseSwitchable, error)
-	GetStepValidateParamsExistContext(ctx ie_context.Context) (*i9_runner.StepVerboseSwitchable, error)
+	GetStepValidateParamsExistInContext(ctx ie_context.Context) (*i9_runner.StepVerboseSwitchable, error)
 	MustGetStepValidateParamsExist() *i9_runner.StepVerboseSwitchable
-	MustGetStepValidateParamsExistContext(ctx ie_context.Context) *i9_runner.StepVerboseSwitchable
+	MustGetStepValidateParamsExistInContext(ctx ie_context.Context) *i9_runner.StepVerboseSwitchable
 	GetStepValidateServicesExist() (*i9_runner.StepVerboseSwitchable, error)
-	GetStepValidateServicesExistContext(ctx ie_context.Context) (*i9_runner.StepVerboseSwitchable, error)
+	GetStepValidateServicesExistInContext(ctx ie_context.Context) (*i9_runner.StepVerboseSwitchable, error)
 	MustGetStepValidateServicesExist() *i9_runner.StepVerboseSwitchable
-	MustGetStepValidateServicesExistContext(ctx ie_context.Context) *i9_runner.StepVerboseSwitchable
+	MustGetStepValidateServicesExistInContext(ctx ie_context.Context) *i9_runner.StepVerboseSwitchable
 }
 
 func New() (rootGontainer *gontainer) {
