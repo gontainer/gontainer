@@ -26,7 +26,7 @@
 			{{- end }}
         }
 
-		func (c *{{$containerType}}) {{ $service.Getter }}Context(ctx {{ importAlias "context" }}.Context) ({{ if not $stub }}result{{end}} {{ $service.Type }}, {{ if not $stub }}err{{ end }} error) {
+		func (c *{{$containerType}}) {{ $service.Getter }}InContext(ctx {{ importAlias "context" }}.Context) ({{ if not $stub }}result{{end}} {{ $service.Type }}, {{ if not $stub }}err{{ end }} error) {
 			{{- if $stub }}
 			    panic("stub")
 			{{- else }}
@@ -59,11 +59,11 @@
                 {{- end }}
             }
 
-            func (c *{{$containerType}}) Must{{ $service.Getter }}Context(ctx {{ importAlias "context" }}.Context) {{ $service.Type }} {
+            func (c *{{$containerType}}) Must{{ $service.Getter }}InContext(ctx {{ importAlias "context" }}.Context) {{ $service.Type }} {
                 {{- if $stub }}
                     panic("stub")
                 {{- else }}
-                    r, err := c.{{ $service.Getter }}Context(ctx)
+                    r, err := c.{{ $service.Getter }}InContext(ctx)
 					if err != nil {
 						panic(err.Error())
 					}

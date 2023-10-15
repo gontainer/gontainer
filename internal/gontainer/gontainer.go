@@ -2,7 +2,7 @@
 
 package gontainer
 
-// gontainer version: dev-gontainer-helpers@1.4 7210e157cd296cf59e51d89f01803d9126f6177b-dirty (build date 2023-10-15T20:22:32Z)
+// gontainer version: dev-gontainer-helpers@1.4 9ee1dfd0637dd58f650239ed7807d63c4440ad52-dirty (build date 2023-10-15T20:30:25Z)
 
 import (
 	ie_context "context"
@@ -228,7 +228,7 @@ func (c *gontainer) GetRunner() (result *i9_runner.Runner, err error) {
 	return
 }
 
-func (c *gontainer) GetRunnerContext(ctx ie_context.Context) (result *i9_runner.Runner, err error) {
+func (c *gontainer) GetRunnerInContext(ctx ie_context.Context) (result *i9_runner.Runner, err error) {
 	var s interface{}
 	s, err = c.GetInContext(ctx, "runner")
 	if err != nil {
@@ -252,8 +252,8 @@ func (c *gontainer) MustGetRunner() *i9_runner.Runner {
 	return r
 }
 
-func (c *gontainer) MustGetRunnerContext(ctx ie_context.Context) *i9_runner.Runner {
-	r, err := c.GetRunnerContext(ctx)
+func (c *gontainer) MustGetRunnerInContext(ctx ie_context.Context) *i9_runner.Runner {
+	r, err := c.GetRunnerInContext(ctx)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -276,7 +276,7 @@ func (c *gontainer) GetStepValidateParamsExist() (result *i9_runner.StepVerboseS
 	return
 }
 
-func (c *gontainer) GetStepValidateParamsExistContext(ctx ie_context.Context) (result *i9_runner.StepVerboseSwitchable, err error) {
+func (c *gontainer) GetStepValidateParamsExistInContext(ctx ie_context.Context) (result *i9_runner.StepVerboseSwitchable, err error) {
 	var s interface{}
 	s, err = c.GetInContext(ctx, "stepOutputParamsExist")
 	if err != nil {
@@ -300,8 +300,8 @@ func (c *gontainer) MustGetStepValidateParamsExist() *i9_runner.StepVerboseSwitc
 	return r
 }
 
-func (c *gontainer) MustGetStepValidateParamsExistContext(ctx ie_context.Context) *i9_runner.StepVerboseSwitchable {
-	r, err := c.GetStepValidateParamsExistContext(ctx)
+func (c *gontainer) MustGetStepValidateParamsExistInContext(ctx ie_context.Context) *i9_runner.StepVerboseSwitchable {
+	r, err := c.GetStepValidateParamsExistInContext(ctx)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -324,7 +324,7 @@ func (c *gontainer) GetStepValidateServicesExist() (result *i9_runner.StepVerbos
 	return
 }
 
-func (c *gontainer) GetStepValidateServicesExistContext(ctx ie_context.Context) (result *i9_runner.StepVerboseSwitchable, err error) {
+func (c *gontainer) GetStepValidateServicesExistInContext(ctx ie_context.Context) (result *i9_runner.StepVerboseSwitchable, err error) {
 	var s interface{}
 	s, err = c.GetInContext(ctx, "stepOutputServicesExist")
 	if err != nil {
@@ -348,8 +348,8 @@ func (c *gontainer) MustGetStepValidateServicesExist() *i9_runner.StepVerboseSwi
 	return r
 }
 
-func (c *gontainer) MustGetStepValidateServicesExistContext(ctx ie_context.Context) *i9_runner.StepVerboseSwitchable {
-	r, err := c.GetStepValidateServicesExistContext(ctx)
+func (c *gontainer) MustGetStepValidateServicesExistInContext(ctx ie_context.Context) *i9_runner.StepVerboseSwitchable {
+	r, err := c.GetStepValidateServicesExistInContext(ctx)
 	if err != nil {
 		panic(err.Error())
 	}
