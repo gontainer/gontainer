@@ -5,20 +5,22 @@ and contains additional getters defined in the provided configuration.
 
 ```go
 import (
+	"context"
+	
     "github.com/gontainer/gontainer-helpers/container"
 )
 
 type Container interface {
-    // services
-    Get(serviceID string) (result interface{}, err error)
+    // service container
+    Get(serviceID string) (interface{}, error)
+    GetWithContext(ctx context.Context, serviceID string) (interface{}, error)
     CircularDeps() error
-    OverrideService(serviceID string, service container.Service)
+    OverrideService(serviceID string, s container.Service)
     AddDecorator(tag string, decorator interface{}, deps ...container.Dependency)
     IsTaggedBy(serviceID string, tag string) bool
     GetTaggedBy(tag string) ([]interface{}, error)
-    CopyServiceTo(serviceID string, dst interface{}) error
-
-    // params
+    GetTaggedByWithContext(ctx context.Context, tag string) ([]interface{}, error)
+    // param container
     GetParam(paramID string) (interface{}, error)
     OverrideParam(paramID string, d container.Dependency)
 }
