@@ -11,7 +11,7 @@ import (
 )
 
 type Container interface {
-    // service container
+    // services
     Get(serviceID string) (interface{}, error)
     GetWithContext(ctx context.Context, serviceID string) (interface{}, error)
     CircularDeps() error
@@ -20,7 +20,7 @@ type Container interface {
     IsTaggedBy(serviceID string, tag string) bool
     GetTaggedBy(tag string) ([]interface{}, error)
     GetTaggedByWithContext(ctx context.Context, tag string) ([]interface{}, error)
-    // param container
+    // params
     GetParam(paramID string) (interface{}, error)
     OverrideParam(paramID string, d container.Dependency)
 }
