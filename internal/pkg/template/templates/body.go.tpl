@@ -34,7 +34,10 @@ type _ interface {
 		{{ if ne $service.Getter "" }}
 			{{ $service.Getter }}() ({{ $service.Type }}, error)
 			{{ $service.Getter }}Context(ctx {{ importAlias "context" }}.Context) ({{ $service.Type }}, error)
-			{{ if $service.MustGetter }}Must{{ $service.Getter }}() {{ $service.Type }}{{end}}
+			{{ if $service.MustGetter }}
+				Must{{ $service.Getter }}() {{ $service.Type }}
+				Must{{ $service.Getter }}Context(ctx {{ importAlias "context" }}.Context) {{ $service.Type }}
+			{{end}}
 		{{ end }}
 	{{end}}
 }

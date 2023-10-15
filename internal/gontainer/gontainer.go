@@ -2,7 +2,7 @@
 
 package gontainer
 
-// gontainer version: dev-gontainer-helpers@1.4 5b717a2a4ce7f16a94edf4c1e645d49ca3d682da-dirty (build date 2023-10-15T19:46:04Z)
+// gontainer version: dev-gontainer-helpers@1.4 1770e199b2da49e0ba1db77ee23d7b36b5e0e3ad-dirty (build date 2023-10-15T19:53:56Z)
 
 import (
 	ie_context "context"
@@ -374,12 +374,15 @@ type _ interface {
 	GetRunner() (*i9_runner.Runner, error)
 	GetRunnerContext(ctx ie_context.Context) (*i9_runner.Runner, error)
 	MustGetRunner() *i9_runner.Runner
+	MustGetRunnerContext(ctx ie_context.Context) *i9_runner.Runner
 	GetStepValidateParamsExist() (*i9_runner.StepVerboseSwitchable, error)
 	GetStepValidateParamsExistContext(ctx ie_context.Context) (*i9_runner.StepVerboseSwitchable, error)
 	MustGetStepValidateParamsExist() *i9_runner.StepVerboseSwitchable
+	MustGetStepValidateParamsExistContext(ctx ie_context.Context) *i9_runner.StepVerboseSwitchable
 	GetStepValidateServicesExist() (*i9_runner.StepVerboseSwitchable, error)
 	GetStepValidateServicesExistContext(ctx ie_context.Context) (*i9_runner.StepVerboseSwitchable, error)
 	MustGetStepValidateServicesExist() *i9_runner.StepVerboseSwitchable
+	MustGetStepValidateServicesExistContext(ctx ie_context.Context) *i9_runner.StepVerboseSwitchable
 }
 
 func New() (rootGontainer *gontainer) {
