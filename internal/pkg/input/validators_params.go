@@ -3,7 +3,7 @@ package input
 import (
 	"fmt"
 
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/maps"
 	"github.com/gontainer/gontainer/internal/pkg/regex"
 	"github.com/gontainer/gontainer/internal/pkg/types"
@@ -33,5 +33,5 @@ func ValidateParams(i Input) error {
 			errs = append(errs, newErrUnsupportedType(fmt.Sprintf("%+q", n), v))
 		}
 	}
-	return errors.PrefixedGroup("parameters: ", errs...)
+	return grouperror.Prefix("parameters: ", errs...)
 }

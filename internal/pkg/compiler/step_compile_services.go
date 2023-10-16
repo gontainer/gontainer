@@ -1,9 +1,10 @@
 package compiler
 
 import (
+	"errors"
 	"fmt"
 
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/input"
 	"github.com/gontainer/gontainer/internal/pkg/maps"
 	"github.com/gontainer/gontainer/internal/pkg/output"
@@ -35,7 +36,7 @@ func (s StepCompileServices) Process(i input.Input, o *output.Output) error {
 		errs = append(errs, err)
 	})
 	s.processScopes(i, o)
-	return errors.PrefixedGroup("compiler.StepCompileServices: ", errs...)
+	return grouperror.Prefix("compiler.StepCompileServices: ", errs...)
 }
 
 // processScopes computes the proper scope for services. When the scope is not defined,
@@ -98,7 +99,7 @@ func (s StepCompileServices) processService(name string, i input.Input) (o outpu
 		Fields:      fields,
 		Tags:        s.serviceTags(svc.Tags),
 		Todo:        false,
-	}, errors.PrefixedGroup(fmt.Sprintf("%+q: ", name), errs...)
+	}, grouperror.Prefix(fmt.Sprintf("%+q: ", name), errs...)
 }
 
 func (s StepCompileServices) getter(svc input.Service, m input.Meta) (getter string, mustGetter bool, err error) {
@@ -155,7 +156,7 @@ func (s StepCompileServices) serviceCalls(calls []input.Call) (r []output.Call, 
 
 	for i, call := range calls {
 		args, err := resolveArgs(s.argResolver, call.Args)
-		errs = append(errs, errors.PrefixedGroup(fmt.Sprintf("%d: ", i), err))
+		errs = append(errs, grouperror.Prefix(fmt.Sprintf("%d: ", i), err))
 		r[i] = output.Call{
 			Method:    call.Method,
 			Args:      args,
@@ -163,7 +164,7 @@ func (s StepCompileServices) serviceCalls(calls []input.Call) (r []output.Call, 
 		}
 	}
 
-	return r, errors.PrefixedGroup("calls: ", errs...)
+	return r, grouperror.Prefix("calls: ", errs...)
 }
 
 func (s StepCompileServices) serviceFields(fields map[string]any) (r []output.Field, _ error) {
@@ -175,10 +176,10 @@ func (s StepCompileServices) serviceFields(fields map[string]any) (r []output.Fi
 			Value: argExprToArg(arg),
 		})
 		if err != nil {
-			errs = append(errs, errors.PrefixedGroup(fmt.Sprintf("%+q: ", n), err))
+			errs = append(errs, grouperror.Prefix(fmt.Sprintf("%+q: ", n), err))
 		}
 	})
-	return r, errors.PrefixedGroup("fields: ", errs...)
+	return r, grouperror.Prefix("fields: ", errs...)
 }
 
 func (s StepCompileServices) serviceTags(tags []input.Tag) (r []output.Tag) {

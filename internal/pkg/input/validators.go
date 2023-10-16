@@ -1,7 +1,7 @@
 package input
 
 import (
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 )
 
 type ValidateFn func(Input) error
@@ -21,7 +21,7 @@ func (v Validator) Validate(m Input) error {
 			errs = append(errs, err)
 		}
 	}
-	return errors.Group(errs...)
+	return grouperror.Join(errs...)
 }
 
 // NewDefaultValidator expects a version that follows semver schema without the leading "v".

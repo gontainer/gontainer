@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 )
 
 type argResolver interface {
@@ -40,7 +40,7 @@ func (p ParamResolver) ResolveParam(i any) (ParamExpr, error) {
 		)
 	}
 	if len(errs) > 0 {
-		return ParamExpr{}, errors.Group(errs...)
+		return ParamExpr{}, grouperror.Join(errs...)
 	}
 	return ParamExpr{
 		Code:            a.Code,

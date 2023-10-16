@@ -3,7 +3,7 @@ package compiler
 import (
 	"fmt"
 
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/input"
 	"github.com/gontainer/gontainer/internal/pkg/output"
 	"github.com/gontainer/gontainer/internal/pkg/regex"
@@ -31,10 +31,10 @@ func (s StepCompileDecorators) Process(i input.Input, d *output.Output) error {
 	d.Decorators = make([]output.Decorator, len(i.Decorators))
 	for j, curr := range i.Decorators {
 		dec, err := s.processDecorator(curr)
-		errs[j] = errors.PrefixedGroup(fmt.Sprintf("#%d %+q: ", j, curr.Decorator), err)
+		errs[j] = grouperror.Prefix(fmt.Sprintf("#%d %+q: ", j, curr.Decorator), err)
 		d.Decorators[j] = dec
 	}
-	return errors.PrefixedGroup("compiler.StepCompileDecorators: ", errs...)
+	return grouperror.Prefix("compiler.StepCompileDecorators: ", errs...)
 }
 
 func (s StepCompileDecorators) processDecorator(d input.Decorator) (output.Decorator, error) {

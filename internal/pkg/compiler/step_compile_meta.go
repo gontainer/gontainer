@@ -1,7 +1,7 @@
 package compiler
 
 import (
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/input"
 	"github.com/gontainer/gontainer/internal/pkg/maps"
 	"github.com/gontainer/gontainer/internal/pkg/output"
@@ -33,7 +33,7 @@ func (s *StepCompileMeta) Process(i input.Input, d *output.Output) error {
 	d.Meta.ContainerConstructor = ptr.Dereference(i.Meta.ContainerConstructor, defaultMetaContainerConstructor)
 	errs = append(errs, s.handleImports(i.Meta.Imports))
 	s.handleFunctions(i.Meta.Functions)
-	return errors.PrefixedGroup("compiler.StepCompileMeta: ", errs...)
+	return grouperror.Prefix("compiler.StepCompileMeta: ", errs...)
 }
 
 func (s *StepCompileMeta) handleImports(imports map[string]string) error {
@@ -41,7 +41,7 @@ func (s *StepCompileMeta) handleImports(imports map[string]string) error {
 	maps.Iterate(imports, func(alias string, import_ string) {
 		errs = append(errs, s.aliasRegisterer.RegisterPrefixAlias(alias, import_))
 	})
-	return errors.PrefixedGroup("imports: ", errs...)
+	return grouperror.Prefix("imports: ", errs...)
 }
 
 func (s *StepCompileMeta) handleFunctions(fns map[string]string) {

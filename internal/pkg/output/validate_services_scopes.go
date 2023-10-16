@@ -3,7 +3,7 @@ package output
 import (
 	"fmt"
 
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/maps"
 )
 
@@ -37,5 +37,5 @@ func ValidateServicesScopes(o Output) error {
 		}
 	})
 
-	return errors.PrefixedGroup("output.ValidateServicesScopes: ", errs...)
+	return grouperror.Prefix("output.ValidateServicesScopes: ", errs...)
 }

@@ -4,7 +4,7 @@ import (
 	"math"
 	"testing"
 
-	errAssert "github.com/gontainer/gontainer-helpers/errors/assert"
+	errAssert "github.com/gontainer/gontainer-helpers/grouperror/assert"
 	"github.com/gontainer/gontainer/internal/pkg/input"
 	"github.com/stretchr/testify/assert"
 )

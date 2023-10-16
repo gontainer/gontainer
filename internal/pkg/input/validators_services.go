@@ -1,12 +1,13 @@
 package input
 
 import (
+	"errors"
 	"fmt"
 	"reflect"
 	"strings"
 
 	"github.com/gontainer/gontainer-helpers/container"
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/maps"
 	"github.com/gontainer/gontainer/internal/pkg/ptr"
 	"github.com/gontainer/gontainer/internal/pkg/regex"
@@ -58,9 +59,9 @@ func ValidateServices(i Input) error {
 				sErrs = append(sErrs, v(s))
 			}
 		}
-		errs = append(errs, errors.PrefixedGroup(fmt.Sprintf("%+q: ", n), sErrs...))
+		errs = append(errs, grouperror.Prefix(fmt.Sprintf("%+q: ", n), sErrs...))
 	}
-	return errors.PrefixedGroup("services: ", errs...)
+	return grouperror.Prefix("services: ", errs...)
 }
 
 func ValidateServiceName(n string) error {
@@ -87,7 +88,7 @@ func ValidateConstructorType(s Service) error {
 		errs = append(errs, errors.New("arguments are not empty, but constructor is missing"))
 	}
 
-	return errors.Group(errs...)
+	return grouperror.Join(errs...)
 }
 
 var reservedGetters map[string]bool
@@ -116,7 +117,7 @@ func ValidateServiceGetter(s Service) error {
 		errs = append(errs, errors.New(`getter: suffix "InContext" is not allowed`))
 	}
 	errs = append(errs, validateRegexField("getter", *s.Getter, regexServiceGetter))
-	return errors.Group(errs...)
+	return grouperror.Join(errs...)
 }
 
 func ValidateServiceType(s Service) error {
@@ -138,7 +139,7 @@ func ValidateServiceArgs(s Service) error {
 			errs = append(errs, newErrUnsupportedType(fmt.Sprintf("arg %d", i), a))
 		}
 	}
-	return errors.PrefixedGroup("arguments: ", errs...)
+	return grouperror.Prefix("arguments: ", errs...)
 }
 
 func ValidateServiceCalls(s Service) error {
@@ -154,11 +155,11 @@ func ValidateServiceCalls(s Service) error {
 			if !types.IsPrimitive(a) {
 				aErrs = append(aErrs, newErrUnsupportedType(fmt.Sprintf("%d", i), a))
 			}
-			cErrs = append(cErrs, errors.PrefixedGroup("arguments: ", aErrs...))
+			cErrs = append(cErrs, grouperror.Prefix("arguments: ", aErrs...))
 		}
-		errs = append(errs, errors.PrefixedGroup(fmt.Sprintf("%d: ", j), cErrs...))
+		errs = append(errs, grouperror.Prefix(fmt.Sprintf("%d: ", j), cErrs...))
 	}
-	return errors.PrefixedGroup("calls: ", errs...)
+	return grouperror.Prefix("calls: ", errs...)
 }
 
 func ValidateServiceFields(s Service) error {
@@ -170,7 +171,7 @@ func ValidateServiceFields(s Service) error {
 			errs = append(errs, newErrUnsupportedType(fmt.Sprintf("%+q", n), v))
 		}
 	}
-	return errors.PrefixedGroup("fields: ", errs...)
+	return grouperror.Prefix("fields: ", errs...)
 }
 
 func ValidateServiceTags(s Service) error {
@@ -185,5 +186,5 @@ func ValidateServiceTags(s Service) error {
 			errs = append(errs, fmt.Errorf("duplicate %+q", n))
 		}
 	}
-	return errors.PrefixedGroup("tags: ", errs...)
+	return grouperror.Prefix("tags: ", errs...)
 }

@@ -1,7 +1,7 @@
 package token
 
 import (
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 )
 
 type factory interface {
@@ -37,5 +37,5 @@ func (t *Tokenizer) Tokenize(s string) (Tokens, error) {
 		tkns[i], errs[i] = t.factory.Create(ch)
 	}
 
-	return tkns, errors.Group(errs...)
+	return tkns, grouperror.Join(errs...)
 }

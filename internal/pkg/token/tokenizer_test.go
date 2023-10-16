@@ -3,7 +3,7 @@ package token_test
 import (
 	"testing"
 
-	errAssert "github.com/gontainer/gontainer-helpers/errors/assert"
+	errAssert "github.com/gontainer/gontainer-helpers/grouperror/assert"
 	"github.com/gontainer/gontainer/internal/pkg/token"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gontainer/gontainer-helpers/errors"
 	"github.com/gontainer/gontainer-helpers/graph"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 )
 
 func ValidateParamsCircularDeps(o Output) error {
@@ -22,5 +22,5 @@ func ValidateParamsCircularDeps(o Output) error {
 		errs = append(errs, fmt.Errorf("%s", strings.Join(cycle, " -> ")))
 	}
 
-	return errors.PrefixedGroup("output.ValidateParamsCircularDeps: ", errs...)
+	return grouperror.Prefix("output.ValidateParamsCircularDeps: ", errs...)
 }
