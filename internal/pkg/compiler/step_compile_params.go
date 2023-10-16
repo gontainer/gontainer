@@ -3,7 +3,7 @@ package compiler
 import (
 	"fmt"
 
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/input"
 	"github.com/gontainer/gontainer/internal/pkg/maps"
 	"github.com/gontainer/gontainer/internal/pkg/output"
@@ -25,7 +25,7 @@ func (s StepCompileParams) Process(i input.Input, d *output.Output) error {
 	maps.Iterate(i.Params, func(k string, v any) {
 		expr, err := s.resolver.ResolveParam(v)
 		if err != nil {
-			errs = append(errs, errors.PrefixedGroup(fmt.Sprintf("%+q: ", k), err))
+			errs = append(errs, grouperror.Prefix(fmt.Sprintf("%+q: ", k), err))
 			d.Params = append(d.Params, output.Param{
 				Name:      k,
 				Code:      "",
@@ -42,5 +42,5 @@ func (s StepCompileParams) Process(i input.Input, d *output.Output) error {
 			DependsOn: expr.DependsOnParams,
 		})
 	})
-	return errors.PrefixedGroup("compiler.StepCompileParams: ", errs...)
+	return grouperror.Prefix("compiler.StepCompileParams: ", errs...)
 }

@@ -1,7 +1,7 @@
 package runner
 
 import (
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/input"
 	"github.com/gontainer/gontainer/internal/pkg/output"
 )
@@ -27,5 +27,5 @@ func (s *StepAmalgamated) Run(i *input.Input, o *output.Output) error {
 	for _, st := range s.steps {
 		errs = append(errs, st.Run(i, o))
 	}
-	return errors.Group(errs...)
+	return grouperror.Join(errs...)
 }

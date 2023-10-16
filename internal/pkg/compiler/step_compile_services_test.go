@@ -3,7 +3,7 @@ package compiler_test
 import (
 	"testing"
 
-	errAssert "github.com/gontainer/gontainer-helpers/errors/assert"
+	errAssert "github.com/gontainer/gontainer-helpers/grouperror/assert"
 	"github.com/gontainer/gontainer/internal/pkg/compiler"
 	"github.com/gontainer/gontainer/internal/pkg/consts"
 	"github.com/gontainer/gontainer/internal/pkg/imports"

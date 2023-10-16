@@ -4,7 +4,7 @@ import (
 	"go/format"
 	"regexp"
 
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 	"golang.org/x/tools/imports"
 )
 
@@ -26,7 +26,7 @@ var (
 func (CodeFormatter) Format(c string) (_ string, err error) {
 	defer func() {
 		if err != nil {
-			err = errors.PrefixedGroup("CodeFormatter.Format: ", err)
+			err = grouperror.Prefix("CodeFormatter.Format: ", err)
 		}
 	}()
 

@@ -3,7 +3,7 @@ package input
 import (
 	"fmt"
 
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/regex"
 )
 
@@ -36,7 +36,7 @@ func ValidateMeta(i Input) error {
 	for _, v := range vals {
 		errs = append(errs, v(i.Meta))
 	}
-	return errors.PrefixedGroup("meta: ", errs...)
+	return grouperror.Prefix("meta: ", errs...)
 }
 
 func ValidateMetaPkg(m Meta) error {
@@ -73,7 +73,7 @@ func ValidateMetaImports(m Meta) error {
 			errs = append(errs, fmt.Errorf("invalid alias %+q", a))
 		}
 	}
-	return errors.PrefixedGroup("imports: ", errs...)
+	return grouperror.Prefix("imports: ", errs...)
 }
 
 func ValidateMetaFunctions(m Meta) error {
@@ -87,5 +87,5 @@ func ValidateMetaFunctions(m Meta) error {
 			errs = append(errs, fmt.Errorf("invalid go function %+q", goFn))
 		}
 	}
-	return errors.PrefixedGroup("functions: ", errs...)
+	return grouperror.Prefix("functions: ", errs...)
 }

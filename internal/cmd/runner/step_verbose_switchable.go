@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/gontainer/gontainer-helpers/container"
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/input"
 	"github.com/gontainer/gontainer/internal/pkg/output"
 )
@@ -52,7 +52,7 @@ func (s *StepVerboseSwitchable) Run(i *input.Input, o *output.Output) error {
 	if err == nil {
 		s.printer.PrintAlignedLn(n+" END", checkMark)
 	} else {
-		l := len(errors.Collection(err))
+		l := len(grouperror.Collection(err))
 		extra := fmt.Sprintf(" (%d error)", l)
 		if l > 1 {
 			extra = fmt.Sprintf(" (%d errors)", l)

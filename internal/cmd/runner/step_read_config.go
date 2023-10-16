@@ -1,14 +1,15 @@
 package runner
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
 	"sort"
 	"strings"
 
-	"github.com/gontainer/gontainer-helpers/errors"
 	"github.com/gontainer/gontainer-helpers/exporter"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/input"
 	"github.com/gontainer/gontainer/internal/pkg/output"
 	"gopkg.in/yaml.v3"
@@ -29,7 +30,7 @@ func (s *StepReadConfig) Name() string {
 
 func (s *StepReadConfig) Run(i *input.Input, _ *output.Output) (err error) {
 	defer func() {
-		err = errors.PrefixedGroup("runner.StepReadConfig: ", err)
+		err = grouperror.Prefix("runner.StepReadConfig: ", err)
 	}()
 
 	if len(s.patterns) == 0 {
@@ -53,7 +54,7 @@ func (s *StepReadConfig) Run(i *input.Input, _ *output.Output) (err error) {
 
 			func() {
 				defer func() {
-					errs = append(errs, errors.PrefixedGroup(fmt.Sprintf("`%s`: ", f), pErrs...))
+					errs = append(errs, grouperror.Prefix(fmt.Sprintf("`%s`: ", f), pErrs...))
 				}()
 
 				noErrors := false
@@ -68,13 +69,13 @@ func (s *StepReadConfig) Run(i *input.Input, _ *output.Output) (err error) {
 
 				buff, err := os.ReadFile(f)
 				if err != nil {
-					pErrs = append(pErrs, errors.PrefixedGroup("could not read the file: ", err))
+					pErrs = append(pErrs, grouperror.Prefix("could not read the file: ", err))
 					return
 				}
 
 				tmp := input.Input{}
 				if err := yaml.Unmarshal(buff, &tmp); err != nil {
-					pErrs = append(pErrs, errors.PrefixedGroup("parsing yaml: ", err))
+					pErrs = append(pErrs, grouperror.Prefix("parsing yaml: ", err))
 					return
 				}
 				*i = input.Merge(*i, tmp)
@@ -96,7 +97,7 @@ func (s *StepReadConfig) Run(i *input.Input, _ *output.Output) (err error) {
 		}
 	}
 
-	err = errors.Group(errs...)
+	err = grouperror.Join(errs...)
 	return
 }
 
@@ -105,7 +106,7 @@ func (s *StepReadConfig) Run(i *input.Input, _ *output.Output) (err error) {
 func (s *StepReadConfig) findFiles(pattern string) ([]string, error) {
 	matches, err := filepath.Glob(pattern)
 	if err != nil {
-		return nil, errors.PrefixedGroup(
+		return nil, grouperror.Prefix(
 			fmt.Sprintf("pattern: %s: ", exporter.MustExport(pattern)),
 			err,
 		)

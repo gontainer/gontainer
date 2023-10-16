@@ -1,9 +1,10 @@
 package input
 
 import (
+	"errors"
 	"fmt"
 
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 	"golang.org/x/mod/semver"
 )
 
@@ -41,7 +42,7 @@ func (v *VersionValidator) ValidateVersion(i Input) (err error) {
 	}
 
 	defer func() {
-		err = errors.PrefixedGroup(fmt.Sprintf("version: current: %s, given: %s: ", v.version, *i.Version), err)
+		err = grouperror.Prefix(fmt.Sprintf("version: current: %s, given: %s: ", v.version, *i.Version), err)
 	}()
 
 	curr := semver.MajorMinor(v.version) + ".0"

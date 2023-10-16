@@ -3,7 +3,7 @@ package compiler
 import (
 	"fmt"
 
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/output"
 	"github.com/gontainer/gontainer/internal/pkg/resolver"
 )
@@ -25,8 +25,8 @@ func resolveArgs(resolver argResolver, args []any) (r []output.Arg, _ error) {
 	}
 	for i, arg := range args {
 		argExpr, err := resolver.ResolveArg(arg)
-		errs = append(errs, errors.PrefixedGroup(fmt.Sprintf("%d: ", i), err))
+		errs = append(errs, grouperror.Prefix(fmt.Sprintf("%d: ", i), err))
 		r[i] = argExprToArg(argExpr)
 	}
-	return r, errors.PrefixedGroup("args: ", errs...)
+	return r, grouperror.Prefix("args: ", errs...)
 }

@@ -4,7 +4,7 @@ import (
 	"io"
 
 	"github.com/fatih/color"
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 	"github.com/spf13/cobra"
 )
 
@@ -50,7 +50,7 @@ func NewBuildCmd(version string, buildInfo string) *cobra.Command {
 
 			_, _ = color.New(color.BgRed, color.FgHiWhite).Fprint(errWriter, "Errors:")
 			_, _ = color.New().Fprintln(errWriter)
-			for i, err := range errors.Collection(err) {
+			for i, err := range grouperror.Collection(err) {
 				_, _ = color.New().Fprint(errWriter, i+1, ". ")
 				_, _ = color.New(color.BgRed, color.FgWhite).Fprint(errWriter, err)
 				_, _ = color.New().Fprintln(errWriter)

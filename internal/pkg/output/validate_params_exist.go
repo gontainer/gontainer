@@ -3,7 +3,7 @@ package output
 import (
 	"fmt"
 
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 )
 
 func ValidateParamsExist(o Output) error {
@@ -16,7 +16,7 @@ func ValidateParamsExist(o Output) error {
 	errs = append(errs, validateParamsExistsInParams(existing, o.Params)...)
 	errs = append(errs, validateParamsExistsInServices(existing, o.Services)...)
 
-	return errors.PrefixedGroup("output.ValidateParamsExist: ", errs...)
+	return grouperror.Prefix("output.ValidateParamsExist: ", errs...)
 }
 
 func validateParamsExistsInParams(existing map[string]struct{}, params []Param) []error {

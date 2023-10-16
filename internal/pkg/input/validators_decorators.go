@@ -3,7 +3,7 @@ package input
 import (
 	"fmt"
 
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/regex"
 	"github.com/gontainer/gontainer/internal/pkg/types"
 )
@@ -30,10 +30,10 @@ func ValidateDecorators(i Input) error {
 		}
 		errs = append(
 			errs,
-			errors.PrefixedGroup(fmt.Sprintf("%d %+q: ", j, d.Decorator), g...),
+			grouperror.Prefix(fmt.Sprintf("%d %+q: ", j, d.Decorator), g...),
 		)
 	}
-	return errors.PrefixedGroup("decorators: ", errs...)
+	return grouperror.Prefix("decorators: ", errs...)
 }
 
 func ValidateDecoratorTag(d Decorator) error {
@@ -51,5 +51,5 @@ func ValidateDecoratorArgs(d Decorator) error {
 			errs = append(errs, newErrUnsupportedType(fmt.Sprintf("%d", i), a))
 		}
 	}
-	return errors.PrefixedGroup("arguments: ", errs...)
+	return grouperror.Prefix("arguments: ", errs...)
 }

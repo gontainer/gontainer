@@ -1,7 +1,7 @@
 package compiler
 
 import (
-	"github.com/gontainer/gontainer-helpers/errors"
+	"github.com/gontainer/gontainer-helpers/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/input"
 	"github.com/gontainer/gontainer/internal/pkg/output"
 )
@@ -19,5 +19,5 @@ func NewStepValidateInput(v inputValidator) *StepValidateInput {
 }
 
 func (s StepValidateInput) Process(i input.Input, _ *output.Output) error {
-	return errors.PrefixedGroup("compiler.StepValidateInput: ", s.validator.Validate(i))
+	return grouperror.Prefix("compiler.StepValidateInput: ", s.validator.Validate(i))
 }
