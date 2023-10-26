@@ -8,6 +8,6 @@ import (
 func ValidateServicesCircularDeps(o Output) error {
 	return grouperror.Prefix(
 		"output.ValidateServicesCircularDeps: ",
-		graph.CircularDepsToError(o.BuildDependencyGraph().CircularDeps()),
+		graph.CircularDepsToError(o.BuildDependencyGraph().CircularDeps()), //nolint:staticcheck
 	)
 }

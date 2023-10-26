@@ -5,12 +5,12 @@ import (
 )
 
 type dependencyGraph interface {
-	CircularDeps() [][]graph.Dependency
-	Deps(serviceID string) []graph.Dependency
+	CircularDeps() [][]graph.Dependency       //nolint:staticcheck
+	Deps(serviceID string) []graph.Dependency //nolint:staticcheck
 }
 
 func (o Output) BuildDependencyGraph() dependencyGraph {
-	g := graph.New()
+	g := graph.New() //nolint:staticcheck
 	for _, s := range o.Services {
 		tags := make([]string, len(s.Tags))
 		for i, t := range s.Tags {

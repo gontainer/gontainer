@@ -9,7 +9,7 @@ import (
 )
 
 func ValidateParamsCircularDeps(o Output) error {
-	depsGraph := graph.New()
+	depsGraph := graph.New() //nolint:staticcheck
 	for _, p := range o.Params {
 		for _, dep := range p.DependsOn {
 			depsGraph.AddDep(p.Name, dep)
