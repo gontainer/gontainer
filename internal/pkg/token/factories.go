@@ -112,7 +112,7 @@ func (f *FactoryFunction) Create(expr string) (Token, error) {
 	if m["params"] != "" {
 		callFn += fmt.Sprintf(", []interface{} {%s}, true", m["params"])
 	} else {
-		callFn += ", nil, false)"
+		callFn += ", nil, false"
 	}
 	callFn += ")"
 

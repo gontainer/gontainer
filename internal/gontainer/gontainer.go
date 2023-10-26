@@ -2,7 +2,7 @@
 
 package gontainer
 
-// gontainer version: 0.7.0 8184e537463830a07f1140c763e69b86f3062281-clean (build date 2023-10-15T20:39:25Z)
+// gontainer version: dev-gontainer-helpers@v2.0.0-alpha c60a08c1266f606acced501a115f5f607d2b4626-dirty (build date 2023-10-26T16:58:54Z)
 
 import (
 	ie_context "context"
@@ -25,7 +25,7 @@ import (
 	ib_container "github.com/gontainer/gontainer-helpers/v2/container"
 	id_copier "github.com/gontainer/gontainer-helpers/v2/copier"
 	i10_exporter "github.com/gontainer/gontainer-helpers/v2/exporter"
-	ic_errors "github.com/gontainer/gontainer-helpers/v2/grouperror"
+	ic_grouperror "github.com/gontainer/gontainer-helpers/v2/grouperror"
 )
 
 // ············································································
@@ -33,23 +33,23 @@ import (
 // ············································································
 // #### buildInfo
 // Raw: "%todo()%"
-// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_caller.CallProvider(paramTodo); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
+// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_caller.CallProvider(paramTodo, nil, false); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
 // ············································································
 // #### inputPatterns
 // Raw: "%todo()%"
-// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_caller.CallProvider(paramTodo); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
+// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_caller.CallProvider(paramTodo, nil, false); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
 // ············································································
 // #### outputFile
 // Raw: "%todo()%"
-// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_caller.CallProvider(paramTodo); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
+// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_caller.CallProvider(paramTodo, nil, false); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
 // ············································································
 // #### stub
 // Raw: "%todo()%"
-// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_caller.CallProvider(paramTodo); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
+// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_caller.CallProvider(paramTodo, nil, false); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
 // ············································································
 // #### version
 // Raw: "%todo()%"
-// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_caller.CallProvider(paramTodo); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
+// GO:  dependencyProvider(func() (r interface{}, err error) { r, err = i0_caller.CallProvider(paramTodo, nil, false); if err != nil { err = i1_fmt.Errorf("%s: %w", "cannot execute %todo()%", err) }; return })
 // ············································································
 
 // ············································································
@@ -216,12 +216,12 @@ func (c *gontainer) GetRunner() (result *i9_runner.Runner, err error) {
 	var s interface{}
 	s, err = c.Get("runner")
 	if err != nil {
-		return nil, ic_errors.Prefix(
+		return nil, ic_grouperror.Prefix(
 			i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetRunner"),
 			err,
 		)
 	}
-	err = ic_errors.Prefix(
+	err = ic_grouperror.Prefix(
 		i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetRunner"),
 		id_copier.Copy(s, &result, true),
 	)
@@ -232,12 +232,12 @@ func (c *gontainer) GetRunnerInContext(ctx ie_context.Context) (result *i9_runne
 	var s interface{}
 	s, err = c.GetInContext(ctx, "runner")
 	if err != nil {
-		return nil, ic_errors.Prefix(
+		return nil, ic_grouperror.Prefix(
 			i1_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetRunner"),
 			err,
 		)
 	}
-	err = ic_errors.Prefix(
+	err = ic_grouperror.Prefix(
 		i1_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetRunner"),
 		id_copier.Copy(s, &result, true),
 	)
@@ -264,12 +264,12 @@ func (c *gontainer) GetStepValidateParamsExist() (result *i9_runner.StepVerboseS
 	var s interface{}
 	s, err = c.Get("stepOutputParamsExist")
 	if err != nil {
-		return nil, ic_errors.Prefix(
+		return nil, ic_grouperror.Prefix(
 			i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateParamsExist"),
 			err,
 		)
 	}
-	err = ic_errors.Prefix(
+	err = ic_grouperror.Prefix(
 		i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateParamsExist"),
 		id_copier.Copy(s, &result, true),
 	)
@@ -280,12 +280,12 @@ func (c *gontainer) GetStepValidateParamsExistInContext(ctx ie_context.Context) 
 	var s interface{}
 	s, err = c.GetInContext(ctx, "stepOutputParamsExist")
 	if err != nil {
-		return nil, ic_errors.Prefix(
+		return nil, ic_grouperror.Prefix(
 			i1_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetStepValidateParamsExist"),
 			err,
 		)
 	}
-	err = ic_errors.Prefix(
+	err = ic_grouperror.Prefix(
 		i1_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetStepValidateParamsExist"),
 		id_copier.Copy(s, &result, true),
 	)
@@ -312,12 +312,12 @@ func (c *gontainer) GetStepValidateServicesExist() (result *i9_runner.StepVerbos
 	var s interface{}
 	s, err = c.Get("stepOutputServicesExist")
 	if err != nil {
-		return nil, ic_errors.Prefix(
+		return nil, ic_grouperror.Prefix(
 			i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateServicesExist"),
 			err,
 		)
 	}
-	err = ic_errors.Prefix(
+	err = ic_grouperror.Prefix(
 		i1_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateServicesExist"),
 		id_copier.Copy(s, &result, true),
 	)
@@ -328,12 +328,12 @@ func (c *gontainer) GetStepValidateServicesExistInContext(ctx ie_context.Context
 	var s interface{}
 	s, err = c.GetInContext(ctx, "stepOutputServicesExist")
 	if err != nil {
-		return nil, ic_errors.Prefix(
+		return nil, ic_grouperror.Prefix(
 			i1_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetStepValidateServicesExist"),
 			err,
 		)
 	}
-	err = ic_errors.Prefix(
+	err = ic_grouperror.Prefix(
 		i1_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetStepValidateServicesExist"),
 		id_copier.Copy(s, &result, true),
 	)
