@@ -2,10 +2,10 @@
 
 {{define "container-constructor"}}
 	{{ $containerType := .Output.Meta.ContainerType }}
-	sc := &{{$containerType}}{
+	c := &{{$containerType}}{
 		Container: {{ containerAlias }}.New(),
 	}
-	rootGontainer = sc
+	rootGontainer = c
 
 	//
 	//
@@ -23,16 +23,18 @@
 	_ = dependencyProvider
 	newService := {{ containerAlias }}.NewService
 	_ = newService
-	concatenateChunks := sc._concatenateChunks
+	concatenateChunks := c._concatenateChunks
 	_ = concatenateChunks
-	paramTodo := sc._paramTodo
+	paramTodo := c._paramTodo
 	_ = paramTodo
-	getEnv := sc._getEnv
+	getEnv := c._getEnv
 	_ = getEnv
-	getEnvInt := sc._getEnvInt
+	getEnvInt := c._getEnvInt
 	_ = getEnvInt
-	getParam := sc.GetParam
+	getParam := c.GetParam
 	_ = getParam
+	callProvider := c._callProvider
+	_ = callProvider
 
 	{{ if .Output.Params }}
 	//
@@ -44,7 +46,7 @@
 	{{ end }}
 	{{ range $param := .Output.Params}}
 	// {{ export $param.Name }}: {{ export $param.Raw }}
-	sc.OverrideParam({{ export $param.Name }}, {{$param.Code}})
+	c.OverrideParam({{ export $param.Name }}, {{$param.Code}})
 	{{ end}}
 
 	{{ if .Output.Services }}
@@ -108,7 +110,7 @@
 				s.ScopeNonShared()
 			{{ end }}
 		{{ end }}
-		sc.OverrideService({{ export $service.Name }}, s)
+		c.OverrideService({{ export $service.Name }}, s)
 	}
 	{{end}}
 
@@ -121,7 +123,7 @@
 	//
 	{{ end }}
 	{{ range $decorator := .Output.Decorators }}
-		sc.AddDecorator(
+		c.AddDecorator(
 			{{ export $decorator.Tag }},
 			{{ $decorator.Decorator }},
 			{{ range $arg := $decorator.Args }}

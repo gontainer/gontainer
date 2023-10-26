@@ -119,4 +119,9 @@ func (c *{{$containerType}}) _getEnvInt(key string, def ...int) (int, error) {
 	}
 	return res, nil
 }
+
+// Deprecated: do not use it, only for internal purposes, that method can be changed at any time
+func (c *{{$containerType}}) _callProvider(provider interface{}, args ...interface{}) (interface{}, error) {
+	return {{ callerAlias }}.CallProvider(provider, args, true)
+}
 {{ end }}

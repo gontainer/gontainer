@@ -115,6 +115,9 @@ func createDefaultFunctions(a aliaser, o output.Output) template.FuncMap {
 		"exporterAlias": func() string {
 			return a.Alias(consts.GontainerHelperPath + "/exporter")
 		},
+		"callerAlias": func() string {
+			return a.Alias(consts.GontainerHelperPath + "/caller")
+		},
 		"copierAlias": func() string {
 			return a.Alias(consts.GontainerHelperPath + "/copier")
 		},

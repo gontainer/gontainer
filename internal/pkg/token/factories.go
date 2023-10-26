@@ -105,14 +105,11 @@ func (f *FactoryFunction) Create(expr string) (Token, error) {
 	}
 
 	callFn := fmt.Sprintf(
-		"%s.CallProvider(%s",
-		f.aliaser.Alias(consts.GontainerHelperPath+"/caller"),
+		"callProvider(%s",
 		goFn,
 	)
 	if m["params"] != "" {
-		callFn += fmt.Sprintf(", []interface{}{%s}, true", m["params"])
-	} else {
-		callFn += ", nil, false"
+		callFn += fmt.Sprintf(", %s", m["params"])
 	}
 	callFn += ")"
 

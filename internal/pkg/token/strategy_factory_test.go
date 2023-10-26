@@ -24,7 +24,7 @@ func TestStrategyFactory_Prepend(t *testing.T) {
 			Kind:      token.KindFunc,
 			Raw:       `%getEnv("HOST")%`,
 			DependsOn: nil,
-			Code:      `func() (r interface{}, err error) { r, err = caller.CallProvider(pkg.GetEnv, []interface{}{"HOST"}, true); if err != nil { err = fmt.Errorf("%s: %w", "cannot execute %getEnv(\"HOST\")%", err) }; return }`,
+			Code:      `func() (r interface{}, err error) { r, err = callProvider(pkg.GetEnv, "HOST"); if err != nil { err = fmt.Errorf("%s: %w", "cannot execute %getEnv(\"HOST\")%", err) }; return }`,
 		}, tk)
 	})
 
@@ -44,7 +44,7 @@ func TestStrategyFactory_Prepend(t *testing.T) {
 			Kind:      token.KindFunc,
 			Raw:       `%secret("password")%`,
 			DependsOn: nil,
-			Code:      `func() (r interface{}, err error) { r, err = caller.CallProvider(secrets.Secret, []interface{}{"password"}, true); if err != nil { err = fmt.Errorf("%s: %w", "cannot execute %secret(\"password\")%", err) }; return }`,
+			Code:      `func() (r interface{}, err error) { r, err = callProvider(secrets.Secret, "password"); if err != nil { err = fmt.Errorf("%s: %w", "cannot execute %secret(\"password\")%", err) }; return }`,
 		}, tk)
 
 		// let's register another func using registerer,
@@ -56,7 +56,7 @@ func TestStrategyFactory_Prepend(t *testing.T) {
 			Kind:      token.KindFunc,
 			Raw:       `%secret("password")%`,
 			DependsOn: nil,
-			Code:      `func() (r interface{}, err error) { r, err = caller.CallProvider(anotherSecrets.SuperSecret, []interface{}{"password"}, true); if err != nil { err = fmt.Errorf("%s: %w", "cannot execute %secret(\"password\")%", err) }; return }`,
+			Code:      `func() (r interface{}, err error) { r, err = callProvider(anotherSecrets.SuperSecret, "password"); if err != nil { err = fmt.Errorf("%s: %w", "cannot execute %secret(\"password\")%", err) }; return }`,
 		}, tk)
 	})
 }
