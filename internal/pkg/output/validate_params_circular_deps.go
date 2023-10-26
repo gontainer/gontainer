@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/gontainer/gontainer-helpers/graph"
-	"github.com/gontainer/gontainer-helpers/grouperror"
+	"github.com/gontainer/gontainer-helpers/v2/graph"
+	"github.com/gontainer/gontainer-helpers/v2/grouperror"
 )
 
 func ValidateParamsCircularDeps(o Output) error {

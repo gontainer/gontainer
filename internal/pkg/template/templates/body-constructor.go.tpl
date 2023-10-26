@@ -3,7 +3,7 @@
 {{define "container-constructor"}}
 	{{ $containerType := .Output.Meta.ContainerType }}
 	sc := &{{$containerType}}{
-		SuperContainer: {{ containerAlias }}.NewSuperContainer(),
+		Container: {{ containerAlias }}.New(),
 	}
 	rootGontainer = sc
 
@@ -99,7 +99,7 @@
 			{{ end }}
 
 			{{ if $service.Scope.IsDefault }}
-				s.ScopeDefault()
+				s.SetScopeDefault()
 			{{ else if $service.Scope.IsShared }}
 				s.ScopeShared()
 			{{ else if $service.Scope.IsContextual }}

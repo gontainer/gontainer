@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/gontainer/gontainer-helpers/grouperror"
+	"github.com/gontainer/gontainer-helpers/v2/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/input"
 	"github.com/gontainer/gontainer/internal/pkg/maps"
 	"github.com/gontainer/gontainer/internal/pkg/output"
@@ -46,7 +46,7 @@ func (s StepCompileServices) processScopes(i input.Input, o *output.Output) {
 	for j, svc := range o.Services {
 		iScope := i.Services[svc.Name].Scope
 		if iScope == nil {
-			o.Services[j].Scope = output.ScopeDefault
+			o.Services[j].Scope = output.SetScopeDefault
 			continue
 		}
 

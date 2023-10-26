@@ -3,7 +3,7 @@ package output
 import (
 	"fmt"
 
-	"github.com/gontainer/gontainer-helpers/grouperror"
+	"github.com/gontainer/gontainer-helpers/v2/grouperror"
 )
 
 func ValidateServicesExist(o Output) error {

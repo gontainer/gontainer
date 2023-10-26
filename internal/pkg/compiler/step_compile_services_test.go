@@ -3,7 +3,7 @@ package compiler_test
 import (
 	"testing"
 
-	errAssert "github.com/gontainer/gontainer-helpers/grouperror/assert"
+	errAssert "github.com/gontainer/gontainer-helpers/v2/grouperror/assert"
 	"github.com/gontainer/gontainer/internal/pkg/compiler"
 	"github.com/gontainer/gontainer/internal/pkg/consts"
 	"github.com/gontainer/gontainer/internal/pkg/imports"
@@ -175,7 +175,7 @@ func TestStepCompileServices_Process(t *testing.T) {
 					{
 						Name:  "repository",
 						Type:  "interface{}",
-						Scope: output.ScopeDefault,
+						Scope: output.SetScopeDefault,
 						Fields: []output.Field{
 							{
 								Name: "Transaction",

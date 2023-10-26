@@ -8,7 +8,7 @@
 {{ end }}
 
 type {{$containerType}} struct {
-	*{{ containerAlias }}.SuperContainer
+	*{{ containerAlias }}.Container
 }
 
 {{template "container-getters" .}}

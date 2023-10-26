@@ -26,7 +26,7 @@ func TestVersion_UnmarshalYAML(t *testing.T) {
 		},
 		{
 			Input: `v0.1.0`,
-			Error: `version must follow the semver scheme, and it must not be prefixed by "v", see https://semver.org/`,
+			Error: `version must follow the semver scheme, and it must not be Prefix by "v", see https://semver.org/`,
 		},
 		{
 			Input: `5`,

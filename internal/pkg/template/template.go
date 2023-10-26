@@ -5,7 +5,7 @@ import (
 	"io/fs"
 	"text/template"
 
-	"github.com/gontainer/gontainer-helpers/exporter"
+	"github.com/gontainer/gontainer-helpers/v2/exporter"
 	"github.com/gontainer/gontainer/internal/pkg/consts"
 	"github.com/gontainer/gontainer/internal/pkg/imports"
 	"github.com/gontainer/gontainer/internal/pkg/output"
@@ -109,8 +109,8 @@ func createDefaultFunctions(a aliaser, o output.Output) template.FuncMap {
 		"containerAlias": func() string {
 			return a.Alias(consts.GontainerHelperPath + "/container")
 		},
-		"errorsAlias": func() string {
-			return a.Alias(consts.GontainerHelperPath + "/errors")
+		"groupErrorAlias": func() string {
+			return a.Alias(consts.GontainerHelperPath + "/grouperror")
 		},
 		"exporterAlias": func() string {
 			return a.Alias(consts.GontainerHelperPath + "/exporter")

@@ -5,7 +5,7 @@ import (
 	"math"
 	"testing"
 
-	errAssert "github.com/gontainer/gontainer-helpers/grouperror/assert"
+	errAssert "github.com/gontainer/gontainer-helpers/v2/grouperror/assert"
 	"github.com/gontainer/gontainer/internal/pkg/compiler"
 	"github.com/gontainer/gontainer/internal/pkg/input"
 	"github.com/gontainer/gontainer/internal/pkg/output"
