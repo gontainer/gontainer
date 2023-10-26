@@ -5,9 +5,9 @@ import (
 	"github.com/gontainer/gontainer-helpers/v2/grouperror"
 )
 
-func ValidateServicesCircularDeps(o Output) error {
+func ValidateCircularDeps(o Output) error {
 	return grouperror.Prefix(
-		"output.ValidateServicesCircularDeps: ",
+		"output.ValidateCircularDeps: ",
 		graph.CircularDepsToError(o.BuildDependencyGraph().CircularDeps()), //nolint:staticcheck
 	)
 }

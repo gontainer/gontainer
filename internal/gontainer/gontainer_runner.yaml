@@ -10,18 +10,11 @@ services:
       - "Scope"
     tags: [ "step-runner-verbose" ]
 
-  stepOutputParamsCircular:
+  stepOutputCircularDeps:
     constructor: runner.NewStepOutputValidationRule
     arguments:
-      - "!value output.ValidateParamsCircularDeps"
-      - "Circular deps in params"
-    tags: [ "step-runner-verbose" ]
-
-  stepOutputServicesCircular:
-    constructor: runner.NewStepOutputValidationRule
-    arguments:
-      - "!value output.ValidateServicesCircularDeps"
-      - "Circular deps in services"
+      - "!value output.ValidateCircularDeps"
+      - "Circular dependencies"
     tags: [ "step-runner-verbose" ]
 
   stepOutputParamsExist:
@@ -61,8 +54,7 @@ services:
     arguments:
       - "Validate output"
       - "@stepOutputServicesScopes"
-      - "@stepOutputParamsCircular"
-      - "@stepOutputServicesCircular"
+      - "@stepOutputCircularDeps"
       - "@stepOutputParamsExist"
       - "@stepOutputServicesExist"
     tags: [ "step-runner-verbose" ]

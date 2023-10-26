@@ -18,25 +18,41 @@ func (o Output) BuildDependencyGraph() dependencyGraph {
 		}
 		g.AddService(s.Name, tags)
 
-		var dependentTags []string
-		var dependentServices []string
+		var (
+			dependentTags     []string
+			dependentServices []string
+			dependentParams   []string
+		)
 		for _, arg := range s.AllArgs() {
 			dependentServices = append(dependentServices, arg.DependsOnServices...)
 			dependentTags = append(dependentTags, arg.DependsOnTags...)
+			dependentParams = append(dependentParams, arg.DependsOnParams...)
 		}
 		g.ServiceDependsOnServices(s.Name, dependentServices)
 		g.ServiceDependsOnTags(s.Name, dependentTags)
+		g.ServiceDependsOnParams(s.Name, dependentParams)
 	}
 	for dID, d := range o.Decorators {
 		g.AddDecorator(dID, d.Tag)
-		var dependentTags []string
-		var dependentServices []string
+		var (
+			dependentTags     []string
+			dependentServices []string
+			dependentParams   []string
+		)
 		for _, arg := range d.Args {
 			dependentServices = append(dependentServices, arg.DependsOnServices...)
 			dependentTags = append(dependentTags, arg.DependsOnTags...)
+			dependentParams = append(dependentParams, arg.DependsOnParams...)
 		}
 		g.DecoratorDependsOnServices(dID, dependentServices)
 		g.DecoratorDependsOnTags(dID, dependentTags)
+		g.DecoratorDependsOnParams(dID, dependentParams)
+	}
+
+	for _, p := range o.Params {
+		for _, p2 := range p.DependsOn {
+			g.ParamDependsOnParam(p.Name, p2)
+		}
 	}
 	return g
 }

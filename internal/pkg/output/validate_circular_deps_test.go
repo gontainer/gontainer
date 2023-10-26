@@ -66,17 +66,33 @@ func TestValidateServicesCircularDeps(t *testing.T) {
 				}},
 			},
 		}
-
-		expected := []string{
-			`output.ValidateServicesCircularDeps: @company -> @department -> @team -> @hr -> !tagged organization -> @holding -> @company`,
-			`output.ValidateServicesCircularDeps: @company -> @department -> @team -> @hr -> !tagged organization -> @company`,
-			`output.ValidateServicesCircularDeps: @holding -> @holding`,
-			`output.ValidateServicesCircularDeps: @department -> @team -> @department`,
-			`output.ValidateServicesCircularDeps: @chro -> @hr -> @chro`,
-			`output.ValidateServicesCircularDeps: @hr -> @hr`,
+		o.Params = []output.Param{
+			{
+				Name:      "self",
+				DependsOn: []string{"self"},
+			},
+			{
+				Name:      "firstname",
+				DependsOn: []string{"name"},
+			},
+			{
+				Name:      "name",
+				DependsOn: []string{"firstname", "lastname"},
+			},
 		}
 
-		err := output.ValidateServicesCircularDeps(o)
+		expected := []string{
+			`output.ValidateCircularDeps: @company -> @department -> @team -> @hr -> !tagged organization -> @holding -> @company`,
+			`output.ValidateCircularDeps: @company -> @department -> @team -> @hr -> !tagged organization -> @company`,
+			`output.ValidateCircularDeps: @holding -> @holding`,
+			`output.ValidateCircularDeps: @department -> @team -> @department`,
+			`output.ValidateCircularDeps: @chro -> @hr -> @chro`,
+			`output.ValidateCircularDeps: @hr -> @hr`,
+			`output.ValidateCircularDeps: %self% -> %self%`,
+			`output.ValidateCircularDeps: %firstname% -> %name% -> %firstname%`,
+		}
+
+		err := output.ValidateCircularDeps(o)
 		errAssert.EqualErrorGroup(t, err, expected)
 	})
 
@@ -108,11 +124,11 @@ func TestValidateServicesCircularDeps(t *testing.T) {
 			},
 		}
 		expected := []string{
-			`output.ValidateServicesCircularDeps: @db -> decorate(!tagged sql.DB) -> decorator(#0) -> @db`,
-			`output.ValidateServicesCircularDeps: @serviceA -> decorate(!tagged tagB) -> decorator(#1) -> !tagged tagB -> @serviceA`,
+			`output.ValidateCircularDeps: @db -> decorate(!tagged sql.DB) -> decorator(#0) -> @db`,
+			`output.ValidateCircularDeps: @serviceA -> decorate(!tagged tagB) -> decorator(#1) -> !tagged tagB -> @serviceA`,
 		}
 
-		err := output.ValidateServicesCircularDeps(o)
+		err := output.ValidateCircularDeps(o)
 		errAssert.EqualErrorGroup(t, err, expected)
 	})
 }

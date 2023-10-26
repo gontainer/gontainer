@@ -2,7 +2,7 @@
 
 package gontainer
 
-// gontainer version: dev-gontainer-helpers@v2.0.0-alpha f7d362a71bcb1a14df1c32299da4066ff21b52da-dirty (build date 2023-10-26T18:35:29Z)
+// gontainer version: dev-gontainer-helpers@v2.0.0-alpha 55cb6596f7b638ac582dd25f364902cd18fba312-dirty (build date 2023-10-26T20:17:44Z)
 
 import (
 	id_context "context"
@@ -141,20 +141,15 @@ import (
 // service := i8_runner.StepDefaultInput{}
 // service = i8_runner.DecorateStepVerboseSwitchable("stepDefaultInput", service, eval("@printer"), eval("@printer"))
 // ············································································
-// #### stepOutputParamsCircular
+// #### stepOutputCircularDeps
 // var service interface{}
-// service = i8_runner.NewStepOutputValidationRule(eval("!value output.ValidateParamsCircularDeps"), eval("Circular deps in params"))
-// service = i8_runner.DecorateStepVerboseSwitchable("stepOutputParamsCircular", service, eval("@printer"), eval("@printer"))
+// service = i8_runner.NewStepOutputValidationRule(eval("!value output.ValidateCircularDeps"), eval("Circular dependencies"))
+// service = i8_runner.DecorateStepVerboseSwitchable("stepOutputCircularDeps", service, eval("@printer"), eval("@printer"))
 // ············································································
 // #### stepOutputParamsExist
 // var service *i8_runner.StepVerboseSwitchable
 // service = i8_runner.NewStepOutputValidationRule(eval("!value output.ValidateParamsExist"), eval("Missing parameters"))
 // service = i8_runner.DecorateStepVerboseSwitchable("stepOutputParamsExist", service, eval("@printer"), eval("@printer"))
-// ············································································
-// #### stepOutputServicesCircular
-// var service interface{}
-// service = i8_runner.NewStepOutputValidationRule(eval("!value output.ValidateServicesCircularDeps"), eval("Circular deps in services"))
-// service = i8_runner.DecorateStepVerboseSwitchable("stepOutputServicesCircular", service, eval("@printer"), eval("@printer"))
 // ············································································
 // #### stepOutputServicesExist
 // var service *i8_runner.StepVerboseSwitchable
@@ -177,7 +172,7 @@ import (
 // ············································································
 // #### stepValidateOutput
 // var service interface{}
-// service = i8_runner.NewStepAmalgamated(eval("Validate output"), eval("@stepOutputServicesScopes"), eval("@stepOutputParamsCircular"), eval("@stepOutputServicesCircular"), eval("@stepOutputParamsExist"), eval("@stepOutputServicesExist"))
+// service = i8_runner.NewStepAmalgamated(eval("Validate output"), eval("@stepOutputServicesScopes"), eval("@stepOutputCircularDeps"), eval("@stepOutputParamsExist"), eval("@stepOutputServicesExist"))
 // service = i8_runner.DecorateStepVerboseSwitchable("stepValidateOutput", service, eval("@printer"), eval("@printer"))
 // ············································································
 // #### taggedResolver
@@ -734,19 +729,19 @@ func New() (rootGontainer *gontainer) {
 		s.SetScopeDefault()
 		c.OverrideService("stepDefaultInput", s)
 	}
-	// "stepOutputParamsCircular"
+	// "stepOutputCircularDeps"
 	{
 		s := newService()
 		s.SetConstructor(
 			i8_runner.NewStepOutputValidationRule,
-			// "!value output.ValidateParamsCircularDeps"
-			dependencyValue(i9_output.ValidateParamsCircularDeps),
-			// "Circular deps in params"
-			dependencyProvider(func() (r interface{}, err error) { return "Circular deps in params", nil }),
+			// "!value output.ValidateCircularDeps"
+			dependencyValue(i9_output.ValidateCircularDeps),
+			// "Circular dependencies"
+			dependencyProvider(func() (r interface{}, err error) { return "Circular dependencies", nil }),
 		)
 		s.Tag("step-runner-verbose", int(0))
 		s.SetScopeDefault()
-		c.OverrideService("stepOutputParamsCircular", s)
+		c.OverrideService("stepOutputCircularDeps", s)
 	}
 	// "stepOutputParamsExist"
 	{
@@ -761,20 +756,6 @@ func New() (rootGontainer *gontainer) {
 		s.Tag("step-runner-verbose", int(0))
 		s.SetScopeDefault()
 		c.OverrideService("stepOutputParamsExist", s)
-	}
-	// "stepOutputServicesCircular"
-	{
-		s := newService()
-		s.SetConstructor(
-			i8_runner.NewStepOutputValidationRule,
-			// "!value output.ValidateServicesCircularDeps"
-			dependencyValue(i9_output.ValidateServicesCircularDeps),
-			// "Circular deps in services"
-			dependencyProvider(func() (r interface{}, err error) { return "Circular deps in services", nil }),
-		)
-		s.Tag("step-runner-verbose", int(0))
-		s.SetScopeDefault()
-		c.OverrideService("stepOutputServicesCircular", s)
 	}
 	// "stepOutputServicesExist"
 	{
@@ -838,10 +819,8 @@ func New() (rootGontainer *gontainer) {
 			dependencyProvider(func() (r interface{}, err error) { return "Validate output", nil }),
 			// "@stepOutputServicesScopes"
 			dependencyService("stepOutputServicesScopes"),
-			// "@stepOutputParamsCircular"
-			dependencyService("stepOutputParamsCircular"),
-			// "@stepOutputServicesCircular"
-			dependencyService("stepOutputServicesCircular"),
+			// "@stepOutputCircularDeps"
+			dependencyService("stepOutputCircularDeps"),
 			// "@stepOutputParamsExist"
 			dependencyService("stepOutputParamsExist"),
 			// "@stepOutputServicesExist"
