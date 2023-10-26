@@ -175,7 +175,7 @@ func TestStepCompileServices_Process(t *testing.T) {
 					{
 						Name:  "repository",
 						Type:  "interface{}",
-						Scope: output.SetScopeDefault,
+						Scope: output.ScopeDefault,
 						Fields: []output.Field{
 							{
 								Name: "Transaction",

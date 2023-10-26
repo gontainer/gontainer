@@ -34,14 +34,14 @@ type Tag struct {
 type Scope uint
 
 const (
-	SetScopeDefault Scope = iota
+	ScopeDefault Scope = iota
 	ScopeShared
 	ScopeContextual
 	ScopeNonShared
 )
 
 func (s Scope) IsDefault() bool {
-	return s == SetScopeDefault
+	return s == ScopeDefault
 }
 
 func (s Scope) IsShared() bool {

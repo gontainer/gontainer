@@ -46,7 +46,7 @@ func (s StepCompileServices) processScopes(i input.Input, o *output.Output) {
 	for j, svc := range o.Services {
 		iScope := i.Services[svc.Name].Scope
 		if iScope == nil {
-			o.Services[j].Scope = output.SetScopeDefault
+			o.Services[j].Scope = output.ScopeDefault
 			continue
 		}
 

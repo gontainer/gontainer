@@ -66,7 +66,7 @@ func TestBuilder_Build(t *testing.T) {
 					{Name: "Logger", Value: output.Arg{Code: `container.Logger()`, Raw: `@logger`}},
 				},
 				Tags:  []output.Tag{{Name: "Traceable"}},
-				Scope: output.SetScopeDefault,
+				Scope: output.ScopeDefault,
 				Todo:  false,
 			},
 		},
