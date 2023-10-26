@@ -7,8 +7,7 @@
 
 # Gontainer
 
-A Dependency Injection container for GO inspired by [Symfony](https://symfony.com/doc/current/components/dependency_injection.html).
-Gontainer is concurrent-safe.
+A Dependency Injection container for GO. Gontainer is concurrent-safe, supports scopes and offers hot swapping.
 
 Using the bootstrapping technique, Gontainer uses itself to compile its dependencies.
 1. [Configuration](internal/gontainer)
@@ -26,8 +25,6 @@ Using the bootstrapping technique, Gontainer uses itself to compile its dependen
    1. [Composition root](docs/COMPOSITION_ROOT.md)
    2. [Contextual scope](docs/CONTEXTUAL_SCOPE.md)
 3. [Interface](docs/INTERFACE.md)
-4. Examples
-   1. [Server & contextual scope](https://github.com/gontainer/example-transactions)
 
 ## Installation
 
