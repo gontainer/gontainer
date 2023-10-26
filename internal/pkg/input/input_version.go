@@ -18,7 +18,7 @@ func (v *Version) UnmarshalYAML(unmarshal func(interface{}) error) error {
 	}
 
 	if !semver.IsValid("v" + vs) {
-		return errors.New(`version must follow the semver scheme, and it must not be Prefix by "v", see https://semver.org/`)
+		return errors.New(`version must follow the semver scheme, and it must not be prefixed by "v", see https://semver.org/`)
 	}
 
 	*v = Version(vs)

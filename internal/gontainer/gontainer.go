@@ -2,7 +2,7 @@
 
 package gontainer
 
-// gontainer version: dev-gontainer-helpers@v2.0.0-alpha a553cbf8d4d9e939179415fc5c3a1dbd8ae0b036-dirty (build date 2023-10-26T17:01:35Z)
+// gontainer version: dev-gontainer-helpers@v2.0.0-alpha ad634db5fa1d28d5ef60b7d77c74767fe5259150-dirty (build date 2023-10-26T17:18:18Z)
 
 import (
 	ie_context "context"
