@@ -23,5 +23,8 @@ type Container interface {
     // params
     GetParam(paramID string) (interface{}, error)
     OverrideParam(paramID string, d container.Dependency)
+	// misc
+	HotSwap(func (container.MutableContainer))
+	Root() *container.Container
 }
 ```

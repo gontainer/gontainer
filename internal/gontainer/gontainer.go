@@ -2,10 +2,10 @@
 
 package gontainer
 
-// gontainer version: dev-gontainer-helpers@v2.0.0-alpha 55cb6596f7b638ac582dd25f364902cd18fba312-dirty (build date 2023-10-26T20:17:44Z)
+// gontainer version: dev-gontainer-helpers@v2.0.0-alpha 290168f32534a55ac8574cc8b55609e431d93834-dirty (build date 2023-10-27T17:19:12Z)
 
 import (
-	id_context "context"
+	ib_context "context"
 	ie_errors "errors"
 	i0_fmt "fmt"
 	i10_os "os"
@@ -23,9 +23,9 @@ import (
 
 	i12_caller "github.com/gontainer/gontainer-helpers/v2/caller"
 	ia_container "github.com/gontainer/gontainer-helpers/v2/container"
-	ic_copier "github.com/gontainer/gontainer-helpers/v2/copier"
+	id_copier "github.com/gontainer/gontainer-helpers/v2/copier"
 	if_exporter "github.com/gontainer/gontainer-helpers/v2/exporter"
-	ib_grouperror "github.com/gontainer/gontainer-helpers/v2/grouperror"
+	ic_grouperror "github.com/gontainer/gontainer-helpers/v2/grouperror"
 )
 
 // ············································································
@@ -207,34 +207,66 @@ type gontainer struct {
 	*ia_container.Container
 }
 
+// *gontainer implements:
+type _ interface {
+	// service container
+	Get(serviceID string) (interface{}, error)
+	GetInContext(ctx ib_context.Context, serviceID string) (interface{}, error)
+	CircularDeps() error
+	OverrideService(serviceID string, s ia_container.Service)
+	AddDecorator(tag string, decorator interface{}, deps ...ia_container.Dependency)
+	IsTaggedBy(serviceID string, tag string) bool
+	GetTaggedBy(tag string) ([]interface{}, error)
+	GetTaggedByInContext(ctx ib_context.Context, tag string) ([]interface{}, error)
+	// param container
+	GetParam(paramID string) (interface{}, error)
+	OverrideParam(paramID string, d ia_container.Dependency)
+	// misc
+	HotSwap(func(ia_container.MutableContainer))
+	Root() *ia_container.Container
+	// getters
+	GetRunner() (*i8_runner.Runner, error)
+	GetRunnerInContext(ctx ib_context.Context) (*i8_runner.Runner, error)
+	MustGetRunner() *i8_runner.Runner
+	MustGetRunnerInContext(ctx ib_context.Context) *i8_runner.Runner
+	GetStepValidateParamsExist() (*i8_runner.StepVerboseSwitchable, error)
+	GetStepValidateParamsExistInContext(ctx ib_context.Context) (*i8_runner.StepVerboseSwitchable, error)
+	MustGetStepValidateParamsExist() *i8_runner.StepVerboseSwitchable
+	MustGetStepValidateParamsExistInContext(ctx ib_context.Context) *i8_runner.StepVerboseSwitchable
+	GetStepValidateServicesExist() (*i8_runner.StepVerboseSwitchable, error)
+	GetStepValidateServicesExistInContext(ctx ib_context.Context) (*i8_runner.StepVerboseSwitchable, error)
+	MustGetStepValidateServicesExist() *i8_runner.StepVerboseSwitchable
+	MustGetStepValidateServicesExistInContext(ctx ib_context.Context) *i8_runner.StepVerboseSwitchable
+}
+
 func (c *gontainer) GetRunner() (result *i8_runner.Runner, err error) {
 	var s interface{}
 	s, err = c.Get("runner")
 	if err != nil {
-		return nil, ib_grouperror.Prefix(
+		return nil, ic_grouperror.Prefix(
 			i0_fmt.Sprintf("%s.%s(): ", "gontainer", "GetRunner"),
 			err,
 		)
 	}
-	err = ib_grouperror.Prefix(
+	err = ic_grouperror.Prefix(
 		i0_fmt.Sprintf("%s.%s(): ", "gontainer", "GetRunner"),
-		ic_copier.Copy(s, &result, true),
+		id_copier.Copy(s, &result, true),
 	)
 	return
 }
 
-func (c *gontainer) GetRunnerInContext(ctx id_context.Context) (result *i8_runner.Runner, err error) {
+func (c *gontainer) GetRunnerInContext(ctx ib_context.Context) (result *i8_runner.Runner, err error) {
 	var s interface{}
 	s, err = c.GetInContext(ctx, "runner")
 	if err != nil {
-		return nil, ib_grouperror.Prefix(
+		return nil, ic_grouperror.Prefix(
 			i0_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetRunner"),
 			err,
 		)
 	}
-	err = ib_grouperror.Prefix(
+	err = ic_grouperror.Prefix(
 		i0_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetRunner"),
-		ic_copier.Copy(s, &result, true),
+		id_copier.Copy(s, &result, true),
 	)
 	return
 }
@@ -247,7 +279,7 @@ func (c *gontainer) MustGetRunner() *i8_runner.Runner {
 	return r
 }
 
-func (c *gontainer) MustGetRunnerInContext(ctx id_context.Context) *i8_runner.Runner {
+func (c *gontainer) MustGetRunnerInContext(ctx ib_context.Context) *i8_runner.Runner {
 	r, err := c.GetRunnerInContext(ctx)
 	if err != nil {
 		panic(err.Error())
@@ -259,30 +291,30 @@ func (c *gontainer) GetStepValidateParamsExist() (result *i8_runner.StepVerboseS
 	var s interface{}
 	s, err = c.Get("stepOutputParamsExist")
 	if err != nil {
-		return nil, ib_grouperror.Prefix(
+		return nil, ic_grouperror.Prefix(
 			i0_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateParamsExist"),
 			err,
 		)
 	}
-	err = ib_grouperror.Prefix(
+	err = ic_grouperror.Prefix(
 		i0_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateParamsExist"),
-		ic_copier.Copy(s, &result, true),
+		id_copier.Copy(s, &result, true),
 	)
 	return
 }
 
-func (c *gontainer) GetStepValidateParamsExistInContext(ctx id_context.Context) (result *i8_runner.StepVerboseSwitchable, err error) {
+func (c *gontainer) GetStepValidateParamsExistInContext(ctx ib_context.Context) (result *i8_runner.StepVerboseSwitchable, err error) {
 	var s interface{}
 	s, err = c.GetInContext(ctx, "stepOutputParamsExist")
 	if err != nil {
-		return nil, ib_grouperror.Prefix(
+		return nil, ic_grouperror.Prefix(
 			i0_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetStepValidateParamsExist"),
 			err,
 		)
 	}
-	err = ib_grouperror.Prefix(
+	err = ic_grouperror.Prefix(
 		i0_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetStepValidateParamsExist"),
-		ic_copier.Copy(s, &result, true),
+		id_copier.Copy(s, &result, true),
 	)
 	return
 }
@@ -295,7 +327,7 @@ func (c *gontainer) MustGetStepValidateParamsExist() *i8_runner.StepVerboseSwitc
 	return r
 }
 
-func (c *gontainer) MustGetStepValidateParamsExistInContext(ctx id_context.Context) *i8_runner.StepVerboseSwitchable {
+func (c *gontainer) MustGetStepValidateParamsExistInContext(ctx ib_context.Context) *i8_runner.StepVerboseSwitchable {
 	r, err := c.GetStepValidateParamsExistInContext(ctx)
 	if err != nil {
 		panic(err.Error())
@@ -307,30 +339,30 @@ func (c *gontainer) GetStepValidateServicesExist() (result *i8_runner.StepVerbos
 	var s interface{}
 	s, err = c.Get("stepOutputServicesExist")
 	if err != nil {
-		return nil, ib_grouperror.Prefix(
+		return nil, ic_grouperror.Prefix(
 			i0_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateServicesExist"),
 			err,
 		)
 	}
-	err = ib_grouperror.Prefix(
+	err = ic_grouperror.Prefix(
 		i0_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateServicesExist"),
-		ic_copier.Copy(s, &result, true),
+		id_copier.Copy(s, &result, true),
 	)
 	return
 }
 
-func (c *gontainer) GetStepValidateServicesExistInContext(ctx id_context.Context) (result *i8_runner.StepVerboseSwitchable, err error) {
+func (c *gontainer) GetStepValidateServicesExistInContext(ctx ib_context.Context) (result *i8_runner.StepVerboseSwitchable, err error) {
 	var s interface{}
 	s, err = c.GetInContext(ctx, "stepOutputServicesExist")
 	if err != nil {
-		return nil, ib_grouperror.Prefix(
+		return nil, ic_grouperror.Prefix(
 			i0_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetStepValidateServicesExist"),
 			err,
 		)
 	}
-	err = ib_grouperror.Prefix(
+	err = ic_grouperror.Prefix(
 		i0_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetStepValidateServicesExist"),
-		ic_copier.Copy(s, &result, true),
+		id_copier.Copy(s, &result, true),
 	)
 	return
 }
@@ -343,41 +375,12 @@ func (c *gontainer) MustGetStepValidateServicesExist() *i8_runner.StepVerboseSwi
 	return r
 }
 
-func (c *gontainer) MustGetStepValidateServicesExistInContext(ctx id_context.Context) *i8_runner.StepVerboseSwitchable {
+func (c *gontainer) MustGetStepValidateServicesExistInContext(ctx ib_context.Context) *i8_runner.StepVerboseSwitchable {
 	r, err := c.GetStepValidateServicesExistInContext(ctx)
 	if err != nil {
 		panic(err.Error())
 	}
 	return r
-}
-
-// *gontainer implements:
-type _ interface {
-	// service container
-	Get(serviceID string) (interface{}, error)
-	GetInContext(ctx id_context.Context, serviceID string) (interface{}, error)
-	CircularDeps() error
-	OverrideService(serviceID string, s ia_container.Service)
-	AddDecorator(tag string, decorator interface{}, deps ...ia_container.Dependency)
-	IsTaggedBy(serviceID string, tag string) bool
-	GetTaggedBy(tag string) ([]interface{}, error)
-	GetTaggedByInContext(ctx id_context.Context, tag string) ([]interface{}, error)
-	// param container
-	GetParam(paramID string) (interface{}, error)
-	OverrideParam(paramID string, d ia_container.Dependency)
-	// getters
-	GetRunner() (*i8_runner.Runner, error)
-	GetRunnerInContext(ctx id_context.Context) (*i8_runner.Runner, error)
-	MustGetRunner() *i8_runner.Runner
-	MustGetRunnerInContext(ctx id_context.Context) *i8_runner.Runner
-	GetStepValidateParamsExist() (*i8_runner.StepVerboseSwitchable, error)
-	GetStepValidateParamsExistInContext(ctx id_context.Context) (*i8_runner.StepVerboseSwitchable, error)
-	MustGetStepValidateParamsExist() *i8_runner.StepVerboseSwitchable
-	MustGetStepValidateParamsExistInContext(ctx id_context.Context) *i8_runner.StepVerboseSwitchable
-	GetStepValidateServicesExist() (*i8_runner.StepVerboseSwitchable, error)
-	GetStepValidateServicesExistInContext(ctx id_context.Context) (*i8_runner.StepVerboseSwitchable, error)
-	MustGetStepValidateServicesExist() *i8_runner.StepVerboseSwitchable
-	MustGetStepValidateServicesExistInContext(ctx id_context.Context) *i8_runner.StepVerboseSwitchable
 }
 
 func New() (rootGontainer *gontainer) {

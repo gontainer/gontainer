@@ -11,22 +11,6 @@ type {{$containerType}} struct {
 	*{{ containerAlias }}.Container
 }
 
-{{template "container-getters" .}}
-
-{{/*
-	TODO add a checker whether the generated type implements the given interface, e.g.:
-
-	func init() {
-		var x interface {
-			Get(serviceID string) (interface{}, error)
-			// ...
-		}
-		var y *gontainer
-		x = y
-		_ = x
-	}
-*/}}
-
 // *{{$containerType}} implements:
 type _ interface {
 	// service container
@@ -43,6 +27,10 @@ type _ interface {
 	GetParam(paramID string) (interface{}, error)
 	OverrideParam(paramID string, d {{ containerAlias }}.Dependency)
 
+	// misc
+	HotSwap(func ({{ containerAlias }}.MutableContainer))
+	Root() *{{ containerAlias }}.Container
+
 	// getters
 	{{ range $service := .Output.Services }}
 		{{ if ne $service.Getter "" }}
@@ -55,6 +43,22 @@ type _ interface {
 		{{ end }}
 	{{end}}
 }
+
+{{template "container-getters" .}}
+
+{{/*
+	TODO add a checker whether the generated type implements the given interface, e.g.:
+
+	func init() {
+		var x interface {
+			Get(serviceID string) (interface{}, error)
+			// ...
+		}
+		var y *gontainer
+		x = y
+		_ = x
+	}
+*/}}
 
 func {{ .Output.Meta.ContainerConstructor }}() ({{ if not .Stub}}rootGontainer{{end}} *{{$containerType}}) {
 	{{- if .Stub }}
