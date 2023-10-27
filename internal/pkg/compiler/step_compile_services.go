@@ -58,7 +58,6 @@ func (s StepCompileServices) processScopes(i input.Input, o *output.Output) {
 		case input.ScopeNonShared:
 			o.Services[j].Scope = output.ScopeNonShared
 		}
-
 	}
 }
 
