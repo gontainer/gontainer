@@ -7,8 +7,9 @@
 
 # Gontainer
 
-A Dependency Injection container for GO inspired by [Symfony](https://symfony.com/doc/current/components/dependency_injection.html).
-Gontainer is concurrent-safe.
+A Dependency Injection container for GO. Gontainer is concurrent-safe, supports scopes and offers hot swapping.
+
+If the code generation is not for you, [see](https://github.com/gontainer/gontainer-helpers/blob/main/container/README.md) how to manually build a container.
 
 Using the bootstrapping technique, Gontainer uses itself to compile its dependencies.
 1. [Configuration](internal/gontainer)
@@ -22,12 +23,7 @@ Using the bootstrapping technique, Gontainer uses itself to compile its dependen
    3. [Parameters](docs/PARAMETERS.md)
    4. [Services](docs/SERVICES.md)
    5. [Decorators](docs/DECORATORS.md)
-2. Use cases
-   1. [Composition root](docs/COMPOSITION_ROOT.md)
-   2. [Contextual scope](docs/CONTEXTUAL_SCOPE.md)
-3. [Interface](docs/INTERFACE.md)
-4. Examples
-   1. [Server & contextual scope](https://github.com/gontainer/example-transactions)
+2. [Interface](docs/INTERFACE.md)
 
 ## Installation
 
@@ -113,8 +109,7 @@ import (
    "net/http"
    "os"
 
-   "github.com/gontainer/gontainer-helpers/container"
-   "github.com/gontainer/gontainer-helpers/copier"
+   "github.com/gontainer/gontainer-helpers/v2/container"
    "github.com/user/repo/pkg"
 )
 
@@ -122,15 +117,12 @@ type gontainer struct {
    *container.SuperContainer
 }
 
-func (g *gontainer) MustGetServer() (r *http.Server) {
+func (g *gontainer) MustGetServer() *http.Server {
    raw, err := g.Get("server")
    if err != nil {
       panic(err)
    }
-   if err := copier.ConvertAndCopy(raw, &r); err != nil {
-	   panic(err)
-   }
-   return
+   return raw.(*http.Server)
 }
 
 func New() *gontainer {
@@ -151,7 +143,11 @@ func New() *gontainer {
 
    serveMux := container.NewService()
    serveMux.SetConstructor(http.NewServeMux)
-   serveMux.AppendCall("Handle", container.NewDependencyService("endpointHelloWorld"))
+   serveMux.AppendCall(
+      "Handle",
+      container.NewDependencyValue("/hello-world"),
+      container.NewDependencyService("endpointHelloWorld"),
+   )
    sc.OverrideService("serveMux", serveMux)
 
    server := container.NewService()

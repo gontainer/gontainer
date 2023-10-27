@@ -3,7 +3,7 @@ package token
 import (
 	"fmt"
 
-	"github.com/gontainer/gontainer-helpers/exporter"
+	"github.com/gontainer/gontainer-helpers/v2/exporter"
 	"github.com/gontainer/gontainer/internal/pkg/consts"
 	"github.com/gontainer/gontainer/internal/pkg/regex"
 )
@@ -105,8 +105,7 @@ func (f *FactoryFunction) Create(expr string) (Token, error) {
 	}
 
 	callFn := fmt.Sprintf(
-		"%s.CallProvider(%s",
-		f.aliaser.Alias(consts.GontainerHelperPath+"/caller"),
+		"callProvider(%s",
 		goFn,
 	)
 	if m["params"] != "" {

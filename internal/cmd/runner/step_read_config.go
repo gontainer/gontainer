@@ -8,8 +8,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/gontainer/gontainer-helpers/exporter"
-	"github.com/gontainer/gontainer-helpers/grouperror"
+	"github.com/gontainer/gontainer-helpers/v2/exporter"
+	"github.com/gontainer/gontainer-helpers/v2/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/input"
 	"github.com/gontainer/gontainer/internal/pkg/output"
 	"gopkg.in/yaml.v3"

@@ -3,7 +3,7 @@ package token_test
 import (
 	"testing"
 
-	errAssert "github.com/gontainer/gontainer-helpers/grouperror/assert"
+	errAssert "github.com/gontainer/gontainer-helpers/v2/grouperror/assert"
 	"github.com/gontainer/gontainer/internal/pkg/token"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -129,10 +129,10 @@ func TestTokenizer_Tokenize(t *testing.T) {
 				Kind:      token.KindFunc,
 				Raw:       `%env("HOST")%`,
 				DependsOn: nil,
-				Code:      `func() (r interface{}, err error) { r, err = caller.CallProvider(helper.GetEnv, "HOST"); if err != nil { err = fmt.Errorf("%s: %w", "cannot execute %env(\"HOST\")%", err) }; return }`,
+				Code:      `func() (r interface{}, err error) { r, err = callProvider(helper.GetEnv, "HOST"); if err != nil { err = fmt.Errorf("%s: %w", "cannot execute %env(\"HOST\")%", err) }; return }`,
 			}},
 			Error:     "",
-			Code:      `dependencyProvider(func() (r interface{}, err error) { r, err = caller.CallProvider(helper.GetEnv, "HOST"); if err != nil { err = fmt.Errorf("%s: %w", "cannot execute %env(\"HOST\")%", err) }; return })`,
+			Code:      `dependencyProvider(func() (r interface{}, err error) { r, err = callProvider(helper.GetEnv, "HOST"); if err != nil { err = fmt.Errorf("%s: %w", "cannot execute %env(\"HOST\")%", err) }; return })`,
 			CodeError: "",
 		},
 		{

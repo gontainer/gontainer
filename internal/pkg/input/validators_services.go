@@ -6,8 +6,8 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/gontainer/gontainer-helpers/container"
-	"github.com/gontainer/gontainer-helpers/grouperror"
+	"github.com/gontainer/gontainer-helpers/v2/container"
+	"github.com/gontainer/gontainer-helpers/v2/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/maps"
 	"github.com/gontainer/gontainer/internal/pkg/ptr"
 	"github.com/gontainer/gontainer/internal/pkg/regex"
@@ -95,7 +95,7 @@ var reservedGetters map[string]bool
 
 func init() {
 	reservedGetters = map[string]bool{}
-	r := reflect.TypeOf(container.NewSuperContainer())
+	r := reflect.TypeOf(container.New())
 	for i := 0; i < r.NumMethod(); i++ {
 		reservedGetters[r.Method(i).Name] = true
 	}

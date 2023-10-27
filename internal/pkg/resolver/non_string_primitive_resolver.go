@@ -3,7 +3,7 @@ package resolver
 import (
 	"fmt"
 
-	"github.com/gontainer/gontainer-helpers/exporter"
+	"github.com/gontainer/gontainer-helpers/v2/exporter"
 	"github.com/gontainer/gontainer/internal/pkg/consts"
 	"github.com/gontainer/gontainer/internal/pkg/types"
 )

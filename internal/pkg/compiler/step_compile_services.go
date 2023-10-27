@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/gontainer/gontainer-helpers/grouperror"
+	"github.com/gontainer/gontainer-helpers/v2/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/input"
 	"github.com/gontainer/gontainer/internal/pkg/maps"
 	"github.com/gontainer/gontainer/internal/pkg/output"
@@ -58,7 +58,6 @@ func (s StepCompileServices) processScopes(i input.Input, o *output.Output) {
 		case input.ScopeNonShared:
 			o.Services[j].Scope = output.ScopeNonShared
 		}
-
 	}
 }
 

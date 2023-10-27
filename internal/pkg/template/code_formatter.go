@@ -4,12 +4,12 @@ import (
 	"go/format"
 	"regexp"
 
-	"github.com/gontainer/gontainer-helpers/grouperror"
+	"github.com/gontainer/gontainer-helpers/v2/grouperror"
 	"golang.org/x/tools/imports"
 )
 
 func init() {
-	imports.LocalPrefix = "github.com/gontainer/gontainer-helpers"
+	imports.LocalPrefix = "github.com/gontainer/gontainer-helpers/v2"
 }
 
 type CodeFormatter struct {
