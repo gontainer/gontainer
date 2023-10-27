@@ -11,54 +11,50 @@ type {{$containerType}} struct {
 	*{{ containerAlias }}.Container
 }
 
-// *{{$containerType}} implements:
-type _ interface {
-	// service container
-	Get(serviceID string) (interface{}, error)
-	GetInContext(ctx {{importAlias "context"}}.Context, serviceID string) (interface{}, error)
-	CircularDeps() error
-	OverrideService(serviceID string, s {{ containerAlias }}.Service)
-	AddDecorator(tag string, decorator interface{}, deps ...{{ containerAlias }}.Dependency)
-	IsTaggedBy(serviceID string, tag string) bool
-	GetTaggedBy(tag string) ([]interface{}, error)
-	GetTaggedByInContext(ctx {{importAlias "context"}}.Context, tag string) ([]interface{}, error)
+func init() {
+    interface_ := (*interface {
+        // service container
+        Get(serviceID string) (interface{}, error)
+        GetInContext(ctx {{importAlias "context"}}.Context, serviceID string) (interface{}, error)
+        CircularDeps() error
+        OverrideService(serviceID string, s {{ containerAlias }}.Service)
+        AddDecorator(tag string, decorator interface{}, deps ...{{ containerAlias }}.Dependency)
+        IsTaggedBy(serviceID string, tag string) bool
+        GetTaggedBy(tag string) ([]interface{}, error)
+        GetTaggedByInContext(ctx {{importAlias "context"}}.Context, tag string) ([]interface{}, error)
 
-	// param container
-	GetParam(paramID string) (interface{}, error)
-	OverrideParam(paramID string, d {{ containerAlias }}.Dependency)
+        // param container
+        GetParam(paramID string) (interface{}, error)
+        OverrideParam(paramID string, d {{ containerAlias }}.Dependency)
 
-	// misc
-	HotSwap(func ({{ containerAlias }}.MutableContainer))
-	Root() *{{ containerAlias }}.Container
+        // misc
+        HotSwap(func ({{ containerAlias }}.MutableContainer))
+        Root() *{{ containerAlias }}.Container
 
-	// getters
-	{{ range $service := .Output.Services }}
-		{{ if ne $service.Getter "" }}
-			{{ $service.Getter }}() ({{ $service.Type }}, error)
-			{{ $service.Getter }}InContext(ctx {{ importAlias "context" }}.Context) ({{ $service.Type }}, error)
-			{{ if $service.MustGetter }}
-				Must{{ $service.Getter }}() {{ $service.Type }}
-				Must{{ $service.Getter }}InContext(ctx {{ importAlias "context" }}.Context) {{ $service.Type }}
-			{{end}}
-		{{ end }}
-	{{end}}
+        // getters
+        {{ range $service := .Output.Services }}
+            {{ if ne $service.Getter "" }}
+                {{ $service.Getter }}() ({{ $service.Type }}, error)
+                {{ $service.Getter }}InContext(ctx {{ importAlias "context" }}.Context) ({{ $service.Type }}, error)
+                {{ if $service.MustGetter }}
+                    Must{{ $service.Getter }}() {{ $service.Type }}
+                    Must{{ $service.Getter }}InContext(ctx {{ importAlias "context" }}.Context) {{ $service.Type }}
+                {{end}}
+            {{ end }}
+        {{end}}
+    })(nil)
+
+	var nilContainer *{{$containerType}}
+
+	interfaceType := reflect.TypeOf(interface_).Elem()
+	implements := {{ importAlias "reflect" }}.TypeOf(nilContainer).Implements(interfaceType)
+
+	if !implements {
+		panic("generated container does not implement expected interface")
+	}
 }
 
 {{template "container-getters" .}}
-
-{{/*
-	TODO add a checker whether the generated type implements the given interface, e.g.:
-
-	func init() {
-		var x interface {
-			Get(serviceID string) (interface{}, error)
-			// ...
-		}
-		var y *gontainer
-		x = y
-		_ = x
-	}
-*/}}
 
 func {{ .Output.Meta.ContainerConstructor }}() ({{ if not .Stub}}rootGontainer{{end}} *{{$containerType}}) {
 	{{- if .Stub }}

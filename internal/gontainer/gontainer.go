@@ -2,14 +2,16 @@
 
 package gontainer
 
-// gontainer version: dev-gontainer-helpers@v2.0.0-alpha 290168f32534a55ac8574cc8b55609e431d93834-dirty (build date 2023-10-27T17:19:12Z)
+// gontainer version: dev-gontainer-helpers@v2.0.0-alpha fad0e000e77b9ba4eba5d733bb028b8dd7fa47d4-dirty (build date 2023-10-27T17:38:23Z)
 
 import (
 	ib_context "context"
-	ie_errors "errors"
+	if_errors "errors"
 	i0_fmt "fmt"
-	i10_os "os"
-	i11_strconv "strconv"
+	i11_os "os"
+	"reflect"
+	ic_reflect "reflect"
+	i12_strconv "strconv"
 
 	i8_runner "github.com/gontainer/gontainer/internal/cmd/runner"
 	i3_compiler "github.com/gontainer/gontainer/internal/pkg/compiler"
@@ -21,11 +23,11 @@ import (
 	i2_template "github.com/gontainer/gontainer/internal/pkg/template"
 	i4_token "github.com/gontainer/gontainer/internal/pkg/token"
 
-	i12_caller "github.com/gontainer/gontainer-helpers/v2/caller"
+	i13_caller "github.com/gontainer/gontainer-helpers/v2/caller"
 	ia_container "github.com/gontainer/gontainer-helpers/v2/container"
-	id_copier "github.com/gontainer/gontainer-helpers/v2/copier"
-	if_exporter "github.com/gontainer/gontainer-helpers/v2/exporter"
-	ic_grouperror "github.com/gontainer/gontainer-helpers/v2/grouperror"
+	ie_copier "github.com/gontainer/gontainer-helpers/v2/copier"
+	i10_exporter "github.com/gontainer/gontainer-helpers/v2/exporter"
+	id_grouperror "github.com/gontainer/gontainer-helpers/v2/grouperror"
 )
 
 // ············································································
@@ -207,50 +209,57 @@ type gontainer struct {
 	*ia_container.Container
 }
 
-// *gontainer implements:
-type _ interface {
-	// service container
-	Get(serviceID string) (interface{}, error)
-	GetInContext(ctx ib_context.Context, serviceID string) (interface{}, error)
-	CircularDeps() error
-	OverrideService(serviceID string, s ia_container.Service)
-	AddDecorator(tag string, decorator interface{}, deps ...ia_container.Dependency)
-	IsTaggedBy(serviceID string, tag string) bool
-	GetTaggedBy(tag string) ([]interface{}, error)
-	GetTaggedByInContext(ctx ib_context.Context, tag string) ([]interface{}, error)
-	// param container
-	GetParam(paramID string) (interface{}, error)
-	OverrideParam(paramID string, d ia_container.Dependency)
-	// misc
-	HotSwap(func(ia_container.MutableContainer))
-	Root() *ia_container.Container
-	// getters
-	GetRunner() (*i8_runner.Runner, error)
-	GetRunnerInContext(ctx ib_context.Context) (*i8_runner.Runner, error)
-	MustGetRunner() *i8_runner.Runner
-	MustGetRunnerInContext(ctx ib_context.Context) *i8_runner.Runner
-	GetStepValidateParamsExist() (*i8_runner.StepVerboseSwitchable, error)
-	GetStepValidateParamsExistInContext(ctx ib_context.Context) (*i8_runner.StepVerboseSwitchable, error)
-	MustGetStepValidateParamsExist() *i8_runner.StepVerboseSwitchable
-	MustGetStepValidateParamsExistInContext(ctx ib_context.Context) *i8_runner.StepVerboseSwitchable
-	GetStepValidateServicesExist() (*i8_runner.StepVerboseSwitchable, error)
-	GetStepValidateServicesExistInContext(ctx ib_context.Context) (*i8_runner.StepVerboseSwitchable, error)
-	MustGetStepValidateServicesExist() *i8_runner.StepVerboseSwitchable
-	MustGetStepValidateServicesExistInContext(ctx ib_context.Context) *i8_runner.StepVerboseSwitchable
+func init() {
+	interface_ := (*interface {
+		// service container
+		Get(serviceID string) (interface{}, error)
+		GetInContext(ctx ib_context.Context, serviceID string) (interface{}, error)
+		CircularDeps() error
+		OverrideService(serviceID string, s ia_container.Service)
+		AddDecorator(tag string, decorator interface{}, deps ...ia_container.Dependency)
+		IsTaggedBy(serviceID string, tag string) bool
+		GetTaggedBy(tag string) ([]interface{}, error)
+		GetTaggedByInContext(ctx ib_context.Context, tag string) ([]interface{}, error)
+		// param container
+		GetParam(paramID string) (interface{}, error)
+		OverrideParam(paramID string, d ia_container.Dependency)
+		// misc
+		HotSwap(func(ia_container.MutableContainer))
+		Root() *ia_container.Container
+		// getters
+		GetRunner() (*i8_runner.Runner, error)
+		GetRunnerInContext(ctx ib_context.Context) (*i8_runner.Runner, error)
+		MustGetRunner() *i8_runner.Runner
+		MustGetRunnerInContext(ctx ib_context.Context) *i8_runner.Runner
+		GetStepValidateParamsExist() (*i8_runner.StepVerboseSwitchable, error)
+		GetStepValidateParamsExistInContext(ctx ib_context.Context) (*i8_runner.StepVerboseSwitchable, error)
+		MustGetStepValidateParamsExist() *i8_runner.StepVerboseSwitchable
+		MustGetStepValidateParamsExistInContext(ctx ib_context.Context) *i8_runner.StepVerboseSwitchable
+		GetStepValidateServicesExist() (*i8_runner.StepVerboseSwitchable, error)
+		GetStepValidateServicesExistInContext(ctx ib_context.Context) (*i8_runner.StepVerboseSwitchable, error)
+		MustGetStepValidateServicesExist() *i8_runner.StepVerboseSwitchable
+		MustGetStepValidateServicesExistInContext(ctx ib_context.Context) *i8_runner.StepVerboseSwitchable
+	})(nil)
+	var nilContainer *gontainer
+	interfaceType := reflect.TypeOf(interface_).Elem()
+	implements := ic_reflect.TypeOf(nilContainer).Implements(interfaceType)
+	if !implements {
+		panic("generated container does not implement expected interface")
+	}
 }
 
 func (c *gontainer) GetRunner() (result *i8_runner.Runner, err error) {
 	var s interface{}
 	s, err = c.Get("runner")
 	if err != nil {
-		return nil, ic_grouperror.Prefix(
+		return nil, id_grouperror.Prefix(
 			i0_fmt.Sprintf("%s.%s(): ", "gontainer", "GetRunner"),
 			err,
 		)
 	}
-	err = ic_grouperror.Prefix(
+	err = id_grouperror.Prefix(
 		i0_fmt.Sprintf("%s.%s(): ", "gontainer", "GetRunner"),
-		id_copier.Copy(s, &result, true),
+		ie_copier.Copy(s, &result, true),
 	)
 	return
 }
@@ -259,14 +268,14 @@ func (c *gontainer) GetRunnerInContext(ctx ib_context.Context) (result *i8_runne
 	var s interface{}
 	s, err = c.GetInContext(ctx, "runner")
 	if err != nil {
-		return nil, ic_grouperror.Prefix(
+		return nil, id_grouperror.Prefix(
 			i0_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetRunner"),
 			err,
 		)
 	}
-	err = ic_grouperror.Prefix(
+	err = id_grouperror.Prefix(
 		i0_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetRunner"),
-		id_copier.Copy(s, &result, true),
+		ie_copier.Copy(s, &result, true),
 	)
 	return
 }
@@ -291,14 +300,14 @@ func (c *gontainer) GetStepValidateParamsExist() (result *i8_runner.StepVerboseS
 	var s interface{}
 	s, err = c.Get("stepOutputParamsExist")
 	if err != nil {
-		return nil, ic_grouperror.Prefix(
+		return nil, id_grouperror.Prefix(
 			i0_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateParamsExist"),
 			err,
 		)
 	}
-	err = ic_grouperror.Prefix(
+	err = id_grouperror.Prefix(
 		i0_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateParamsExist"),
-		id_copier.Copy(s, &result, true),
+		ie_copier.Copy(s, &result, true),
 	)
 	return
 }
@@ -307,14 +316,14 @@ func (c *gontainer) GetStepValidateParamsExistInContext(ctx ib_context.Context) 
 	var s interface{}
 	s, err = c.GetInContext(ctx, "stepOutputParamsExist")
 	if err != nil {
-		return nil, ic_grouperror.Prefix(
+		return nil, id_grouperror.Prefix(
 			i0_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetStepValidateParamsExist"),
 			err,
 		)
 	}
-	err = ic_grouperror.Prefix(
+	err = id_grouperror.Prefix(
 		i0_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetStepValidateParamsExist"),
-		id_copier.Copy(s, &result, true),
+		ie_copier.Copy(s, &result, true),
 	)
 	return
 }
@@ -339,14 +348,14 @@ func (c *gontainer) GetStepValidateServicesExist() (result *i8_runner.StepVerbos
 	var s interface{}
 	s, err = c.Get("stepOutputServicesExist")
 	if err != nil {
-		return nil, ic_grouperror.Prefix(
+		return nil, id_grouperror.Prefix(
 			i0_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateServicesExist"),
 			err,
 		)
 	}
-	err = ic_grouperror.Prefix(
+	err = id_grouperror.Prefix(
 		i0_fmt.Sprintf("%s.%s(): ", "gontainer", "GetStepValidateServicesExist"),
-		id_copier.Copy(s, &result, true),
+		ie_copier.Copy(s, &result, true),
 	)
 	return
 }
@@ -355,14 +364,14 @@ func (c *gontainer) GetStepValidateServicesExistInContext(ctx ib_context.Context
 	var s interface{}
 	s, err = c.GetInContext(ctx, "stepOutputServicesExist")
 	if err != nil {
-		return nil, ic_grouperror.Prefix(
+		return nil, id_grouperror.Prefix(
 			i0_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetStepValidateServicesExist"),
 			err,
 		)
 	}
-	err = ic_grouperror.Prefix(
+	err = id_grouperror.Prefix(
 		i0_fmt.Sprintf("%s.%sInContext(): ", "gontainer", "GetStepValidateServicesExist"),
-		id_copier.Copy(s, &result, true),
+		ie_copier.Copy(s, &result, true),
 	)
 	return
 }
@@ -916,7 +925,7 @@ func New() (rootGontainer *gontainer) {
 	// "writer"
 	{
 		s := newService()
-		s.SetConstructor(func() (interface{}, error) { return nil, ie_errors.New("service todo") })
+		s.SetConstructor(func() (interface{}, error) { return nil, if_errors.New("service todo") })
 		c.OverrideService("writer", s)
 	}
 	//
@@ -942,7 +951,7 @@ func (c *gontainer) _concatenateChunks(first func() (interface{}, error), chunks
 		if err != nil {
 			return "", err
 		}
-		s, err := if_exporter.CastToString(chunk)
+		s, err := i10_exporter.CastToString(chunk)
 		if err != nil {
 			return "", err
 		}
@@ -954,14 +963,14 @@ func (c *gontainer) _concatenateChunks(first func() (interface{}, error), chunks
 // Deprecated: do not use it, only for internal purposes, that method can be changed at any time
 func (c *gontainer) _paramTodo(params ...string) (interface{}, error) {
 	if len(params) > 0 {
-		return nil, ie_errors.New(params[0])
+		return nil, if_errors.New(params[0])
 	}
-	return nil, ie_errors.New("parameter todo")
+	return nil, if_errors.New("parameter todo")
 }
 
 // Deprecated: do not use it, only for internal purposes, that method can be changed at any time
 func (c *gontainer) _getEnv(key string, def ...string) (string, error) {
-	val, ok := i10_os.LookupEnv(key)
+	val, ok := i11_os.LookupEnv(key)
 	if !ok {
 		if len(def) > 0 {
 			return def[0], nil
@@ -973,14 +982,14 @@ func (c *gontainer) _getEnv(key string, def ...string) (string, error) {
 
 // Deprecated: do not use it, only for internal purposes, that method can be changed at any time
 func (c *gontainer) _getEnvInt(key string, def ...int) (int, error) {
-	val, ok := i10_os.LookupEnv(key)
+	val, ok := i11_os.LookupEnv(key)
 	if !ok {
 		if len(def) > 0 {
 			return def[0], nil
 		}
 		return 0, i0_fmt.Errorf("environment variable %+q does not exist", key)
 	}
-	res, err := i11_strconv.Atoi(val)
+	res, err := i12_strconv.Atoi(val)
 	if err != nil {
 		return 0, i0_fmt.Errorf("cannot cast env(%+q) to int: %w", key, err)
 	}
@@ -989,5 +998,5 @@ func (c *gontainer) _getEnvInt(key string, def ...int) (int, error) {
 
 // Deprecated: do not use it, only for internal purposes, that method can be changed at any time
 func (c *gontainer) _callProvider(provider interface{}, args ...interface{}) (interface{}, error) {
-	return i12_caller.CallProvider(provider, args, true)
+	return i13_caller.CallProvider(provider, args, true)
 }
