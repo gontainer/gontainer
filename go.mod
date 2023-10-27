@@ -5,7 +5,7 @@ go 1.21
 require (
 	github.com/caarlos0/go-version v0.1.1
 	github.com/fatih/color v1.15.0
-	github.com/gontainer/gontainer-helpers/v2 v2.0.0-alpha
+	github.com/gontainer/gontainer-helpers/v2 v2.0.0
 	github.com/spf13/cobra v1.7.0
 	github.com/stretchr/testify v1.8.4
 	golang.org/x/mod v0.13.0
