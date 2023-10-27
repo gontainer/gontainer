@@ -2,14 +2,13 @@
 
 package gontainer
 
-// gontainer version: dev-gontainer-helpers@v2.0.0-alpha fad0e000e77b9ba4eba5d733bb028b8dd7fa47d4-dirty (build date 2023-10-27T17:38:23Z)
+// gontainer version: dev-gontainer-helpers@v2.0.0-alpha 2374796403abc52bf74bc1e44e94435b5f5b76a7-dirty (build date 2023-10-27T17:45:03Z)
 
 import (
 	ib_context "context"
 	if_errors "errors"
 	i0_fmt "fmt"
 	i11_os "os"
-	"reflect"
 	ic_reflect "reflect"
 	i12_strconv "strconv"
 
@@ -241,7 +240,7 @@ func init() {
 		MustGetStepValidateServicesExistInContext(ctx ib_context.Context) *i8_runner.StepVerboseSwitchable
 	})(nil)
 	var nilContainer *gontainer
-	interfaceType := reflect.TypeOf(interface_).Elem()
+	interfaceType := ic_reflect.TypeOf(interface_).Elem()
 	implements := ic_reflect.TypeOf(nilContainer).Implements(interfaceType)
 	if !implements {
 		panic("generated container does not implement expected interface")

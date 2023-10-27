@@ -46,7 +46,7 @@ func init() {
 
 	var nilContainer *{{$containerType}}
 
-	interfaceType := reflect.TypeOf(interface_).Elem()
+	interfaceType := {{ importAlias "reflect" }}.TypeOf(interface_).Elem()
 	implements := {{ importAlias "reflect" }}.TypeOf(nilContainer).Implements(interfaceType)
 
 	if !implements {
