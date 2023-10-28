@@ -5,7 +5,7 @@ and contains additional getters defined in the provided configuration.
 
 ```go
 import (
-	"context"
+    "context"
 	
     "github.com/gontainer/gontainer-helpers/v2/container"
 )
