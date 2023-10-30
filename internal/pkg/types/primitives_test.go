@@ -65,6 +65,11 @@ func TestIsPrimitive(t *testing.T) {
 			Value:    5,
 			Expected: true,
 		},
+		{
+			Name:     "empty slice",
+			Value:    ([]int)(nil),
+			Expected: false,
+		},
 	}
 
 	for _, tmp := range scenarios {
