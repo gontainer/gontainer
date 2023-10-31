@@ -10,7 +10,7 @@ import (
 func TestCopy(t *testing.T) {
 	t.Run("append vs copy", func(t *testing.T) {
 		slice := make([]int, 5)
-		clone := append(slice) //nolint:staticcheck
+		clone := append(slice) //nolint:all
 		cp := slices.Copy(slice)
 
 		assert.NotSame(t, slice, clone)
