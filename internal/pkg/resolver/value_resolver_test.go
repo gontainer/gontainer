@@ -30,7 +30,7 @@ import (
 type mockAliaser struct {
 }
 
-func (a mockAliaser) Alias(i string) string {
+func (a mockAliaser) Alias(string) string {
 	return "aliasPkg"
 }
 
