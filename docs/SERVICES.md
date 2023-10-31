@@ -156,7 +156,7 @@ services:
 **scope**
 
 Defines whether the service can be cached and reused (`shared`) or no (`non_shared`).
-The third value (`contextual`) lets to cache and reuse the service in the given context
+The third value (`contextual`) lets cache and reuse the service in the given context
 (a single invocation to `Get*` method or any invocation to a method `*InContext`).
 See https://github.com/gontainer/gontainer-helpers/blob/main/container/README.md.
 
