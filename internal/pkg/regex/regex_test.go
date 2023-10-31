@@ -18,19 +18,19 @@ func TestMatch(t *testing.T) {
 	}{
 		{
 			regex:  "^(?P<firstname>[A-Z][a-z]+) (?P<lastname>[A-Z][a-z]+)$",
-			input:  "Mary Jane",
+			input:  "Jane Doe",
 			match:  true,
-			result: map[string]string{"firstname": "Mary", "lastname": "Jane"},
+			result: map[string]string{"firstname": "Jane", "lastname": "Doe"},
 		},
 		{
 			regex:  "^(?P<fullname>(?P<firstname>[A-Z][a-z]+) (?P<lastname>[A-Z][a-z]+))$",
-			input:  "Mary Jane",
+			input:  "Jane Doe",
 			match:  true,
-			result: map[string]string{"firstname": "Mary", "lastname": "Jane", "fullname": "Mary Jane"},
+			result: map[string]string{"firstname": "Jane", "lastname": "Doe", "fullname": "Jane Doe"},
 		},
 		{
 			regex:  "^(?P<firstname>[A-Z][a-z]+) (?P<lastname>[A-Z][a-z]+)$",
-			input:  "Mary Jane-Jane",
+			input:  "Jane Doe-Doe",
 			match:  false,
 			result: nil,
 		},
