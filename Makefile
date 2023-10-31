@@ -36,4 +36,10 @@ generate-stub:
 
 tests: tests-unit tests-functional lint
 
+addlicense:
+	addlicense -f LICENSE internal/cmd internal/pkg main.go
+
+addlicense-check:
+	addlicense -f LICENSE -check internal/cmd internal/pkg main.go
+
 .DEFAULT_GOAL := build

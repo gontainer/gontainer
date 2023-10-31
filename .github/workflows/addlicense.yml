@@ -1,0 +1,27 @@
+name: Addlicense
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  build:
+    name: Addlicense
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        go: [ '1.21' ]
+    steps:
+      - name: Set up Go 1.x
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.go }}
+        id: go
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v4
+
+      - run: go install github.com/google/addlicense@v1.1.1
+
+      - name: Addlicense
+        run: make addlicense-check
