@@ -109,7 +109,7 @@ import (
    "net/http"
    "os"
 
-   "github.com/gontainer/gontainer-helpers/v2/container"
+   "github.com/gontainer/gontainer-helpers/v3/container"
    "github.com/user/repo/pkg"
 )
 

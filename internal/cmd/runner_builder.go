@@ -23,7 +23,7 @@ package cmd
 import (
 	"io"
 
-	"github.com/gontainer/gontainer-helpers/v2/container"
+	"github.com/gontainer/gontainer-helpers/v3/container"
 	"github.com/gontainer/gontainer/internal/cmd/runner"
 	"github.com/gontainer/gontainer/internal/gontainer"
 )

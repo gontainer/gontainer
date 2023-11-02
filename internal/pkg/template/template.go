@@ -25,7 +25,7 @@ import (
 	"io/fs"
 	"text/template"
 
-	"github.com/gontainer/gontainer-helpers/v2/exporter"
+	"github.com/gontainer/gontainer-helpers/v3/exporter"
 	"github.com/gontainer/gontainer/internal/pkg/consts"
 	"github.com/gontainer/gontainer/internal/pkg/imports"
 	"github.com/gontainer/gontainer/internal/pkg/output"

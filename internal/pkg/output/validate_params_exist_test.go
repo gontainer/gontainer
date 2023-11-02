@@ -23,7 +23,7 @@ package output_test
 import (
 	"testing"
 
-	errAssert "github.com/gontainer/gontainer-helpers/v2/grouperror/assert"
+	errAssert "github.com/gontainer/gontainer-helpers/v3/grouperror/assert"
 	"github.com/gontainer/gontainer/internal/pkg/output"
 )
 

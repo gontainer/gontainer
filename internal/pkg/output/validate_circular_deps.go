@@ -21,8 +21,8 @@
 package output
 
 import (
-	"github.com/gontainer/gontainer-helpers/v2/container/graph"
-	"github.com/gontainer/gontainer-helpers/v2/grouperror"
+	"github.com/gontainer/gontainer-helpers/v3/container/graph"
+	"github.com/gontainer/gontainer-helpers/v3/grouperror"
 )
 
 func ValidateCircularDeps(o Output) error {

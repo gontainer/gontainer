@@ -2,7 +2,7 @@
 
 package gontainer
 
-// gontainer version: 0.8.2 b4ed76bc1ead39fea977fc4abc0c63569f55cc66-clean (build date 2023-10-31T14:45:03Z)
+// gontainer version: dev-gontainer-helpers@v3 665205f9fb2c80cd703b6a45ed09bb3d3db58184-dirty (build date 2023-11-02T20:53:01Z)
 
 import (
 	ib_context "context"
@@ -22,11 +22,11 @@ import (
 	i2_template "github.com/gontainer/gontainer/internal/pkg/template"
 	i4_token "github.com/gontainer/gontainer/internal/pkg/token"
 
-	i13_caller "github.com/gontainer/gontainer-helpers/v2/caller"
-	ia_container "github.com/gontainer/gontainer-helpers/v2/container"
-	ie_copier "github.com/gontainer/gontainer-helpers/v2/copier"
-	i10_exporter "github.com/gontainer/gontainer-helpers/v2/exporter"
-	id_grouperror "github.com/gontainer/gontainer-helpers/v2/grouperror"
+	i13_caller "github.com/gontainer/gontainer-helpers/v3/caller"
+	ia_container "github.com/gontainer/gontainer-helpers/v3/container"
+	ie_copier "github.com/gontainer/gontainer-helpers/v3/copier"
+	i10_exporter "github.com/gontainer/gontainer-helpers/v3/exporter"
+	id_grouperror "github.com/gontainer/gontainer-helpers/v3/grouperror"
 )
 
 // ············································································

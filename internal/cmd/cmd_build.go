@@ -24,7 +24,7 @@ import (
 	"io"
 
 	"github.com/fatih/color"
-	"github.com/gontainer/gontainer-helpers/v2/grouperror"
+	"github.com/gontainer/gontainer-helpers/v3/grouperror"
 	"github.com/spf13/cobra"
 )
 

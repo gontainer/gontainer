@@ -23,7 +23,7 @@ package input_test
 import (
 	"testing"
 
-	errAssert "github.com/gontainer/gontainer-helpers/v2/grouperror/assert"
+	errAssert "github.com/gontainer/gontainer-helpers/v3/grouperror/assert"
 	"github.com/gontainer/gontainer/internal/pkg/input"
 	"github.com/gontainer/gontainer/internal/pkg/ptr"
 	"github.com/stretchr/testify/assert"
