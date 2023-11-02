@@ -23,7 +23,7 @@ package token
 import (
 	"fmt"
 
-	"github.com/gontainer/gontainer-helpers/v2/exporter"
+	"github.com/gontainer/gontainer-helpers/v3/exporter"
 	"github.com/gontainer/gontainer/internal/pkg/consts"
 	"github.com/gontainer/gontainer/internal/pkg/regex"
 )

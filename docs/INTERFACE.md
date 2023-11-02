@@ -7,7 +7,7 @@ and contains additional getters defined in the provided configuration.
 import (
     "context"
 	
-    "github.com/gontainer/gontainer-helpers/v2/container"
+    "github.com/gontainer/gontainer-helpers/v3/container"
 )
 
 type Container interface {

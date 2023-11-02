@@ -23,7 +23,7 @@ package compiler
 import (
 	"fmt"
 
-	"github.com/gontainer/gontainer-helpers/v2/grouperror"
+	"github.com/gontainer/gontainer-helpers/v3/grouperror"
 	"github.com/gontainer/gontainer/internal/pkg/output"
 	"github.com/gontainer/gontainer/internal/pkg/resolver"
 )

@@ -21,7 +21,7 @@
 package output
 
 import (
-	"github.com/gontainer/gontainer-helpers/v2/container/graph"
+	"github.com/gontainer/gontainer-helpers/v3/container/graph"
 )
 
 type dependencyGraph interface {
