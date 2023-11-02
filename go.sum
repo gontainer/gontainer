@@ -36,6 +36,8 @@ github.com/goccmack/gocc v0.0.0-20230228185258-2292f9e40198/go.mod h1:DTh/Y2+Nbn
 github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0/go.mod h1:E/TSTwGwJL78qG/PmXZO1EjYhfJinVAhrmmHX6Z8B9k=
 github.com/gontainer/gontainer-helpers/v3 v3.0.0-20231102204136-4a11fe6eb1c4 h1:+TE8A17ySEGe+eksLg2OLHSkOo6RgLAS5jv47CCNtdU=
 github.com/gontainer/gontainer-helpers/v3 v3.0.0-20231102204136-4a11fe6eb1c4/go.mod h1:DtrkDL57/7lUI0gY1F4sUpr7wlaQMts7C6l9hSElCZE=
+github.com/gontainer/gontainer-helpers/v3 v3.0.0-20231102210544-fb3cbb90bc02 h1:yOzFb9LcVq2bhYjRJy5xICW+dJ+VrLociZvVrx1oidc=
+github.com/gontainer/gontainer-helpers/v3 v3.0.0-20231102210544-fb3cbb90bc02/go.mod h1:DtrkDL57/7lUI0gY1F4sUpr7wlaQMts7C6l9hSElCZE=
 github.com/google/go-cmp v0.5.8/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
 github.com/inconshreveable/mousetrap v1.1.0 h1:wN+x4NVGpMsO7ErUn/mUI3vEoE6Jt13X2s0bqwp9tc8=
 github.com/inconshreveable/mousetrap v1.1.0/go.mod h1:vpF70FUmC8bwa3OWnCshd2FqLfsEA9PFc4w1p2J65bw=
