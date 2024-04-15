@@ -7,7 +7,7 @@ require (
 	github.com/fatih/color v1.16.0
 	github.com/gontainer/gontainer-helpers/v3 v3.0.0-20231102220126-cd3ac9fbe738
 	github.com/spf13/cobra v1.8.0
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.9.0
 	golang.org/x/mod v0.17.0
 	golang.org/x/tools v0.20.0
 	gopkg.in/yaml.v3 v3.0.1
