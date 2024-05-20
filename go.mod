@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/caarlos0/go-version v0.1.1
-	github.com/fatih/color v1.16.0
+	github.com/fatih/color v1.17.0
 	github.com/gontainer/gontainer-helpers/v3 v3.0.0-20231102220126-cd3ac9fbe738
 	github.com/spf13/cobra v1.8.0
 	github.com/stretchr/testify v1.8.4
